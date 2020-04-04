@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html><head>
+<title>PyTorch深度学习（1）</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-133677720-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+<link rel="icon" href="images/favicon.ico">
+
+
+
+
+<link rel="stylesheet" href="https://jmwyf.github.io/scss/journal.min.5b7139f6e74681e938b6a9e1b716f93cfc663b8c673a079d75e1eb06d44f4baf.css" integrity="sha256-W3E59udGgek4tqnhtxb5PPxmO4xnOgeddeHrBtRPS68=" media="screen">
+
+<script src="https://jmwyf.github.io/js/loadCSS.js"></script>
+<script src="https://jmwyf.github.io/js/table.js"></script>
+
+
+<script src="https://jmwyf.github.io/js/toc.js"></script>
+
+
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+
+
+<script type="text/javascript">
+$(
+  (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+
+      if (typeof LivereTower === 'function') { return; }
+
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+
+      e.parentNode.insertBefore(j, e);
+  })(document, 'script'));
+</script>
+
+
+
+
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    },
+    extensions: ["TeX/AMSmath.js", "TeX/AMSsymbol.js"]
+  };
+  </script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  </script>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133677720-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-133677720-1');
+</script>
+
+
+<meta name="baidu-site-verification" content="F17DHhsj67" />
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://jmwyf.github.io">
+    
+        <div class="nav-title">
+            Young Forever
+        </div>
+        
+        <div class="nav-subtitle">
+            靡不有初，鲜克有终
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+                
+                
+                    
+                
+                <a class="a-block nav-link-item active" href="/posts">
+                    Archive
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/categories">
+                    Categories
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/tags">
+                    Tags
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/about">
+                    About
+                </a>
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> 
+<br>
+<a href="mailto:ifanyong@live.com">Contact Me</a> by Email<br>
+<br>
+&copy;
+
+Young Forever 2019-2020
+
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#pytorch%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a01" v-on:click="closeDrawer" id="pytorch深度学习1-nav">
+										 PyTorch深度学习（1）
+									</a>
+								</li>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1-history-motivation-and-evolution-of-deep-learning" v-on:click="closeDrawer" id="1-history-motivation-and-evolution-of-deep-learning-nav">
+										 1. History, motivation and evolution of Deep Learning
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2-gradient-descent-and-backpropagation" v-on:click="closeDrawer" id="2-gradient-descent-and-backpropagation-nav">
+										 2. Gradient Descent and Backpropagation
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-gradient-descent" v-on:click="closeDrawer" id="21-gradient-descent-nav">
+										 2.1 Gradient Descent
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#211-%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8dbatch-gradient-descent" v-on:click="closeDrawer" id="211-梯度下降batch-gradient-descent-nav">
+										 2.1.1 梯度下降(batch gradient descent)
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#212-%e5%b0%8f%e6%a0%b7%e6%9c%ac%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8dmini-batch-gradient-descent" v-on:click="closeDrawer" id="212-小样本梯度下降mini-batch-gradient-descent-nav">
+										 2.1.2 小样本梯度下降（mini-batch gradient descent）
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#213-%e9%9a%8f%e6%9c%ba%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8dstochastic-gradient-descent" v-on:click="closeDrawer" id="213-随机梯度下降stochastic-gradient-descent-nav">
+										 2.1.3 随机梯度下降(stochastic gradient descent)
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-backprop" v-on:click="closeDrawer" id="22-backprop-nav">
+										 2.2 Backprop
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-pytorch%e8%ae%ad%e7%bb%83%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9c%e6%ad%a5%e9%aa%a4" v-on:click="closeDrawer" id="23-pytorch训练神经网络步骤-nav">
+										 2.3 PyTorch训练神经网络步骤
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#3-%e6%80%bb%e7%bb%93" v-on:click="closeDrawer" id="3-总结-nav">
+										 3. 总结
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+                
+                    
+                    
+                        
+                    
+                    <a class="a-block drawer-menu-item active" href="/posts">
+                        Archive
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/categories">
+                        Categories
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/tags">
+                        Tags
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/about">
+                        About
+                    </a>
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#pytorch%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a01" v-on:click="closeDrawer" id="pytorch深度学习1-nav">
+										 PyTorch深度学习（1）
+									</a>
+								</li>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1-history-motivation-and-evolution-of-deep-learning" v-on:click="closeDrawer" id="1-history-motivation-and-evolution-of-deep-learning-nav">
+										 1. History, motivation and evolution of Deep Learning
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2-gradient-descent-and-backpropagation" v-on:click="closeDrawer" id="2-gradient-descent-and-backpropagation-nav">
+										 2. Gradient Descent and Backpropagation
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-gradient-descent" v-on:click="closeDrawer" id="21-gradient-descent-nav">
+										 2.1 Gradient Descent
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#211-%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8dbatch-gradient-descent" v-on:click="closeDrawer" id="211-梯度下降batch-gradient-descent-nav">
+										 2.1.1 梯度下降(batch gradient descent)
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#212-%e5%b0%8f%e6%a0%b7%e6%9c%ac%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8dmini-batch-gradient-descent" v-on:click="closeDrawer" id="212-小样本梯度下降mini-batch-gradient-descent-nav">
+										 2.1.2 小样本梯度下降（mini-batch gradient descent）
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#213-%e9%9a%8f%e6%9c%ba%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8dstochastic-gradient-descent" v-on:click="closeDrawer" id="213-随机梯度下降stochastic-gradient-descent-nav">
+										 2.1.3 随机梯度下降(stochastic gradient descent)
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-backprop" v-on:click="closeDrawer" id="22-backprop-nav">
+										 2.2 Backprop
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-pytorch%e8%ae%ad%e7%bb%83%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9c%e6%ad%a5%e9%aa%a4" v-on:click="closeDrawer" id="23-pytorch训练神经网络步骤-nav">
+										 2.3 PyTorch训练神经网络步骤
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#3-%e6%80%bb%e7%bb%93" v-on:click="closeDrawer" id="3-总结-nav">
+										 3. 总结
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://jmwyf.github.io">
+            Young Forever
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://jmwyf.github.io">
+        <div class="single-column-header-title">Young Forever</div>
+        
+        <div class="single-column-header-subtitle">靡不有初，鲜克有终</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                 style="background-image: url('/images/pytorch/pytorch.jpeg')">
+                
+                <img src="https://jmwyf.github.io/images/pytorch/pytorch.jpeg" style="display: none;"></img>
+                <div class="post-title">
+                    PyTorch深度学习（1）
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2020-03-05 11:50
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/data-science">Data Science</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/deep-learning">Deep Learning</a>
+                                &nbsp;
+                            
+                                <a href="/tags/pytorch">PyTorch</a>
+                                &nbsp;
+                            
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h1 id="pytorch深度学习1">PyTorch深度学习（1）</h1>
+<h2 id="1-history-motivation-and-evolution-of-deep-learning">1. History, motivation and evolution of Deep Learning</h2>
+<p>科学技术发展如海浪一样也会潮起潮落，深度学习在经历了几次低谷后。2010年左右，在语音识别领域取得进展，2012年在计算机视觉领域也发展起来，随后各个领域都开始使用应用深度学习方法，而似乎渐渐抛弃了其他方法，那么深度学习是不是问题的最终解决之道呢？研究方向宽泛而多维才是合理的道路，不应过分追求热点领域。正如上世纪80年代日本学者在低谷时期仍然坚持自己的研究领域。</p>
+<p>学习表征：如何学习好的表征是深度学习要解决的问题之一，原始数据以一种有用的形式返回。自然状态下数据相互依赖有关系的。高效的表达方式应该是每类数据都是完全独立能完全单独表达某个方面。</p>
+<ul>
+<li>space tiling</li>
+<li>random projections</li>
+<li>polynomial classifier</li>
+<li>radial basis functions</li>
+<li>kernel machines</li>
+</ul>
+<h2 id="2-gradient-descent-and-backpropagation">2. Gradient Descent and Backpropagation</h2>
+<h3 id="21-gradient-descent">2.1 Gradient Descent</h3>
+<p>$$J(w, b) = \frac{1}{m}\sum_1^mL(\hat{y}^{(i)}, y^{i})$$
+J(w, b)为问题的cost function即目标函数，即m个样本的损失函数平均值。使目标函数最小得到此时w,b参数是我们的优化问题。</p>
+<h4 id="211-梯度下降batch-gradient-descent">2.1.1 梯度下降(batch gradient descent)</h4>
+<p>梯度下降即上式对所有样本计算求出目标函数，通过对w,b求梯度来找到目标函数最小值，常用的一个比喻即找最快路径下山。数学理解是算法实现的重要一步，但与在计算机上实现还是有区别的，那么实际做法是什么样的呢？</p>
+<p>当你对复杂的问题想不清楚时，我们都可以从一个简单的例子出发来简化问题，对于这个问题考虑只有一个样本时，我们怎么编程实现呢？对w1、 b1，计算一个样本的loss然后对w1、b1求导优化思路很清晰，那么有m个样本的时候呢？只需将其他样本计算loss，然后对w1、b1求导相加。最后在通过学习率来更新w、b。可以看到每次更新都需要进行m次运算</p>
+<h4 id="212-小样本梯度下降mini-batch-gradient-descent">2.1.2 小样本梯度下降（mini-batch gradient descent）</h4>
+<p>在每次更新时用n个样本，不用全部的样本。在深度学习中常用这种方法。用mini-batch可以享受向量化带来的便利，也不用全梯度下降那么大计算量，同时这也是应对冗余数据的一种方法。</p>
+<h4 id="213-随机梯度下降stochastic-gradient-descent">2.1.3 随机梯度下降(stochastic gradient descent)</h4>
+<p>当n = 1的时候，每次更新的时候用1个样本。该方法在大多数情况下比全样本的梯度下降要快。</p>
+<p>三种优化方法最后收敛吗？最后能达到全局最小值吗？这是优化方法都需要考虑到的。可以阅读Optimization Methods for Large-Scale Machine Learning，我自己还没读过&hellip;</p>
+<h3 id="22-backprop">2.2 Backprop</h3>
+<p>反向传播是为了求梯度用到的微积分链式法则，从而使梯度下降算法运行。</p>
+<h3 id="23-pytorch训练神经网络步骤">2.3 PyTorch训练神经网络步骤</h3>
+<ol>
+<li>output = model(input) 即神经网络前向传播</li>
+<li>J = loss(output, label) 计算cost function</li>
+<li>model.zero_grad() 清除梯度计算</li>
+<li>J.backward() 对requires_grad = True的变量计算梯度</li>
+<li>optimiser.step() 进行梯度下降</li>
+</ol>
+<h2 id="3-总结">3. 总结</h2>
+<p>看了前两节，觉得还是吴恩达大佬讲的好一些。建议网页上快速过内容即可，视频不用细看。</p>
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2020-03-05</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://jmwyf.github.io/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/">
+                    Next<br>LSTM简介以及pytorch实例
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://jmwyf.github.io/posts/2020-03-02-2020/">
+                    Previous<br>2020
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+<div id="lv-container" data-id="city" data-uid=MTAyMC80OTA0OS8yNTU0NA&#61;&#61;>
+    <noscript>Please activate JavaScript to use Livere Comment.</noscript>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> 
+<br>
+<a href="mailto:ifanyong@live.com">Contact Me</a> by Email<br>
+<br>
+&copy;
+
+Young Forever 2019-2020
+</div>
+    	</div>
+    <script src="https://jmwyf.github.io/js/journal.js"></script>
+    </body>
+</html>

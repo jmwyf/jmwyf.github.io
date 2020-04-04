@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html><head>
+<title>DenseNet导读</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-133677720-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+<link rel="icon" href="images/favicon.ico">
+
+
+
+
+<link rel="stylesheet" href="https://jmwyf.github.io/scss/journal.min.5b7139f6e74681e938b6a9e1b716f93cfc663b8c673a079d75e1eb06d44f4baf.css" integrity="sha256-W3E59udGgek4tqnhtxb5PPxmO4xnOgeddeHrBtRPS68=" media="screen">
+
+<script src="https://jmwyf.github.io/js/loadCSS.js"></script>
+<script src="https://jmwyf.github.io/js/table.js"></script>
+
+
+<script src="https://jmwyf.github.io/js/toc.js"></script>
+
+
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+
+
+<script type="text/javascript">
+$(
+  (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+
+      if (typeof LivereTower === 'function') { return; }
+
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+
+      e.parentNode.insertBefore(j, e);
+  })(document, 'script'));
+</script>
+
+
+
+
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    },
+    extensions: ["TeX/AMSmath.js", "TeX/AMSsymbol.js"]
+  };
+  </script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  </script>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133677720-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-133677720-1');
+</script>
+
+
+<meta name="baidu-site-verification" content="F17DHhsj67" />
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://jmwyf.github.io">
+    
+        <div class="nav-title">
+            Young Forever
+        </div>
+        
+        <div class="nav-subtitle">
+            靡不有初，鲜克有终
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+                
+                
+                    
+                
+                <a class="a-block nav-link-item active" href="/posts">
+                    Archive
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/categories">
+                    Categories
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/tags">
+                    Tags
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/about">
+                    About
+                </a>
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> 
+<br>
+<a href="mailto:ifanyong@live.com">Contact Me</a> by Email<br>
+<br>
+&copy;
+
+Young Forever 2019-2020
+
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#densenet%e5%af%bc%e8%af%bb" v-on:click="closeDrawer" id="densenet导读-nav">
+										 DenseNet导读
+									</a>
+								</li>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%bc%95%e8%a8%80introduction" v-on:click="closeDrawer" id="引言introduction-nav">
+										 引言（Introduction）
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e7%9b%b8%e5%85%b3%e5%b7%a5%e4%bd%9crealated-work" v-on:click="closeDrawer" id="相关工作realated-work-nav">
+										 相关工作（realated work）
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#densenets" v-on:click="closeDrawer" id="densenets-nav">
+										 DenseNets
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#dense-connectivity" v-on:click="closeDrawer" id="dense-connectivity-nav">
+										 Dense connectivity
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#composite-function" v-on:click="closeDrawer" id="composite-function-nav">
+										 composite function
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#dense-blocks--transition-layers" v-on:click="closeDrawer" id="dense-blocks--transition-layers-nav">
+										 dense blocks &amp; transition layers
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#growth-rate" v-on:click="closeDrawer" id="growth-rate-nav">
+										 Growth rate
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#bottleneck-layers" v-on:click="closeDrawer" id="bottleneck-layers-nav">
+										 Bottleneck Layers
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#compression" v-on:click="closeDrawer" id="compression-nav">
+										 Compression
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e6%95%b0%e6%8d%ae%e9%9b%86" v-on:click="closeDrawer" id="数据集-nav">
+										 数据集
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%ae%9e%e9%aa%8c%e7%bb%93%e6%9e%9c" v-on:click="closeDrawer" id="实验结果-nav">
+										 实验结果
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e7%ae%97%e6%b3%95%e5%88%86%e6%9e%90" v-on:click="closeDrawer" id="算法分析-nav">
+										 算法分析
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e9%99%84%e5%bd%95" v-on:click="closeDrawer" id="附录-nav">
+										 附录
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+                
+                    
+                    
+                        
+                    
+                    <a class="a-block drawer-menu-item active" href="/posts">
+                        Archive
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/categories">
+                        Categories
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/tags">
+                        Tags
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/about">
+                        About
+                    </a>
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#densenet%e5%af%bc%e8%af%bb" v-on:click="closeDrawer" id="densenet导读-nav">
+										 DenseNet导读
+									</a>
+								</li>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%bc%95%e8%a8%80introduction" v-on:click="closeDrawer" id="引言introduction-nav">
+										 引言（Introduction）
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e7%9b%b8%e5%85%b3%e5%b7%a5%e4%bd%9crealated-work" v-on:click="closeDrawer" id="相关工作realated-work-nav">
+										 相关工作（realated work）
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#densenets" v-on:click="closeDrawer" id="densenets-nav">
+										 DenseNets
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#dense-connectivity" v-on:click="closeDrawer" id="dense-connectivity-nav">
+										 Dense connectivity
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#composite-function" v-on:click="closeDrawer" id="composite-function-nav">
+										 composite function
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#dense-blocks--transition-layers" v-on:click="closeDrawer" id="dense-blocks--transition-layers-nav">
+										 dense blocks &amp; transition layers
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#growth-rate" v-on:click="closeDrawer" id="growth-rate-nav">
+										 Growth rate
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#bottleneck-layers" v-on:click="closeDrawer" id="bottleneck-layers-nav">
+										 Bottleneck Layers
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#compression" v-on:click="closeDrawer" id="compression-nav">
+										 Compression
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e6%95%b0%e6%8d%ae%e9%9b%86" v-on:click="closeDrawer" id="数据集-nav">
+										 数据集
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%ae%9e%e9%aa%8c%e7%bb%93%e6%9e%9c" v-on:click="closeDrawer" id="实验结果-nav">
+										 实验结果
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e7%ae%97%e6%b3%95%e5%88%86%e6%9e%90" v-on:click="closeDrawer" id="算法分析-nav">
+										 算法分析
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e9%99%84%e5%bd%95" v-on:click="closeDrawer" id="附录-nav">
+										 附录
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://jmwyf.github.io">
+            Young Forever
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://jmwyf.github.io">
+        <div class="single-column-header-title">Young Forever</div>
+        
+        <div class="single-column-header-subtitle">靡不有初，鲜克有终</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                 style="background-image: url('/images/DenseNet/dense_blocks_result.jpg')">
+                
+                <img src="https://jmwyf.github.io/images/DenseNet/dense_blocks_result.jpg" style="display: none;"></img>
+                <div class="post-title">
+                    DenseNet导读
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2019-08-29 00:00
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/data-science">Data Science</a>
+                                &nbsp;
+                        
+
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h1 id="densenet导读">DenseNet导读</h1>
+<p>在前一篇介绍了resnet之后，本篇介绍与之结构类似升级版<a href="https://arxiv.org/abs/1608.06993">DenseNet</a></p>
+<h2 id="引言introduction">引言（Introduction）</h2>
+<p>当CNN层数变得越来越深，输入的信息或者在网络中传递的梯度信息可能会消失或者随着层数增加而消失。已经有许多论文提出了各种各样的解决方法，例如ResNet前一层与下一层网络间的恒等连接，Stochastic depth随机丢弃某些网络层，分形网络（FractalNet）中的分形结构。以上这些方法都存在一个共同特点：在层与层之间创造捷径。</p>
+<p>本文将这些想法提炼总结成：为了确保网络中最大的信息流通，让每层都与之前的所有层相连，即每层的的输入都是之前所有层的输出（通过连接concatenate而成）。</p>
+<p>在引文中还阐述了该网络架构的三个特点：</p>
+<ol>
+<li>需要更少的参数（Densenet每层用到了12个卷积核）</li>
+<li>由于信息流以及梯度传递更加方便，便于训练 、</li>
+<li>自带正则化</li>
+</ol>
+<h2 id="相关工作realated-work">相关工作（realated work）</h2>
+<p>介绍了一些网络，和resnet那篇差不多</p>
+<h2 id="densenets">DenseNets</h2>
+<p>$H_l(.)$表示一种组合的操作，例如可以包括批量归一化（BN）、ReLU、Pooling、卷积（Conv）</p>
+<h3 id="dense-connectivity">Dense connectivity</h3>
+<p>$x_l = H_l([x_0, x_1, &hellip;, x_{l-1}])$</p>
+<h3 id="composite-function">composite function</h3>
+<p>BN &gt; ReLU &gt; 3x3 convolution</p>
+<h3 id="dense-blocks--transition-layers">dense blocks &amp; transition layers</h3>
+<p>假如一直以dense connect这种架构，最后一层的feature maps尺寸会很大，以前降采样的方式是在某种模式的卷积后进行，此处则是在<strong>dense block</strong>这种结构进行convolution和pooling,这两层称为<strong>transition layer</strong>
+<img src="/images/DenseNet/dense_blocks_result.jpg" alt="denseblock"></p>
+<h3 id="growth-rate">Growth rate</h3>
+<p>每个网络层输出的特征图数量k称为Growth rate，第l层有
+$$ k_0 + k * (l-1) $$</p>
+<h3 id="bottleneck-layers">Bottleneck Layers</h3>
+<p>使用1*1 Conv作为作为特征降维的方式。
+BN &gt; ReLU &gt; ReLU &gt; Conv(1*1) &gt; BN &gt; ReLU &gt; Conv(3*3)
+想象你有个6 x 6 x 32 的特征图，用1 x 1 x 32 Conv来进行降维
+<em>DenseNet-B</em></p>
+<h3 id="compression">Compression</h3>
+<p>$\theta$为transition layer的压缩系数，在本文中使用了$\theta = 0.5$
+<em>DenseNet-C</em></p>
+<h2 id="数据集">数据集</h2>
+<ul>
+<li>CIFAR</li>
+<li>SVHN</li>
+<li>ImageNet</li>
+</ul>
+<h2 id="实验结果">实验结果</h2>
+<p>略（没啥好说的）</p>
+<h2 id="算法分析">算法分析</h2>
+<ul>
+<li>模型参数方面，与之前的网络如resnet对比</li>
+<li>深层监督（deep supervision）</li>
+<li>以前人们用resnet with stochastic depth, DenseNet也能做到正则化？（然而没读懂啥意思）</li>
+<li>特征重用,热图表示前面层对后面层的作用</li>
+</ul>
+<h3 id="附录">附录</h3>
+<ol>
+<li>
+<p><a href="http://www.gaohuang.net">作者黄亮</a></p>
+</li>
+<li>
+<p><a href="https://github.com/pytorch/vision/blob/master/torchvision/models/densenet.py">densenet</a></p>
+</li>
+</ol>
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2019-08-29</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://jmwyf.github.io/posts/2019-09-16-kill-time-or-kill-us/">
+                    Next<br>KILL TIME or KILL US
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://jmwyf.github.io/posts/2019-08-19-resnet/">
+                    Previous<br>ResNet导读要点解析
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+<div id="lv-container" data-id="city" data-uid=MTAyMC80OTA0OS8yNTU0NA&#61;&#61;>
+    <noscript>Please activate JavaScript to use Livere Comment.</noscript>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> 
+<br>
+<a href="mailto:ifanyong@live.com">Contact Me</a> by Email<br>
+<br>
+&copy;
+
+Young Forever 2019-2020
+</div>
+    	</div>
+    <script src="https://jmwyf.github.io/js/journal.js"></script>
+    </body>
+</html>

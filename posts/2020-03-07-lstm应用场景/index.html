@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html><head>
+<title>LSTM简介以及pytorch实例</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-133677720-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+<link rel="icon" href="images/favicon.ico">
+
+
+
+
+<link rel="stylesheet" href="https://jmwyf.github.io/scss/journal.min.5b7139f6e74681e938b6a9e1b716f93cfc663b8c673a079d75e1eb06d44f4baf.css" integrity="sha256-W3E59udGgek4tqnhtxb5PPxmO4xnOgeddeHrBtRPS68=" media="screen">
+
+<script src="https://jmwyf.github.io/js/loadCSS.js"></script>
+<script src="https://jmwyf.github.io/js/table.js"></script>
+
+
+<script src="https://jmwyf.github.io/js/toc.js"></script>
+
+
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+
+
+<script type="text/javascript">
+$(
+  (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+
+      if (typeof LivereTower === 'function') { return; }
+
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+
+      e.parentNode.insertBefore(j, e);
+  })(document, 'script'));
+</script>
+
+
+
+
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    },
+    extensions: ["TeX/AMSmath.js", "TeX/AMSsymbol.js"]
+  };
+  </script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  </script>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133677720-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-133677720-1');
+</script>
+
+
+<meta name="baidu-site-verification" content="F17DHhsj67" />
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://jmwyf.github.io">
+    
+        <div class="nav-title">
+            Young Forever
+        </div>
+        
+        <div class="nav-subtitle">
+            靡不有初，鲜克有终
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+                
+                
+                    
+                
+                <a class="a-block nav-link-item active" href="/posts">
+                    Archive
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/categories">
+                    Categories
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/tags">
+                    Tags
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/about">
+                    About
+                </a>
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> 
+<br>
+<a href="mailto:ifanyong@live.com">Contact Me</a> by Email<br>
+<br>
+&copy;
+
+Young Forever 2019-2020
+
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#lstm%e7%ae%80%e4%bb%8b%e4%bb%a5%e5%8f%8apytorch%e5%ae%9e%e4%be%8b" v-on:click="closeDrawer" id="lstm简介以及pytorch实例-nav">
+										 LSTM简介以及pytorch实例
+									</a>
+								</li>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1-lstm%e7%ae%80%e4%bb%8b" v-on:click="closeDrawer" id="1-lstm简介-nav">
+										 1. LSTM简介
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-%e9%a6%96%e5%85%88%e5%86%b3%e5%ae%9a%e4%bb%8ecell%e4%b8%ad%e4%b8%a2%e5%bc%83%e4%bb%80%e4%b9%88%e4%bf%a1%e6%81%af" v-on:click="closeDrawer" id="11-首先决定从cell中丢弃什么信息-nav">
+										 1.1 首先决定从cell中丢弃什么信息
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-%e4%bb%80%e4%b9%88%e6%a0%b7%e7%9a%84%e6%96%b0%e4%bf%a1%e6%81%af%e5%ad%98%e6%94%be%e5%88%b0cell%e4%b8%ad" v-on:click="closeDrawer" id="12-什么样的新信息存放到cell中-nav">
+										 1.2 什么样的新信息存放到cell中
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#13-%e8%be%93%e5%87%ba%e7%bb%93%e6%9e%9c" v-on:click="closeDrawer" id="13-输出结果-nav">
+										 1.3 输出结果
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2-lstm%e5%ae%9e%e4%be%8b%e4%bb%a5%e5%8f%8apytorch%e5%ae%9e%e7%8e%b0" v-on:click="closeDrawer" id="2-lstm实例以及pytorch实现-nav">
+										 2. LSTM实例以及Pytorch实现
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-lstm%e5%9b%be%e5%83%8f%e5%88%86%e7%b1%bb" v-on:click="closeDrawer" id="21-lstm图像分类-nav">
+										 2.1 LSTM图像分类
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#211-%e5%af%bc%e5%85%a5%e6%89%80%e9%9c%80%e7%94%a8%e5%88%b0%e7%9a%84%e5%8c%85%e4%bb%a5%e5%8f%8a%e8%b6%85%e5%8f%82%e6%95%b0%e8%ae%be%e7%bd%ae%e7%ad%89" v-on:click="closeDrawer" id="211-导入所需用到的包以及超参数设置等-nav">
+										 2.1.1 导入所需用到的包以及超参数设置等
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#212-%e5%af%bc%e5%85%a5%e6%95%b0%e6%8d%ae%e9%9b%86" v-on:click="closeDrawer" id="212-导入数据集-nav">
+										 2.1.2 导入数据集
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#213-%e5%bb%ba%e7%ab%8b%e6%a8%a1%e5%9e%8b" v-on:click="closeDrawer" id="213-建立模型-nav">
+										 2.1.3 建立模型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#214-%e8%ae%ad%e7%bb%83%e6%a8%a1%e5%9e%8b" v-on:click="closeDrawer" id="214-训练模型-nav">
+										 2.1.4 训练模型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#215-%e6%b5%8b%e8%af%95%e6%a8%a1%e5%9e%8b" v-on:click="closeDrawer" id="215-测试模型-nav">
+										 2.1.5 测试模型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-%e6%97%b6%e9%97%b4%e5%ba%8f%e5%88%97%e9%a2%84%e6%b5%8b" v-on:click="closeDrawer" id="22-时间序列预测-nav">
+										 2.2 时间序列预测
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-%e5%9b%be%e5%83%8f%e8%be%93%e5%87%ba%e6%96%87%e5%ad%97" v-on:click="closeDrawer" id="23-图像输出文字-nav">
+										 2.3 图像输出文字
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e8%a1%a5%e5%85%85" v-on:click="closeDrawer" id="补充-nav">
+										 补充
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#reference" v-on:click="closeDrawer" id="reference-nav">
+										 Reference:
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+                
+                    
+                    
+                        
+                    
+                    <a class="a-block drawer-menu-item active" href="/posts">
+                        Archive
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/categories">
+                        Categories
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/tags">
+                        Tags
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/about">
+                        About
+                    </a>
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#lstm%e7%ae%80%e4%bb%8b%e4%bb%a5%e5%8f%8apytorch%e5%ae%9e%e4%be%8b" v-on:click="closeDrawer" id="lstm简介以及pytorch实例-nav">
+										 LSTM简介以及pytorch实例
+									</a>
+								</li>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#1-lstm%e7%ae%80%e4%bb%8b" v-on:click="closeDrawer" id="1-lstm简介-nav">
+										 1. LSTM简介
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#11-%e9%a6%96%e5%85%88%e5%86%b3%e5%ae%9a%e4%bb%8ecell%e4%b8%ad%e4%b8%a2%e5%bc%83%e4%bb%80%e4%b9%88%e4%bf%a1%e6%81%af" v-on:click="closeDrawer" id="11-首先决定从cell中丢弃什么信息-nav">
+										 1.1 首先决定从cell中丢弃什么信息
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#12-%e4%bb%80%e4%b9%88%e6%a0%b7%e7%9a%84%e6%96%b0%e4%bf%a1%e6%81%af%e5%ad%98%e6%94%be%e5%88%b0cell%e4%b8%ad" v-on:click="closeDrawer" id="12-什么样的新信息存放到cell中-nav">
+										 1.2 什么样的新信息存放到cell中
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#13-%e8%be%93%e5%87%ba%e7%bb%93%e6%9e%9c" v-on:click="closeDrawer" id="13-输出结果-nav">
+										 1.3 输出结果
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#2-lstm%e5%ae%9e%e4%be%8b%e4%bb%a5%e5%8f%8apytorch%e5%ae%9e%e7%8e%b0" v-on:click="closeDrawer" id="2-lstm实例以及pytorch实现-nav">
+										 2. LSTM实例以及Pytorch实现
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#21-lstm%e5%9b%be%e5%83%8f%e5%88%86%e7%b1%bb" v-on:click="closeDrawer" id="21-lstm图像分类-nav">
+										 2.1 LSTM图像分类
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#211-%e5%af%bc%e5%85%a5%e6%89%80%e9%9c%80%e7%94%a8%e5%88%b0%e7%9a%84%e5%8c%85%e4%bb%a5%e5%8f%8a%e8%b6%85%e5%8f%82%e6%95%b0%e8%ae%be%e7%bd%ae%e7%ad%89" v-on:click="closeDrawer" id="211-导入所需用到的包以及超参数设置等-nav">
+										 2.1.1 导入所需用到的包以及超参数设置等
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#212-%e5%af%bc%e5%85%a5%e6%95%b0%e6%8d%ae%e9%9b%86" v-on:click="closeDrawer" id="212-导入数据集-nav">
+										 2.1.2 导入数据集
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#213-%e5%bb%ba%e7%ab%8b%e6%a8%a1%e5%9e%8b" v-on:click="closeDrawer" id="213-建立模型-nav">
+										 2.1.3 建立模型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#214-%e8%ae%ad%e7%bb%83%e6%a8%a1%e5%9e%8b" v-on:click="closeDrawer" id="214-训练模型-nav">
+										 2.1.4 训练模型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#215-%e6%b5%8b%e8%af%95%e6%a8%a1%e5%9e%8b" v-on:click="closeDrawer" id="215-测试模型-nav">
+										 2.1.5 测试模型
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#22-%e6%97%b6%e9%97%b4%e5%ba%8f%e5%88%97%e9%a2%84%e6%b5%8b" v-on:click="closeDrawer" id="22-时间序列预测-nav">
+										 2.2 时间序列预测
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#23-%e5%9b%be%e5%83%8f%e8%be%93%e5%87%ba%e6%96%87%e5%ad%97" v-on:click="closeDrawer" id="23-图像输出文字-nav">
+										 2.3 图像输出文字
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e8%a1%a5%e5%85%85" v-on:click="closeDrawer" id="补充-nav">
+										 补充
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#reference" v-on:click="closeDrawer" id="reference-nav">
+										 Reference:
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://jmwyf.github.io">
+            Young Forever
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://jmwyf.github.io">
+        <div class="single-column-header-title">Young Forever</div>
+        
+        <div class="single-column-header-subtitle">靡不有初，鲜克有终</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                 style="background-image: url('/images/LSTM/LSTM.jpg')">
+                
+                <img src="https://jmwyf.github.io/images/LSTM/LSTM.jpg" style="display: none;"></img>
+                <div class="post-title">
+                    LSTM简介以及pytorch实例
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2020-03-09 15:07
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/data-science">Data Science</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/lstm">LSTM</a>
+                                &nbsp;
+                            
+                                <a href="/tags/pytorch">PyTorch</a>
+                                &nbsp;
+                            
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h1 id="lstm简介以及pytorch实例">LSTM简介以及pytorch实例</h1>
+<p>在去年介绍的一篇paper中，应用了多任务RNN来解决问题，当时RNN指的即是LSTM。本文介绍LSTM实现以及应用。</p>
+<h2 id="1-lstm简介">1. LSTM简介</h2>
+<p>循环神经网络要点在于可以将上一时刻的信息传递给下一时刻，但是在需要长程信息依赖的场景，训练一个好的RNN十分困难，存在梯度爆炸和梯度消失的情况。LSTM通过刻意的设计来解决该问题。</p>
+<p>简单的RNN网络中重复的模块只有一个简单的结构，例如一个<code>relu</code>层，而在LSTM中重复的模块拥有4个不同的结构相互交互来完成。</p>
+<p><img src="/images/LSTM/LSTM.jpg" alt="LSTM"></p>
+<h3 id="11-首先决定从cell中丢弃什么信息">1.1 首先决定从cell中丢弃什么信息</h3>
+<p>$$f_t = \sigma(W_f*[h_{t-1}, X_t] + b_f)\tag1$$
+sigma函数在0到1选择代表丢弃与否</p>
+<h3 id="12-什么样的新信息存放到cell中">1.2 什么样的新信息存放到cell中</h3>
+<p>$$i_t = \sigma(W_i*[h_{t-1}, x_t] + b_i)\tag2$$</p>
+<p>$$\widetilde{C}_t = tanh(W_c*[h_{t-1}, x_t] + b_c)\tag3$$</p>
+<p>$$C_t = f_t*C_{t-1} + i_t*\widetilde{C}_t\tag4$$</p>
+<p>4式中旧状态与$f_t$相乘，丢弃确定需要丢弃的信息，加上新的候选值。可以看到假如遗忘门一直为1，就可以保持以前的信息$C_{t-1}$</p>
+<h3 id="13-输出结果">1.3 输出结果</h3>
+<p>$$o_t = \sigma(W_o[h_{t-1}, x_t] + b_o)\tag5$$
+$$h_t = o_t*tanh(C_t)\tag6$$</p>
+<h2 id="2-lstm实例以及pytorch实现">2. LSTM实例以及Pytorch实现</h2>
+<p>循环神经网络可以应用到以下场景。</p>
+<p><img src="/images/LSTM/examples.jpg" alt="examples"></p>
+<ul>
+<li>点对点（单个图片（文字）被分类；图像分类）</li>
+<li>点对序列（单个图像（文字）被分为多个类；图像输出文字）</li>
+<li>序列分析（一系列图片（文字）被分类；情感分析）</li>
+<li>不等长序列对序列（机器翻译）</li>
+<li>等长序列对序列（视频帧分类）</li>
+</ul>
+<p>举两个例子：图像分类以及时间序列预测</p>
+<h3 id="21-lstm图像分类">2.1 LSTM图像分类</h3>
+<p>关于图片分类常用卷积神经网络，侧重空间上处理；而循环神经网络侧重序列处理。但是也能用来图片分类。第一个例子以常用的mnist手写字体识别为例。</p>
+<h4 id="211-导入所需用到的包以及超参数设置等">2.1.1 导入所需用到的包以及超参数设置等</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Setup</span>
+<span style="color:#f92672">import</span> torch
+<span style="color:#f92672">from</span> torch <span style="color:#f92672">import</span> nn
+<span style="color:#f92672">from</span> torch.utils.data <span style="color:#f92672">import</span> DataLoader
+<span style="color:#f92672">import</span> torchvision.datasets <span style="color:#f92672">as</span> dsets
+<span style="color:#f92672">import</span> torchvision.transforms <span style="color:#f92672">as</span> transforms
+
+torch<span style="color:#f92672">.</span>manual_seed(<span style="color:#ae81ff">1</span>)
+
+<span style="color:#75715e"># Device configuration</span>
+device <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>device(<span style="color:#e6db74">&#39;cuda&#39;</span> <span style="color:#66d9ef">if</span> torch<span style="color:#f92672">.</span>cuda<span style="color:#f92672">.</span>is_available() <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;cpu&#39;</span>)
+
+</code></pre></div><h4 id="212-导入数据集">2.1.2 导入数据集</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Mnist手写数字</span>
+train_data <span style="color:#f92672">=</span> dsets<span style="color:#f92672">.</span>MNIST(root<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;./mnist/&#39;</span>,    <span style="color:#75715e"># 保存或者提取位置</span>
+                         train<span style="color:#f92672">=</span>True,  <span style="color:#75715e"># this is tra`ining data</span>
+                         transform<span style="color:#f92672">=</span>transforms<span style="color:#f92672">.</span>ToTensor(),    <span style="color:#75715e"># 转换 PIL.Image or numpy.ndarray 成</span>
+                                                    <span style="color:#75715e"># torch.FloatTensor (C x H x W), 训练的时候 normalize 成 [0.0, 1.0] 区间</span>
+                         download<span style="color:#f92672">=</span>True,          <span style="color:#75715e"># 没下载就下载, 下载了就不用再下了改成False</span>
+)
+
+test_data <span style="color:#f92672">=</span> dsets<span style="color:#f92672">.</span>MNIST(root<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;./mnist/&#39;</span>,
+                        train<span style="color:#f92672">=</span>False,
+                        transform<span style="color:#f92672">=</span>transforms<span style="color:#f92672">.</span>ToTensor())
+
+<span style="color:#75715e"># Dataloader</span>
+<span style="color:#75715e"># PyTorch中数据读取的一个重要接口，该接口定义在dataloader.py中，只要是用PyTorch来训练模型基本都会用到该接口（除非用户重写…），</span>
+<span style="color:#75715e"># 该接口的目的：将自定义的Dataset根据batch size大小、是否shuffle等封装成一个Batch Size大小的Tensor，用于后面的训练。</span>
+train_loader <span style="color:#f92672">=</span> DataLoader(dataset<span style="color:#f92672">=</span>train_data,
+                          batch_size<span style="color:#f92672">=</span>batch_size,
+                          shuffle<span style="color:#f92672">=</span>True) <span style="color:#75715e"># 在每个epoch开始的时候，对数据重新打乱进行训练。在这里其实没啥用，因为只训练了一次</span>
+
+test_loader <span style="color:#f92672">=</span> DataLoader(dataset<span style="color:#f92672">=</span>test_data,
+                         batch_size<span style="color:#f92672">=</span>batch_size,
+                         shuffle<span style="color:#f92672">=</span>False)
+</code></pre></div><h4 id="213-建立模型">2.1.3 建立模型</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># LSTM</span>
+<span style="color:#75715e"># __init__ is basically a function which will &#34;initialize&#34;/&#34;activate&#34; the properties of the class for a specific object</span>
+<span style="color:#75715e"># self represents that object which will inherit those properties</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">simpleLSTM</span>(nn<span style="color:#f92672">.</span>Module):
+    <span style="color:#66d9ef">def</span> __init__(self, input_size, hidden_size, num_layers, num_classes):
+        super(simpleLSTM, self)<span style="color:#f92672">.</span>__init__()
+        self<span style="color:#f92672">.</span>hidden_size <span style="color:#f92672">=</span> hidden_size
+        self<span style="color:#f92672">.</span>num_layers <span style="color:#f92672">=</span> num_layers
+        self<span style="color:#f92672">.</span>lstm <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>LSTM(input_size, hidden_size, num_layers, batch_first<span style="color:#f92672">=</span>True)
+        self<span style="color:#f92672">.</span>fc <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(hidden_size, num_classes)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+        <span style="color:#75715e"># x shape (batch, time_step, input_size)</span>
+        <span style="color:#75715e"># out shape (batch, time_step, output_size)</span>
+        <span style="color:#75715e"># h_n shape (n_layers, batch, hidden_size)</span>
+        <span style="color:#75715e"># h_c shape (n_layers, batch, hidden_size)</span>
+        <span style="color:#75715e"># 初始化hidden和memory cell参数</span>
+        h0 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros(self<span style="color:#f92672">.</span>num_layers, x<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">0</span>), self<span style="color:#f92672">.</span>hidden_size)<span style="color:#f92672">.</span>to(device)
+        c0 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros(self<span style="color:#f92672">.</span>num_layers, x<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">0</span>), self<span style="color:#f92672">.</span>hidden_size)<span style="color:#f92672">.</span>to(device)
+
+        <span style="color:#75715e"># forward propagate lstm</span>
+        out, (h_n, h_c) <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>lstm(x, (h0, c0))
+
+        <span style="color:#75715e"># 选取最后一个时刻的输出</span>
+        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc(out[:, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, :])
+        <span style="color:#66d9ef">return</span> out
+
+model <span style="color:#f92672">=</span> simpleLSTM(input_size, hidden_size, num_layers, num_classes)
+
+<span style="color:#75715e"># loss and optimizer</span>
+criterion <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>CrossEntropyLoss()
+optimizer <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>optim<span style="color:#f92672">.</span>Adam(model<span style="color:#f92672">.</span>parameters(), lr)
+</code></pre></div><h4 id="214-训练模型">2.1.4 训练模型</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># train the model</span>
+<span style="color:#75715e"># 关于reshape(-1)的解释 https://www.zhihu.com/question/52684594</span>
+<span style="color:#75715e"># view()和reshape()区别的解释 https://stackoverflow.com/questions/49643225/whats-the-difference-between-reshape-and-view-in-pytorch</span>
+
+<span style="color:#75715e"># Hyper Parameters</span>
+epochs <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>           <span style="color:#75715e"># 训练整批数据多少次, 为了节约时间, 我们只训练一次</span>
+batch_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>
+time_step <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span>      <span style="color:#75715e"># rnn 时间步数 / 图片高度</span>
+input_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span>     <span style="color:#75715e"># rnn 每步输入值 / 图片每行像素</span>
+hidden_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>
+num_layers <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+num_classes <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+lr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>           <span style="color:#75715e"># learning rate</span>
+
+total_step <span style="color:#f92672">=</span> len(train_loader)
+<span style="color:#66d9ef">for</span> epoch <span style="color:#f92672">in</span> range(epochs):
+    <span style="color:#66d9ef">for</span> i, (images, labels) <span style="color:#f92672">in</span> enumerate(train_loader):
+        images <span style="color:#f92672">=</span> images<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, time_step, input_size)<span style="color:#f92672">.</span>to(device)
+        labels <span style="color:#f92672">=</span> labels<span style="color:#f92672">.</span>to(device)
+
+        <span style="color:#75715e"># forward pass</span>
+        outputs <span style="color:#f92672">=</span> model(images)
+        loss <span style="color:#f92672">=</span> criterion(outputs, labels)
+
+        <span style="color:#75715e"># backward and optimize</span>
+        optimizer<span style="color:#f92672">.</span>zero_grad()
+        loss<span style="color:#f92672">.</span>backward()
+        optimizer<span style="color:#f92672">.</span>step()
+
+        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">100</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}&#39;</span>
+                   <span style="color:#f92672">.</span>format(epoch<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, epochs, i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, total_step, loss<span style="color:#f92672">.</span>item()))
+</code></pre></div><h4 id="215-测试模型">2.1.5 测试模型</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Test the model</span>
+<span style="color:#75715e"># https://stackoverflow.com/questions/55627780/evaluating-pytorch-models-with-torch-no-grad-vs-model-eval</span>
+<span style="color:#75715e"># torch.max()用法。https://blog.csdn.net/weixin_43255962/article/details/84402586</span>
+model<span style="color:#f92672">.</span>eval()
+<span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
+    correct <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    total <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">for</span> images, labels <span style="color:#f92672">in</span> test_loader:
+        images <span style="color:#f92672">=</span> images<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, time_step, input_size)<span style="color:#f92672">.</span>to(device)
+        labels <span style="color:#f92672">=</span> labels<span style="color:#f92672">.</span>to(device)
+        outputs <span style="color:#f92672">=</span> model(images)
+        _, predicted <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>max(outputs<span style="color:#f92672">.</span>data, <span style="color:#ae81ff">1</span>)
+        total <span style="color:#f92672">+=</span> labels<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">0</span>)
+        correct <span style="color:#f92672">+=</span> (predicted <span style="color:#f92672">==</span> labels)<span style="color:#f92672">.</span>sum()<span style="color:#f92672">.</span>item()
+
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Test Accuracy of the model on the 10000 test images: {} %&#39;</span><span style="color:#f92672">.</span>format(<span style="color:#ae81ff">100</span> <span style="color:#f92672">*</span> correct <span style="color:#f92672">/</span> total))
+</code></pre></div><h3 id="22-时间序列预测">2.2 时间序列预测</h3>
+<p>Todo</p>
+<h3 id="23-图像输出文字">2.3 图像输出文字</h3>
+<p>Todo</p>
+<h2 id="补充">补充</h2>
+<ol>
+<li>
+<p>在原始发表文献用的图示是类似于下图的这种，看起来比较好容易理解当初形成LSTM的原因
+<img src="/images/LSTM/LSTM_O.jpg" alt="LSTM_O"></p>
+</li>
+<li>
+<p>pytorch lstm函数用法示例</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rnn <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>LSTM(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">2</span>) <span style="color:#75715e"># input_size, hidden_size, num_layers</span>
+input <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">10</span>) <span style="color:#75715e"># time_step, batch, input_size（这里input_size即features）</span>
+h0 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">20</span>) <span style="color:#75715e"># num_layers, batch, hidden_size</span>
+c0 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">20</span>) <span style="color:#75715e"># num_layers, batch, hidden_size</span>
+output, (hn, cn) <span style="color:#f92672">=</span> rnn(input, (h0, c0)) <span style="color:#75715e"># output包含从最后一层lstm中输出的ht。shape: time_step, batch, hidden_size</span>
+</code></pre></div><ul>
+<li>
+<p><code>hidden_size</code> is the number of units of your LSTM cell. This means all the layers (input, forget, etc.) will have this size</p>
+</li>
+<li>
+<p>hidden_size即pytorch隐含层每个结构中含有的隐含cell数目</p>
+</li>
+</ul>
+<ol start="3">
+<li>lstm函数中加入<code>bidirectional=True</code>参数即双向神经网络</li>
+</ol>
+<h2 id="reference">Reference:</h2>
+<ol>
+<li>
+<p>理解LSTM(<a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">http://colah.github.io/posts/2015-08-Understanding-LSTMs/</a>)</p>
+</li>
+<li>
+<p>高效RNN(<a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">http://karpathy.github.io/2015/05/21/rnn-effectiveness/</a>)</p>
+</li>
+<li>
+<p>Hochreiter &amp; Schmidhuber (1997) LSTM</p>
+</li>
+<li>
+<p>Pytorch LSTM官方文档(<a href="https://pytorch.org/docs/stable/nn.html#lstm">https://pytorch.org/docs/stable/nn.html#lstm</a>)</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+</li>
+</ol>
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2020-03-09</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://jmwyf.github.io/posts/2020-03-12-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AA%E4%BA%BA%E5%8F%8A%E6%9C%BA%E6%9E%84%E5%8D%9A%E5%AE%A2%E6%8E%A8%E8%8D%90%E6%9B%B4%E6%96%B0ing/">
+                    Next<br>深度学习个人及机构博客推荐（持续更新）
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://jmwyf.github.io/posts/2020-03-05-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                    Previous<br>PyTorch深度学习（1）
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+<div id="lv-container" data-id="city" data-uid=MTAyMC80OTA0OS8yNTU0NA&#61;&#61;>
+    <noscript>Please activate JavaScript to use Livere Comment.</noscript>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> 
+<br>
+<a href="mailto:ifanyong@live.com">Contact Me</a> by Email<br>
+<br>
+&copy;
+
+Young Forever 2019-2020
+</div>
+    	</div>
+    <script src="https://jmwyf.github.io/js/journal.js"></script>
+    </body>
+</html>

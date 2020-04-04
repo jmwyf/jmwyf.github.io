@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html><head>
+<title>ResNet导读要点解析</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-133677720-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+<link rel="icon" href="images/favicon.ico">
+
+
+
+
+<link rel="stylesheet" href="https://jmwyf.github.io/scss/journal.min.5b7139f6e74681e938b6a9e1b716f93cfc663b8c673a079d75e1eb06d44f4baf.css" integrity="sha256-W3E59udGgek4tqnhtxb5PPxmO4xnOgeddeHrBtRPS68=" media="screen">
+
+<script src="https://jmwyf.github.io/js/loadCSS.js"></script>
+<script src="https://jmwyf.github.io/js/table.js"></script>
+
+
+<script src="https://jmwyf.github.io/js/toc.js"></script>
+
+
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+
+
+<script type="text/javascript">
+$(
+  (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+
+      if (typeof LivereTower === 'function') { return; }
+
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+
+      e.parentNode.insertBefore(j, e);
+  })(document, 'script'));
+</script>
+
+
+
+
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    },
+    extensions: ["TeX/AMSmath.js", "TeX/AMSsymbol.js"]
+  };
+  </script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  </script>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133677720-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-133677720-1');
+</script>
+
+
+<meta name="baidu-site-verification" content="F17DHhsj67" />
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://jmwyf.github.io">
+    
+        <div class="nav-title">
+            Young Forever
+        </div>
+        
+        <div class="nav-subtitle">
+            靡不有初，鲜克有终
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+                
+                
+                    
+                
+                <a class="a-block nav-link-item active" href="/posts">
+                    Archive
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/categories">
+                    Categories
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/tags">
+                    Tags
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/about">
+                    About
+                </a>
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> 
+<br>
+<a href="mailto:ifanyong@live.com">Contact Me</a> by Email<br>
+<br>
+&copy;
+
+Young Forever 2019-2020
+
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#resnet%e5%af%bc%e8%af%bb" v-on:click="closeDrawer" id="resnet导读-nav">
+										 ResNet导读
+									</a>
+								</li>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%bc%95%e8%a8%80" v-on:click="closeDrawer" id="引言-nav">
+										 引言
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e6%b7%b1%e5%ba%a6%e6%ae%8b%e5%b7%ae%e5%ad%a6%e4%b9%a0deep-residual-learning" v-on:click="closeDrawer" id="深度残差学习deep-residual-learning-nav">
+										 深度残差学习（Deep Residual Learning）
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e7%bb%93%e6%9e%9c" v-on:click="closeDrawer" id="结果-nav">
+										 结果
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e8%a1%a5%e5%85%85%e6%9d%90%e6%96%99" v-on:click="closeDrawer" id="补充材料-nav">
+										 补充材料
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+                
+                    
+                    
+                        
+                    
+                    <a class="a-block drawer-menu-item active" href="/posts">
+                        Archive
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/categories">
+                        Categories
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/tags">
+                        Tags
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/about">
+                        About
+                    </a>
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#resnet%e5%af%bc%e8%af%bb" v-on:click="closeDrawer" id="resnet导读-nav">
+										 ResNet导读
+									</a>
+								</li>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e5%bc%95%e8%a8%80" v-on:click="closeDrawer" id="引言-nav">
+										 引言
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e6%b7%b1%e5%ba%a6%e6%ae%8b%e5%b7%ae%e5%ad%a6%e4%b9%a0deep-residual-learning" v-on:click="closeDrawer" id="深度残差学习deep-residual-learning-nav">
+										 深度残差学习（Deep Residual Learning）
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e7%bb%93%e6%9e%9c" v-on:click="closeDrawer" id="结果-nav">
+										 结果
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#%e8%a1%a5%e5%85%85%e6%9d%90%e6%96%99" v-on:click="closeDrawer" id="补充材料-nav">
+										 补充材料
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://jmwyf.github.io">
+            Young Forever
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://jmwyf.github.io">
+        <div class="single-column-header-title">Young Forever</div>
+        
+        <div class="single-column-header-subtitle">靡不有初，鲜克有终</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                 style="background-image: url('/images/Resnet_kaiminghe2015/resnet_block_result.jpg')">
+                
+                <img src="https://jmwyf.github.io/images/Resnet_kaiminghe2015/resnet_block_result.jpg" style="display: none;"></img>
+                <div class="post-title">
+                    ResNet导读要点解析
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2019-08-19 00:00
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/data-science">Data Science</a>
+                                &nbsp;
+                        
+
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h1 id="resnet导读">ResNet导读</h1>
+<p>本文主要详细介绍<a href="https://arxiv.org/abs/1512.03385">ResNet</a>。</p>
+<h2 id="引言">引言</h2>
+<p>Resnet提出主要是为了解决<strong>在不断增加神经网络的深度时，会出现一个Degradation（退化）的问题，即准确率会先上升然后达到饱和，再持续增加深度则会导致准确率下降。这并不是过拟合的问题，因为不光在测试集上误差增大，训练集本身误差也会增大</strong>。
+（例如现在有个浅层网络,最后输出为y,已经是一个准确率较高的网络，现在在该浅层网络上继续增加层数得到一个深层网络，想让输出仍为y,即后面增加的网络层是恒等映射，而退化问题就说明对于神经网络来说恒等映射是不容易优化的）</p>
+<h2 id="深度残差学习deep-residual-learning">深度残差学习（Deep Residual Learning）</h2>
+<ul>
+<li>
+<p>残差学习（Residual Learning）</p>
+<p>$H(x) = F(x) + x$</p>
+<p>把恒等输入作为网络的一部分，其中H(x)为模型潜在的映射，x为输入</p>
+<p>$F(x) = H(x) - x$</p>
+<p>F(x)为残差函数</p>
+</li>
+<li>
+<p>通过捷径（Shortcuts）进行恒等映射</p>
+<p><img src="/images/Resnet_kaiminghe2015/resnet_block_result.jpg" alt="residual block"></p>
+<p>$y = F(x,W_{i}) + x$</p>
+<p>每个元素对应相加（element-wise addition）</p>
+<p>其中$F(x, W_{i})$为残差，$F = W_2\sigma(W_1x)$（图中会让人产生一种F(x)是在两层中间的错觉，其实是在两层之后）</p>
+</li>
+<li>
+<p>网络结构</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>文献中图3左为VGG-19, 卷积层均使用same padding，输出大小变化发生在max pooling, stride = 2。
+$$(n+2p-f+1)/s$$</p>
+</li>
+<li>
+<p>构建Plain networks来复现退化现象</p>
+</li>
+<li>
+<p>残差网络中虚线表示通道数不同，使用</p>
+<p>$H(x) = F(x) + Wx$ W用来调整维度</p>
+<p>对于更深层的残差网络使用了Bottleneck结构，降低参数量。</p>
+</li>
+</ol>
+<p>主要介绍一下图1，在深度学习论文中会经常看到类似图1的表。<br>
+<img src="/images/Resnet_kaiminghe2015/resnet_architectures_result.jpg" alt="residual architectures">
+第一列给每个卷积层取的名字，第2列为输出尺寸，例如对于第一层7*7的卷积核，步长为2，文中给出第一层卷积输出结果为112可以得到padding = 3</p>
+<p>$$
+(224-7+1+2*3)/2 = 112
+$$</p>
+<p>以18层resnet为例，然后是2组残差网络基本模块，两组64个3*3卷积核，在将卷积核翻倍的同时stride = 2, padding = 1到聪conv3_x;而在单个残差模块里面stride = 1, padding = 1</p>
+<h2 id="结果">结果</h2>
+<p>结果部分对比了模型参数，性能</p>
+<ul>
+<li>top-1 error</li>
+<li>top-5 error</li>
+</ul>
+<p><strong>top-N正确率是指图像识别算法给出前N个答案中有一个是正确的概率</strong></p>
+<h2 id="补充材料">补充材料</h2>
+<p>resnet pytorch实现<a href="https://github.com/pytorch/vision/blob/0bd7080c6fa4d8a07f34aa66caf10683824e5b82/torchvision/models/resnet.py#L35">代码</a></p>
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2019-08-19</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://jmwyf.github.io/posts/densenet/">
+                    Next<br>DenseNet导读
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://jmwyf.github.io/posts/%E6%9C%80%E8%BF%91%E7%9A%84%E7%94%9F%E6%B4%BB/">
+                    Previous<br>最近的生活
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+<div id="lv-container" data-id="city" data-uid=MTAyMC80OTA0OS8yNTU0NA&#61;&#61;>
+    <noscript>Please activate JavaScript to use Livere Comment.</noscript>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> 
+<br>
+<a href="mailto:ifanyong@live.com">Contact Me</a> by Email<br>
+<br>
+&copy;
+
+Young Forever 2019-2020
+</div>
+    	</div>
+    <script src="https://jmwyf.github.io/js/journal.js"></script>
+    </body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html><head>
+<title>多任务RNN预测ICU动态疾病严重程度</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-133677720-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+<link rel="icon" href="images/favicon.ico">
+
+
+
+
+<link rel="stylesheet" href="https://jmwyf.github.io/scss/journal.min.5b7139f6e74681e938b6a9e1b716f93cfc663b8c673a079d75e1eb06d44f4baf.css" integrity="sha256-W3E59udGgek4tqnhtxb5PPxmO4xnOgeddeHrBtRPS68=" media="screen">
+
+<script src="https://jmwyf.github.io/js/loadCSS.js"></script>
+<script src="https://jmwyf.github.io/js/table.js"></script>
+
+
+<script src="https://jmwyf.github.io/js/toc.js"></script>
+
+
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+
+
+<script type="text/javascript">
+$(
+  (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+
+      if (typeof LivereTower === 'function') { return; }
+
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+
+      e.parentNode.insertBefore(j, e);
+  })(document, 'script'));
+</script>
+
+
+
+
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    },
+    extensions: ["TeX/AMSmath.js", "TeX/AMSsymbol.js"]
+  };
+  </script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  </script>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133677720-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-133677720-1');
+</script>
+
+
+<meta name="baidu-site-verification" content="F17DHhsj67" />
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://jmwyf.github.io">
+    
+        <div class="nav-title">
+            Young Forever
+        </div>
+        
+        <div class="nav-subtitle">
+            靡不有初，鲜克有终
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+                
+                
+                    
+                
+                <a class="a-block nav-link-item active" href="/posts">
+                    Archive
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/categories">
+                    Categories
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/tags">
+                    Tags
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/about">
+                    About
+                </a>
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> 
+<br>
+<a href="mailto:ifanyong@live.com">Contact Me</a> by Email<br>
+<br>
+&copy;
+
+Young Forever 2019-2020
+
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+                
+                    
+                    
+                        
+                    
+                    <a class="a-block drawer-menu-item active" href="/posts">
+                        Archive
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/categories">
+                        Categories
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/tags">
+                        Tags
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/about">
+                        About
+                    </a>
+            
+            
+            <div class="toc">
+
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://jmwyf.github.io">
+            Young Forever
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://jmwyf.github.io">
+        <div class="single-column-header-title">Young Forever</div>
+        
+        <div class="single-column-header-subtitle">靡不有初，鲜克有终</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                 style="background-image: url('/images/chen2018/multitaskRNN_result.jpg')">
+                
+                <img src="https://jmwyf.github.io/images/chen2018/multitaskRNN_result.jpg" style="display: none;"></img>
+                <div class="post-title">
+                    多任务RNN预测ICU动态疾病严重程度
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2019-03-26 00:00
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/paper">Paper</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/deep-learning">Deep Learning</a>
+                                &nbsp;
+                            
+                                <a href="/tags/rnn">RNN</a>
+                                &nbsp;
+                            
+                                <a href="/tags/prediction">prediction</a>
+                                &nbsp;
+                            
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <p><em>Chen2018</em></p>
+<p>本文为2018 IEEE ICDM会议论文。属于数据挖掘不错的会议。</p>
+<p>SIGKDD(Special Interest Group Knowledge Discovery and Data Mining)为数据挖掘的顶级会议。</p>
+<p><em>摘要</em></p>
+<p>作者认为现有的死亡预测以及表型分析？不能在动态改变的临床环境中提供足够证据。本文提出一种能同时分析不同器官系统来预测ICU中患者疾病严重程度，这种方法可以直观及时地反映患者病情。</p>
+<p><em>引言</em></p>
+<p>传统评分需要较长的时间窗口如24小时才能反映疾病的严重程度，对急危重症患者反应有延后；我们认为对危重病人进行更频繁的评价能更清楚的显示患者病情，是早期预测医疗状况一种可能的途径。作者利用两个患者入院后sofa随时间的变化来说明了高密度的病情评估是患者监测一种有效的手段。</p>
+<p>目前已经有很多AI研究者利用多种时序信号来进行死亡预测等。但是均<strong>忽视了各个器官系统时序信号之间的存在的关系</strong>，这可能会影响预测性能。</p>
+<p>为了解决这个问题，本文提出了：</p>
+<ul>
+<li>多任务RNN框架。通过共享单元来考虑各器官系统间的时间相关性</li>
+<li>应用attention机制。关注输入中的重要信息来达到更好的性能</li>
+<li>基于真实世界ICU数据，与许多最先进的方法进行对比说明</li>
+</ul>
+<p>随后，作者给出与本文相关的工作。首先是同行们做的一些工作。然后介绍了多任务学习，最后介绍了注意力机制。</p>
+<p><em>方法</em></p>
+<ul>
+<li>数据预处理</li>
+</ul>
+<ol>
+<li>$16 \leq age \leq 75$</li>
+<li>排除 LOS &lt; 12h</li>
+<li>41个从不同系统获取的特征</li>
+<li>时间窗口内去特征平均值作为新值</li>
+<li>插值策略：前向插值；前无值则中位数</li>
+<li>80%训练，20%测试； 基于熵的损失函数以及L2正则化</li>
+</ol>
+<ul>
+<li>多任务RNN</li>
+</ul>
+<p>每一时刻的LSTM均包含了一下几个模块，i, f, o, c和h分别对应input gate, forget gate, output gate, memory cell以及hidden state。</p>
+<p>在不同系统之间，共享一个hidden layer(隐藏层)
+<img src="/images/chen2018/multitaskRNN_result.jpg" alt="multitaskRNN"></p>
+<ul>
+<li>注意力机制</li>
+</ul>
+<p>Attention给模型赋予了区分辨别的能力；解释模型到底学到了什么知识，为我们打开深度学习的黑箱，提供了一个窗口</p>
+<ul>
+<li>模型比较与评估</li>
+</ul>
+<p>最先进的</p>
+<ul>
+<li>GRU-ATT</li>
+<li>HMT-RNN</li>
+<li>pRNN</li>
+<li>RNN</li>
+<li>MTRNN</li>
+<li>RNN-ATT</li>
+</ul>
+<p>Baseline model:</p>
+<p>svm, RF, DT, LDA(Linear discriminant analysis), XGboost</p>
+<ul>
+<li>实验步骤</li>
+</ul>
+<p>每小时或者规定的时间区间可以计算sofa值，sofa值被分为6类，根据sofa值来确定是第几类。用每小时的特征来预测类别。
+<img src="/images/chen2018/sofacategory_result.jpg" alt="sofacategory"></p>
+<p>整个流程图如下图所示</p>
+<p><img src="/images/chen2018/workflow_result.jpg" alt="workflow"></p>
+<p><em>结果</em></p>
+<ol>
+<li>
+<p>各种方法的准确度</p>
+</li>
+<li>
+<p>按比例抽样各方法性能比较</p>
+</li>
+<li>
+<p>各类别的ROC曲线</p>
+</li>
+<li>
+<p>加入attention</p>
+</li>
+</ol>
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2019-03-26</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://jmwyf.github.io/posts/%E6%9C%80%E8%BF%91%E7%9A%84%E7%94%9F%E6%B4%BB/">
+                    Next<br>最近的生活
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://jmwyf.github.io/posts/2019-03-11-icu%E5%AE%9E%E6%97%B6%E6%AD%BB%E4%BA%A1%E9%A2%84%E6%B5%8B/">
+                    Previous<br>ICU实时死亡预测
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+<div id="lv-container" data-id="city" data-uid=MTAyMC80OTA0OS8yNTU0NA&#61;&#61;>
+    <noscript>Please activate JavaScript to use Livere Comment.</noscript>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> 
+<br>
+<a href="mailto:ifanyong@live.com">Contact Me</a> by Email<br>
+<br>
+&copy;
+
+Young Forever 2019-2020
+</div>
+    	</div>
+    <script src="https://jmwyf.github.io/js/journal.js"></script>
+    </body>
+</html>

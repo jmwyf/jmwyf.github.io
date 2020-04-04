@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Young Forever</title>
+    <link>https://jmwyf.github.io/posts/</link>
+    <description>Recent content in Posts on Young Forever</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 02 Apr 2020 10:58:16 +0000</lastBuildDate>
+    
+	<atom:link href="https://jmwyf.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Deep Survival Analysis</title>
+      <link>https://jmwyf.github.io/posts/20200402-deep-survival-analysis/</link>
+      <pubDate>Thu, 02 Apr 2020 10:58:16 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/20200402-deep-survival-analysis/</guid>
+      <description>深度生存分析(Deep Survival Analysis) 电子健康档案(electronic health record;EHR)为建立可行的工具来辅助医生提供史无前例的机会。
+引言 目的：利用EHR来估计感兴趣事件未来发生的时间，即医疗领域的生存分析。
+基于患者疾病严重风险的管理治疗在临床决策过程存在的挑战十分普遍。列举了传统疾病评分的三个挑战：
+ 需要完整的数据 患者EHR数据依据统一的标准统一队列（感觉EHR没这个问题，作者想表达的可能是比较难标准化） 协变量与结局变量假设线性，可能存在交互项等  本文提出基于EHR生存分析的新模型：
+ 将协变量和生存时间在贝叶斯框架下进行建模，简化缺失值处理   </description>
+    </item>
+    
+    <item>
+      <title>PyTorch深度学习（2）</title>
+      <link>https://jmwyf.github.io/posts/20200401-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02/</link>
+      <pubDate>Wed, 01 Apr 2020 14:51:32 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/20200401-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02/</guid>
+      <description>PyTorch深度学习（2） Deep Learning = Learning Hierarchical Representations 深度学习即学习层次的表征。
+卷积神经网络的起源（Convolutional Neural Network；CNN） ref  NYC PyTorch Deep Learning课程网站 cs231n convolutional networks  </description>
+    </item>
+    
+    <item>
+      <title>重读XGBoost</title>
+      <link>https://jmwyf.github.io/posts/20200323-%E9%87%8D%E8%AF%BBxgboost/</link>
+      <pubDate>Mon, 23 Mar 2020 16:18:13 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/20200323-%E9%87%8D%E8%AF%BBxgboost/</guid>
+      <description>重读XGBoost 在使用xgboost方法调参时，对其中个别参数不是特别理解。故重新读了一遍原论文。
+1. 引言 阐述机器学习和数据驱动的方法应用时两个重要的因素：
+ 能捕捉数据间复杂依赖关系的模型 可扩展的学习系统，可以从大量数据中学习  在目前常用的方法中，梯度提升树（gradient tree boosting）在许多场景中效果都不错，作者列举了一些。提出xgboost方法在比赛以及各类问题中的应用。
+叙述XGBoost的优点：运行更快、拓展性更好。创新点包括：
+ 高度可拓展的端到端提升树（tree boosting）系统 用于高效计算的加权分位数图（weighted quantile sketch） 新颖的稀疏感知算法（sparsity-aware algorithm），用于并行树学习 有效的缓存优化以及块（cache-aware block）结构用于外存（out-of-core）树学习 关于以上几点在正文中详解。  论文结构：
+ 提升树（tree boosting）简介以及目标函数正则化 分裂点寻找的方法 系统设计，包括为每个优化提供量化支持的结果 相关工作 详细的端到端评估 总结  2. 提升树（Tree Boosting）简介 首先需要了解CART（Classification And Regression Tree）算法，对于cart分类树和回归树分别采用了：Gini系数、和方差度量方式来划分节点[1]。例如回归树，对于划分特征A, 划分点s使两边数据集D1和D2,求出使 D1和D2各自集合的均方差最小，同时D1和D2的均方差之和最小。 $$ \underbrace{min}_{A, s}[\underbrace{min}_{c1}\sum_{x_i \in D1(A,s)}(y_i - c1)^2 + \underbrace{min}_{c2}\sum_{x_i \in {D2(A,s)}}(y_i - c2)^2] $$ 其中，c1为D1的样本输出均值，c2为D2的样本输出均值, 回归树采用叶子节点的均值或者中位数来预测输出结果，$y_i$即样本的label，此时的输出值即下文中用到的$w_{q(x)}$。
+2.1 正则化目标函数 对于这种类型的集成树模型，用K棵树的结果来预测最后的结果（式1），那么问题来了我们怎么来求这些树的参数，每棵树都可以看做一个函数$f_i$包含树的结构以及最后叶节点权重，集成模型不像传统优化问题一样通过简单用梯度下降可以对所有的树进行学习求解，所以，在这里用到了加法策略，即固定已经学习到的，每次加一棵树来进行学习（式3）。 $$\hat{y_i} = \phi(x_i) = \sum_{k = 1}^{K} f_k(x_i)\tag1$$ 其中$f(x) = w_{q(x)}$，每个$f_k$对应一个独立的树结构q以及其叶节点权重w，为了学习模型中的参数，最小化下面正则化的目标函数。 $$L(\phi) = \sum_i l(\hat{y_i}, y_i) + \sum_k \Omega(f_k)\tag2$$</description>
+    </item>
+    
+    <item>
+      <title>Pytorch LSTM时间序列分析</title>
+      <link>https://jmwyf.github.io/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</link>
+      <pubDate>Tue, 17 Mar 2020 12:44:45 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</guid>
+      <description>Pytorch LSTM时间序列分析（单变量） 本文内容建议在jupyter notebook中使用
+1. 数据集 import torch from torch import nn import seaborn as sns import numpy as np import pandas as pd from sklearn.preprocessing import MinMaxScaler import matplotlib.pyplot as plt %matplotlib inline sns.get_dataset_names() [&#39;anscombe&#39;, &#39;attention&#39;, &#39;brain_networks&#39;, &#39;car_crashes&#39;, &#39;diamonds&#39;, &#39;dots&#39;, &#39;exercise&#39;, &#39;flights&#39;, &#39;fmri&#39;, &#39;gammas&#39;, &#39;iris&#39;, &#39;mpg&#39;, &#39;planets&#39;, &#39;tips&#39;, &#39;titanic&#39;]  以上是seaborn包中有的著名的数据集，可以随便打开一个看一下。
+data = sns.load_dataset(&amp;#34;anscombe&amp;#34;) data.head(10)     dataset x y     0 I 10 8.</description>
+    </item>
+    
+    <item>
+      <title>深度学习个人及机构博客推荐（持续更新）</title>
+      <link>https://jmwyf.github.io/posts/2020-03-12-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AA%E4%BA%BA%E5%8F%8A%E6%9C%BA%E6%9E%84%E5%8D%9A%E5%AE%A2%E6%8E%A8%E8%8D%90%E6%9B%B4%E6%96%B0ing/</link>
+      <pubDate>Thu, 12 Mar 2020 17:20:23 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/2020-03-12-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AA%E4%BA%BA%E5%8F%8A%E6%9C%BA%E6%9E%84%E5%8D%9A%E5%AE%A2%E6%8E%A8%E8%8D%90%E6%9B%B4%E6%96%B0ing/</guid>
+      <description>深度学习个人及机构博客推荐（更新ing）   karpathy博客以及主页 - 特斯拉AI，李飞飞实验室
+http://karpathy.github.io/
+https://cs.stanford.edu/people/karpathy/
+  colah博客 - 李飞飞实验室
+http://colah.github.io/
+  ruder - DeepMind团队
+https://ruder.io/
+  Tim Dettmers博客 - 华盛顿大学深度学习方向PhD
+https://timdettmers.com/
+  Machine Learning Mastery - 致力于帮助入门机器学习
+https://machinelearningmastery.com/blog/
+  Jessica yung - google Brain团队(停更)
+https://www.jessicayung.com/
+  莫烦 - 中文简易教程较完整，可以快速入门（停更）
+https://morvanzhou.github.io/
+  hrwhisper - 他爱机器学习
+https://www.hrwhisper.me/
+  Open AI - 人工智能非营利组织，游戏出道
+https://openai.com/blog/
+  Distill - Latest articles about machine learning</description>
+    </item>
+    
+    <item>
+      <title>LSTM简介以及pytorch实例</title>
+      <link>https://jmwyf.github.io/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
+      <pubDate>Mon, 09 Mar 2020 15:07:13 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
+      <description>LSTM简介以及pytorch实例 在去年介绍的一篇paper中，应用了多任务RNN来解决问题，当时RNN指的即是LSTM。本文介绍LSTM实现以及应用。
+1. LSTM简介 循环神经网络要点在于可以将上一时刻的信息传递给下一时刻，但是在需要长程信息依赖的场景，训练一个好的RNN十分困难，存在梯度爆炸和梯度消失的情况。LSTM通过刻意的设计来解决该问题。
+简单的RNN网络中重复的模块只有一个简单的结构，例如一个relu层，而在LSTM中重复的模块拥有4个不同的结构相互交互来完成。
+1.1 首先决定从cell中丢弃什么信息 $$f_t = \sigma(W_f*[h_{t-1}, X_t] + b_f)\tag1$$ sigma函数在0到1选择代表丢弃与否
+1.2 什么样的新信息存放到cell中 $$i_t = \sigma(W_i*[h_{t-1}, x_t] + b_i)\tag2$$
+$$\widetilde{C}_t = tanh(W_c*[h_{t-1}, x_t] + b_c)\tag3$$
+$$C_t = f_t*C_{t-1} + i_t*\widetilde{C}_t\tag4$$
+4式中旧状态与$f_t$相乘，丢弃确定需要丢弃的信息，加上新的候选值。可以看到假如遗忘门一直为1，就可以保持以前的信息$C_{t-1}$
+1.3 输出结果 $$o_t = \sigma(W_o[h_{t-1}, x_t] + b_o)\tag5$$ $$h_t = o_t*tanh(C_t)\tag6$$
+2. LSTM实例以及Pytorch实现 循环神经网络可以应用到以下场景。
+ 点对点（单个图片（文字）被分类；图像分类） 点对序列（单个图像（文字）被分为多个类；图像输出文字） 序列分析（一系列图片（文字）被分类；情感分析） 不等长序列对序列（机器翻译） 等长序列对序列（视频帧分类）  举两个例子：图像分类以及时间序列预测
+2.1 LSTM图像分类 关于图片分类常用卷积神经网络，侧重空间上处理；而循环神经网络侧重序列处理。但是也能用来图片分类。第一个例子以常用的mnist手写字体识别为例。
+2.1.1 导入所需用到的包以及超参数设置等 # Setup import torch from torch import nn from torch.</description>
+    </item>
+    
+    <item>
+      <title>PyTorch深度学习（1）</title>
+      <link>https://jmwyf.github.io/posts/2020-03-05-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Thu, 05 Mar 2020 11:50:19 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/2020-03-05-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+      <description>PyTorch深度学习（1） 1. History, motivation and evolution of Deep Learning 科学技术发展如海浪一样也会潮起潮落，深度学习在经历了几次低谷后。2010年左右，在语音识别领域取得进展，2012年在计算机视觉领域也发展起来，随后各个领域都开始使用应用深度学习方法，而似乎渐渐抛弃了其他方法，那么深度学习是不是问题的最终解决之道呢？研究方向宽泛而多维才是合理的道路，不应过分追求热点领域。正如上世纪80年代日本学者在低谷时期仍然坚持自己的研究领域。
+学习表征：如何学习好的表征是深度学习要解决的问题之一，原始数据以一种有用的形式返回。自然状态下数据相互依赖有关系的。高效的表达方式应该是每类数据都是完全独立能完全单独表达某个方面。
+ space tiling random projections polynomial classifier radial basis functions kernel machines  2. Gradient Descent and Backpropagation 2.1 Gradient Descent $$J(w, b) = \frac{1}{m}\sum_1^mL(\hat{y}^{(i)}, y^{i})$$ J(w, b)为问题的cost function即目标函数，即m个样本的损失函数平均值。使目标函数最小得到此时w,b参数是我们的优化问题。
+2.1.1 梯度下降(batch gradient descent) 梯度下降即上式对所有样本计算求出目标函数，通过对w,b求梯度来找到目标函数最小值，常用的一个比喻即找最快路径下山。数学理解是算法实现的重要一步，但与在计算机上实现还是有区别的，那么实际做法是什么样的呢？
+当你对复杂的问题想不清楚时，我们都可以从一个简单的例子出发来简化问题，对于这个问题考虑只有一个样本时，我们怎么编程实现呢？对w1、 b1，计算一个样本的loss然后对w1、b1求导优化思路很清晰，那么有m个样本的时候呢？只需将其他样本计算loss，然后对w1、b1求导相加。最后在通过学习率来更新w、b。可以看到每次更新都需要进行m次运算
+2.1.2 小样本梯度下降（mini-batch gradient descent） 在每次更新时用n个样本，不用全部的样本。在深度学习中常用这种方法。用mini-batch可以享受向量化带来的便利，也不用全梯度下降那么大计算量，同时这也是应对冗余数据的一种方法。
+2.1.3 随机梯度下降(stochastic gradient descent) 当n = 1的时候，每次更新的时候用1个样本。该方法在大多数情况下比全样本的梯度下降要快。
+三种优化方法最后收敛吗？最后能达到全局最小值吗？这是优化方法都需要考虑到的。可以阅读Optimization Methods for Large-Scale Machine Learning，我自己还没读过&amp;hellip;
+2.2 Backprop 反向传播是为了求梯度用到的微积分链式法则，从而使梯度下降算法运行。
+2.3 PyTorch训练神经网络步骤  output = model(input) 即神经网络前向传播 J = loss(output, label) 计算cost function model.</description>
+    </item>
+    
+    <item>
+      <title>2020</title>
+      <link>https://jmwyf.github.io/posts/2020-03-02-2020/</link>
+      <pubDate>Mon, 02 Mar 2020 10:18:00 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/2020-03-02-2020/</guid>
+      <description>2020 过春节回家前，我完全不会想到这将成为我在家呆的时间最长的一次。
+Blog 受疫情的影响，已经在家呆了整整40天了，上大学放暑假的时间都没有这个长。于是又开始捣鼓博客，最开始写博客是2019年春节，当时也是因为有大段的时间可以捣鼓这些东西，哪想到回去上班后没几个月，就断开连接了，原因有二：
+ 自己懒，平时上完班，下班可能就开始放松了，没有把时间花在如何输出有价值的blog上 换了台笔记本，数据迁移后，build网站并不能成功。试了几次后来干脆就放弃push了。  这次重回blog，用的还是hugo，原来的blog project用不了，就完全重新来过。按照hugo官方quickstart走了一遍，又找了一个顺眼的主题把以前的blog稍微改了改就ok了，当然这个主题也有一些缺陷比如不能支持公式，没有rss，没有归档等，有些自己解决了，有些太麻烦，实在折腾，就先这样吧。tips: 用相关软件的时候看官方文档就是王道，官方文档都没看清，就开始看其他材料就有点舍本逐末了。
+在找blog主题的过程中，发现了很多有意思的blog，都基本在18，19年停更了，很多竟然是可爱的女生，看到停更莫名有点感伤，可能遇到了人生中什么重要的事，写博客只好放一放。也有可能转移到其他地方去了比如微信个人公众号，vblog等等，毕竟现在人们看微信朋友圈文章的时间更长，转发的也是各中形形色色的公众号上的文章，我们也看到了vblog的流行，看blog的人实在太少，没有什么流量，也不太容易fllow(可以使用RSS，但是这个听起来就古老)，未来10年基于网页的blog会不会消失呢，或者说10年后人们在什么平台抒发自己想记录的，我想应该不会消失但估计会进一步减少，正如我所说不太容易follow，看起来不方便，加载有些我也很慢（怎么调才能达到百度那个相应速度hhh，这也是一个todo），那么会朝什么方向变化至少得解决人们用社交软件就可以follow的问题。
+总之，写blog也希望看到的你能提出你们的看法，与你们交流。这样才有写blog的乐趣与动力。
+新冠肺炎 这是写这篇blog时，全国疫情的情况。 当时网上有个谣言说武汉感染有十万人，专家出来辟谣了，我和朋友说差不多5-8w吧，已经突破了，估计最终8.5w?愿疫情早点消失，同时也希望自己以后能在医疗行业做出一丢丢贡献。疫情对未来会产生的影响当然是最关注的了和以后的生活息息相关：
+ 云教育、云办公迎来了第一次热潮，云教育我觉得还是挺不错，给那些时间空间受限的人们提供了便利，至于云办公还是觉得可能只是当下吧，等疫情消失后未来很久都应该还是实体办公室办公为主。 互联网医疗这个行业一直处于发展阶段，这次相当于搞了个强力催化剂，丁香园平台有了在线义诊，哪个公司的AI借势进入肺炎诊断等等，接下来一段时间就是这个行业的发力期了。移动互联网给大家带来了哪些改变呢，电商，网约车等等，医疗属于一个还没有开发的板块之一。 国内国际旅游业受疫情影响严重，疫情结束后会有一波小高峰，且各地推出了医务人员免票等优惠活动，旅游产业链比如出行，酒店等会迎来高峰，前提当然是能撑过这次疫情，刚刚看到一个新闻就是某个出境游平台倒闭了。 生物安全，基因组学这块不太懂，但是感觉真的21世纪是生物的时代快来了。 国家对网络舆论的管控，如何快速管理和引导舆论也成为了网络时代的重点了  2020 flag 最后，到了该立flag的时间了，对2020的期待好像和2019没啥太大变化。
+ 运动：每周去健身房和泳池的次数是至少3次 图书：至少看20本书，已经看了一本小说《皮囊》，一般不属于力荐 当然最重要的还是一个小目标即：每两个星期要post一篇blog，不管是像这样扯些有的没的，还是正儿八经的学术思考等等。  凡事不预则废嘛，当然预了也不一定立，所以有啥惩罚措施欢迎在下面留言。
+ref  官方关于rss说明 hugo增加RSS订阅功能 hugo增加GA分析功能  </description>
+    </item>
+    
+    <item>
+      <title>KILL TIME or KILL US</title>
+      <link>https://jmwyf.github.io/posts/2019-09-16-kill-time-or-kill-us/</link>
+      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/2019-09-16-kill-time-or-kill-us/</guid>
+      <description>精神写照 我们逃进游戏
+逃进电视
+消费青春
+等待那个需要依靠的人</description>
+    </item>
+    
+    <item>
+      <title>DenseNet导读</title>
+      <link>https://jmwyf.github.io/posts/densenet/</link>
+      <pubDate>Thu, 29 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/densenet/</guid>
+      <description>DenseNet导读 在前一篇介绍了resnet之后，本篇介绍与之结构类似升级版DenseNet
+引言（Introduction） 当CNN层数变得越来越深，输入的信息或者在网络中传递的梯度信息可能会消失或者随着层数增加而消失。已经有许多论文提出了各种各样的解决方法，例如ResNet前一层与下一层网络间的恒等连接，Stochastic depth随机丢弃某些网络层，分形网络（FractalNet）中的分形结构。以上这些方法都存在一个共同特点：在层与层之间创造捷径。
+本文将这些想法提炼总结成：为了确保网络中最大的信息流通，让每层都与之前的所有层相连，即每层的的输入都是之前所有层的输出（通过连接concatenate而成）。
+在引文中还阐述了该网络架构的三个特点：
+ 需要更少的参数（Densenet每层用到了12个卷积核） 由于信息流以及梯度传递更加方便，便于训练 、 自带正则化  相关工作（realated work） 介绍了一些网络，和resnet那篇差不多
+DenseNets $H_l(.)$表示一种组合的操作，例如可以包括批量归一化（BN）、ReLU、Pooling、卷积（Conv）
+Dense connectivity $x_l = H_l([x_0, x_1, &amp;hellip;, x_{l-1}])$
+composite function BN &amp;gt; ReLU &amp;gt; 3x3 convolution
+dense blocks &amp;amp; transition layers 假如一直以dense connect这种架构，最后一层的feature maps尺寸会很大，以前降采样的方式是在某种模式的卷积后进行，此处则是在dense block这种结构进行convolution和pooling,这两层称为transition layer Growth rate 每个网络层输出的特征图数量k称为Growth rate，第l层有 $$ k_0 + k * (l-1) $$
+Bottleneck Layers 使用1*1 Conv作为作为特征降维的方式。 BN &amp;gt; ReLU &amp;gt; ReLU &amp;gt; Conv(1*1) &amp;gt; BN &amp;gt; ReLU &amp;gt; Conv(3*3) 想象你有个6 x 6 x 32 的特征图，用1 x 1 x 32 Conv来进行降维 DenseNet-B</description>
+    </item>
+    
+    <item>
+      <title>ResNet导读要点解析</title>
+      <link>https://jmwyf.github.io/posts/2019-08-19-resnet/</link>
+      <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/2019-08-19-resnet/</guid>
+      <description>ResNet导读 本文主要详细介绍ResNet。
+引言 Resnet提出主要是为了解决在不断增加神经网络的深度时，会出现一个Degradation（退化）的问题，即准确率会先上升然后达到饱和，再持续增加深度则会导致准确率下降。这并不是过拟合的问题，因为不光在测试集上误差增大，训练集本身误差也会增大。 （例如现在有个浅层网络,最后输出为y,已经是一个准确率较高的网络，现在在该浅层网络上继续增加层数得到一个深层网络，想让输出仍为y,即后面增加的网络层是恒等映射，而退化问题就说明对于神经网络来说恒等映射是不容易优化的）
+深度残差学习（Deep Residual Learning）   残差学习（Residual Learning）
+$H(x) = F(x) + x$
+把恒等输入作为网络的一部分，其中H(x)为模型潜在的映射，x为输入
+$F(x) = H(x) - x$
+F(x)为残差函数
+  通过捷径（Shortcuts）进行恒等映射
+$y = F(x,W_{i}) + x$
+每个元素对应相加（element-wise addition）
+其中$F(x, W_{i})$为残差，$F = W_2\sigma(W_1x)$（图中会让人产生一种F(x)是在两层中间的错觉，其实是在两层之后）
+  网络结构
+    文献中图3左为VGG-19, 卷积层均使用same padding，输出大小变化发生在max pooling, stride = 2。 $$(n+2p-f+1)/s$$
+  构建Plain networks来复现退化现象
+  残差网络中虚线表示通道数不同，使用
+$H(x) = F(x) + Wx$ W用来调整维度
+对于更深层的残差网络使用了Bottleneck结构，降低参数量。
+  主要介绍一下图1，在深度学习论文中会经常看到类似图1的表。</description>
+    </item>
+    
+    <item>
+      <title>最近的生活</title>
+      <link>https://jmwyf.github.io/posts/%E6%9C%80%E8%BF%91%E7%9A%84%E7%94%9F%E6%B4%BB/</link>
+      <pubDate>Thu, 08 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/%E6%9C%80%E8%BF%91%E7%9A%84%E7%94%9F%E6%B4%BB/</guid>
+      <description>最近的生活有些颓废，并没有认真工作。
+部门轮转工作的伊始，觉得能了解整个机构，也不失为一种学习的过程，但是在一个日暮西山的部门好像并不是这样。
+不过看了两部不错的电影，也算不虚度光阴哈哈哈。一部是《楚门的世界》，另一部是《绝杀慕尼黑》。《楚门的世界》在上大学的时候英语课上记得老师推荐过，也看过一点点，那大概是7、8年前不知道是不是那时候接受西方文化比较少还是怎样，当时没太想往下看的欲望，最近又看到某视频网站的推送决定点开再看看。
+楚门这个名字应该是True Man的音译，电影中除了楚门没有在表演是真实的自己，其他人都是演员。从小楚门在封闭的环境（一个四周环水的岛中，其实是一个巨大的半球）中成长起来，导演通过对父亲在水中丧生来营造楚门害怕水不敢出海的性格，同时营造飞机容易失事的氛围，总之就是为了让楚门老老实实呆在岛上。然而楚门有一颗想去远方的心，在剧中他喜欢上了某个女群演，女群演不忍心楚门被导演玩弄，告诉他真相，最后被导演组带走了，楚门并不懂初恋女友说了什么，但是日夜牵挂着初恋女友，想去远方找她，所以还是妹子给楚门的动力。车上收音机故障、妻子结婚时的手势等等更加坚定了他自己想要逃离这个岛的决心。遭到了导演组的百般阻扰，看电影时我强烈地希望楚门能成功，有点害怕楚门始终被困在岛上的结局，最后成功逃脱我也松了一口气，仿佛看到自己挣脱了生活的枷锁。
+首先电影让我毛骨悚然，一个人可以被天衣无缝的安排的明明白白；其次假如当我生活在这样一个环境，会想着逃脱还是在这里继续生活，当然最期待的还是会不会有一个女人来拯救我。
+《绝杀慕尼黑》是一部热血的关于篮球的影片，讲述了苏联篮球队在慕尼黑奥运会上战胜了美国篮球队。我们现在都知道美国NBA，看篮球基本上也就看看美国各支队伍打来打去就行，现在美国篮球那肯定是十分强的，冷战时期依然是强队。我对篮球并不是十分感冒，大学时我喜欢的女孩喜欢篮球，还无意间提过自己熬夜看灌篮高手，记得我当时回去就立马把灌篮高手全集下下来看，看了几集觉得有点幼稚没有继续看下去，可能是当时的心境不合适就像我很久前看楚门一样，难道我那时候对日本文化还不是那么接纳？说不定啥时候再看又觉得非常好看了，总之我对篮球不是那么喜欢，但并不妨碍一部优秀的讲述篮球故事的电影展示我其中的故事。
+电影以苏联篮球队中个人故事来展开，我十分喜欢用各个小人物的故事来描述一个大时代大背景的故事，仿佛能看到历史洪流下的自己，自己的故事或者同时代下相似的故事有一天也终将搬上电影屏幕，想象着宿舍里传来周杰伦的歌，同学们打着游戏dota、lol，一个故事就这样展开。篮球队的灵魂人物新上任的教练交流大胆革新，只有敢于出去交流比赛才会进步；某投手1带头大哥，团队的凝聚力全靠他；某投手2爱情故事男主角，爱情中的责任与割舍，“如果生命只剩下最后三秒，我们能做什么？”，最后场上3s中戏剧性的变化奇迹就在下一秒发生。我忘记具体是那一幕我热泪盈眶，是爱情的不舍还是最后夺冠的喜悦与感动。
+好的电影必然少不了感动与激励！</description>
+    </item>
+    
+    <item>
+      <title>多任务RNN预测ICU动态疾病严重程度</title>
+      <link>https://jmwyf.github.io/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/</link>
+      <pubDate>Tue, 26 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/</guid>
+      <description>Chen2018
+本文为2018 IEEE ICDM会议论文。属于数据挖掘不错的会议。
+SIGKDD(Special Interest Group Knowledge Discovery and Data Mining)为数据挖掘的顶级会议。
+摘要
+作者认为现有的死亡预测以及表型分析？不能在动态改变的临床环境中提供足够证据。本文提出一种能同时分析不同器官系统来预测ICU中患者疾病严重程度，这种方法可以直观及时地反映患者病情。
+引言
+传统评分需要较长的时间窗口如24小时才能反映疾病的严重程度，对急危重症患者反应有延后；我们认为对危重病人进行更频繁的评价能更清楚的显示患者病情，是早期预测医疗状况一种可能的途径。作者利用两个患者入院后sofa随时间的变化来说明了高密度的病情评估是患者监测一种有效的手段。
+目前已经有很多AI研究者利用多种时序信号来进行死亡预测等。但是均忽视了各个器官系统时序信号之间的存在的关系，这可能会影响预测性能。
+为了解决这个问题，本文提出了：
+ 多任务RNN框架。通过共享单元来考虑各器官系统间的时间相关性 应用attention机制。关注输入中的重要信息来达到更好的性能 基于真实世界ICU数据，与许多最先进的方法进行对比说明  随后，作者给出与本文相关的工作。首先是同行们做的一些工作。然后介绍了多任务学习，最后介绍了注意力机制。
+方法
+ 数据预处理   $16 \leq age \leq 75$ 排除 LOS &amp;lt; 12h 41个从不同系统获取的特征 时间窗口内去特征平均值作为新值 插值策略：前向插值；前无值则中位数 80%训练，20%测试； 基于熵的损失函数以及L2正则化   多任务RNN  每一时刻的LSTM均包含了一下几个模块，i, f, o, c和h分别对应input gate, forget gate, output gate, memory cell以及hidden state。
+在不同系统之间，共享一个hidden layer(隐藏层)  注意力机制  Attention给模型赋予了区分辨别的能力；解释模型到底学到了什么知识，为我们打开深度学习的黑箱，提供了一个窗口
+ 模型比较与评估  最先进的
+ GRU-ATT HMT-RNN pRNN RNN MTRNN RNN-ATT  Baseline model:</description>
+    </item>
+    
+    <item>
+      <title>ICU实时死亡预测</title>
+      <link>https://jmwyf.github.io/posts/2019-03-11-icu%E5%AE%9E%E6%97%B6%E6%AD%BB%E4%BA%A1%E9%A2%84%E6%B5%8B/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/2019-03-11-icu%E5%AE%9E%E6%97%B6%E6%AD%BB%E4%BA%A1%E9%A2%84%E6%B5%8B/</guid>
+      <description>Alistair2018
+引言：  传统评分 机器学习以及医院电子化到MIMIC介绍 死亡预测过去的研究 提出本文的目的使用不同的数据采样方法来预测个体患者死亡率，以及本文的总体结构：  患者人群定义以及数据提取 前24小时数据传统死亡预测评分与机器学习方法对比 建立实时死亡预测    数据 MIMIC-III数据库（v1.4）
+排除标准：
+ 年龄小于16 ICU时长小于4h no data present in the patient flowsheet organ donor accounts order for limitation of treatment on or before ICU admission  最终得到50，488次ICU记录
+特征 特征如下： 其中W为时间窗口长度， $t_{i,w}$为截止时间
+方法  机器学习方法：   LR，LASSO，LR with L2正则化，GBDT
+  传统评分:   APS III, SAPS, SAPS II, SOFA, LODS以及OASIS
+  评价指标   AUROC</description>
+    </item>
+    
+    <item>
+      <title>git常用命令</title>
+      <link>https://jmwyf.github.io/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+      <description>git常用操作（删除文件包括.DS_Store） git删除远程分支文件 当我们需要删除暂存区或分支上的文件, 同时工作区也不需要这个文件了, 可以使用 git rm file_path
+当我们需要删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制, 可以使用 git rm –cached file_path
+所以我们经常使用来删除git中的文件
+git rm -r --cached filename git commit -m &#39;delete some file&#39; git push origin master git初始化文件夹 进入目录
+git init git删除.DS_Store文件  从该仓库中删除已存在的DS_Store文件  find . -name .DS_Store -print0 | xargs -0 git rm -f &amp;ndash;ignore-unmatch
+新建.gitignore_global文件并将.DS_Store以及*/.DS_Store加入其中  vi .gitignore_global .DS_Store */.DS_Store git config --global core.excludesfile ~/.gitignore_global 推到仓库  git add .gitignore git commit -m &#39;.</description>
+    </item>
+    
+  </channel>
+</rss>

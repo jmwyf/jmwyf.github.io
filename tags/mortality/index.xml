@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mortality on Young Forever</title>
+    <link>https://jmwyf.github.io/tags/mortality/</link>
+    <description>Recent content in mortality on Young Forever</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jmwyf.github.io/tags/mortality/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ICU实时死亡预测</title>
+      <link>https://jmwyf.github.io/posts/2019-03-11-icu%E5%AE%9E%E6%97%B6%E6%AD%BB%E4%BA%A1%E9%A2%84%E6%B5%8B/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmwyf.github.io/posts/2019-03-11-icu%E5%AE%9E%E6%97%B6%E6%AD%BB%E4%BA%A1%E9%A2%84%E6%B5%8B/</guid>
+      <description>Alistair2018
+引言：  传统评分 机器学习以及医院电子化到MIMIC介绍 死亡预测过去的研究 提出本文的目的使用不同的数据采样方法来预测个体患者死亡率，以及本文的总体结构：  患者人群定义以及数据提取 前24小时数据传统死亡预测评分与机器学习方法对比 建立实时死亡预测    数据 MIMIC-III数据库（v1.4）
+排除标准：
+ 年龄小于16 ICU时长小于4h no data present in the patient flowsheet organ donor accounts order for limitation of treatment on or before ICU admission  最终得到50，488次ICU记录
+特征 特征如下： 其中W为时间窗口长度， $t_{i,w}$为截止时间
+方法  机器学习方法：   LR，LASSO，LR with L2正则化，GBDT
+  传统评分:   APS III, SAPS, SAPS II, SOFA, LODS以及OASIS
+  评价指标   AUROC</description>
+    </item>
+    
+  </channel>
+</rss>
