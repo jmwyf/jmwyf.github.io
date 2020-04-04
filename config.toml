@@ -1,0 +1,37 @@
+baseURL = "https://www.youngforever.tech/"
+languageCode = "en-us"
+title = "Young Forever"
+theme = "diary"
+googleAnalytics = "UA-133677720-1"
+
+[params]
+subtitle = "靡不有初，鲜克有终"
+# enableValine = true
+favicon = "images/favicon.ico"
+livereId = "MTAyMC80OTA0OS8yNTU0NA=="
+
+# [params.valine]
+#  appId = "OCza6uA6qRwnSVk3JSHawKa5-gzGzoHsz"
+#  appKey = "HUh0dfrkFRz1wKpN3sFfkXg2"
+#  avator = "wavatar"
+
+[taxonomies]
+   tag = "tags"
+   category = "categories"
+   
+[[menu.main]]             # config your menu              # 配置目录
+name = "About"
+weight = 4
+url = "/about"
+[[menu.main]]
+name = "Archive"
+weight = 1
+url = "/posts"
+[[menu.main]]
+url = "/categories"
+name = "Categories"
+weight = 2
+[[menu.main]]
+url = "/tags"
+name = "Tags"
+weight = 3
