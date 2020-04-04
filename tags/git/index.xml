@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>git on Young Forever</title>
-    <link>https://jmwyf.github.io/tags/git/</link>
+    <link>https://youngforever.tech/tags/git/</link>
     <description>Recent content in git on Young Forever</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 04 Mar 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://jmwyf.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://youngforever.tech/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>git常用命令</title>
-      <link>https://jmwyf.github.io/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+      <link>https://youngforever.tech/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://youngforever.tech/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
       <description>git常用操作（删除文件包括.DS_Store） git删除远程分支文件 当我们需要删除暂存区或分支上的文件, 同时工作区也不需要这个文件了, 可以使用 git rm file_path
 当我们需要删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制, 可以使用 git rm –cached file_path
 所以我们经常使用来删除git中的文件

@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Data Science on Young Forever</title>
-    <link>https://jmwyf.github.io/categories/data-science/</link>
+    <link>https://youngforever.tech/categories/data-science/</link>
     <description>Recent content in Data Science on Young Forever</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 01 Apr 2020 14:51:32 +0000</lastBuildDate>
     
-	<atom:link href="https://jmwyf.github.io/categories/data-science/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://youngforever.tech/categories/data-science/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>PyTorch深度学习（2）</title>
-      <link>https://jmwyf.github.io/posts/20200401-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02/</link>
+      <link>https://youngforever.tech/posts/20200401-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02/</link>
       <pubDate>Wed, 01 Apr 2020 14:51:32 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/20200401-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02/</guid>
+      <guid>https://youngforever.tech/posts/20200401-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02/</guid>
       <description>PyTorch深度学习（2） Deep Learning = Learning Hierarchical Representations 深度学习即学习层次的表征。
 卷积神经网络的起源（Convolutional Neural Network；CNN） ref  NYC PyTorch Deep Learning课程网站 cs231n convolutional networks  </description>
     </item>
     
     <item>
       <title>Pytorch LSTM时间序列分析</title>
-      <link>https://jmwyf.github.io/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</link>
+      <link>https://youngforever.tech/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</link>
       <pubDate>Tue, 17 Mar 2020 12:44:45 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</guid>
+      <guid>https://youngforever.tech/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</guid>
       <description>Pytorch LSTM时间序列分析（单变量） 本文内容建议在jupyter notebook中使用
 1. 数据集 import torch from torch import nn import seaborn as sns import numpy as np import pandas as pd from sklearn.preprocessing import MinMaxScaler import matplotlib.pyplot as plt %matplotlib inline sns.get_dataset_names() [&#39;anscombe&#39;, &#39;attention&#39;, &#39;brain_networks&#39;, &#39;car_crashes&#39;, &#39;diamonds&#39;, &#39;dots&#39;, &#39;exercise&#39;, &#39;flights&#39;, &#39;fmri&#39;, &#39;gammas&#39;, &#39;iris&#39;, &#39;mpg&#39;, &#39;planets&#39;, &#39;tips&#39;, &#39;titanic&#39;]  以上是seaborn包中有的著名的数据集，可以随便打开一个看一下。
 data = sns.load_dataset(&amp;#34;anscombe&amp;#34;) data.head(10)     dataset x y     0 I 10 8.</description>
@@ -34,10 +34,10 @@ data = sns.load_dataset(&amp;#34;anscombe&amp;#34;) data.head(10)     dataset x 
     
     <item>
       <title>深度学习个人及机构博客推荐（持续更新）</title>
-      <link>https://jmwyf.github.io/posts/2020-03-12-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AA%E4%BA%BA%E5%8F%8A%E6%9C%BA%E6%9E%84%E5%8D%9A%E5%AE%A2%E6%8E%A8%E8%8D%90%E6%9B%B4%E6%96%B0ing/</link>
+      <link>https://youngforever.tech/posts/2020-03-12-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AA%E4%BA%BA%E5%8F%8A%E6%9C%BA%E6%9E%84%E5%8D%9A%E5%AE%A2%E6%8E%A8%E8%8D%90%E6%9B%B4%E6%96%B0ing/</link>
       <pubDate>Thu, 12 Mar 2020 17:20:23 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/2020-03-12-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AA%E4%BA%BA%E5%8F%8A%E6%9C%BA%E6%9E%84%E5%8D%9A%E5%AE%A2%E6%8E%A8%E8%8D%90%E6%9B%B4%E6%96%B0ing/</guid>
+      <guid>https://youngforever.tech/posts/2020-03-12-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AA%E4%BA%BA%E5%8F%8A%E6%9C%BA%E6%9E%84%E5%8D%9A%E5%AE%A2%E6%8E%A8%E8%8D%90%E6%9B%B4%E6%96%B0ing/</guid>
       <description>深度学习个人及机构博客推荐（更新ing）   karpathy博客以及主页 - 特斯拉AI，李飞飞实验室
 http://karpathy.github.io/
 https://cs.stanford.edu/people/karpathy/
@@ -62,10 +62,10 @@ https://openai.com/blog/
     
     <item>
       <title>LSTM简介以及pytorch实例</title>
-      <link>https://jmwyf.github.io/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
+      <link>https://youngforever.tech/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
       <pubDate>Mon, 09 Mar 2020 15:07:13 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
+      <guid>https://youngforever.tech/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
       <description>LSTM简介以及pytorch实例 在去年介绍的一篇paper中，应用了多任务RNN来解决问题，当时RNN指的即是LSTM。本文介绍LSTM实现以及应用。
 1. LSTM简介 循环神经网络要点在于可以将上一时刻的信息传递给下一时刻，但是在需要长程信息依赖的场景，训练一个好的RNN十分困难，存在梯度爆炸和梯度消失的情况。LSTM通过刻意的设计来解决该问题。
 简单的RNN网络中重复的模块只有一个简单的结构，例如一个relu层，而在LSTM中重复的模块拥有4个不同的结构相互交互来完成。
@@ -83,10 +83,10 @@ $$C_t = f_t*C_{t-1} + i_t*\widetilde{C}_t\tag4$$
     
     <item>
       <title>PyTorch深度学习（1）</title>
-      <link>https://jmwyf.github.io/posts/2020-03-05-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+      <link>https://youngforever.tech/posts/2020-03-05-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
       <pubDate>Thu, 05 Mar 2020 11:50:19 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/2020-03-05-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+      <guid>https://youngforever.tech/posts/2020-03-05-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
       <description>PyTorch深度学习（1） 1. History, motivation and evolution of Deep Learning 科学技术发展如海浪一样也会潮起潮落，深度学习在经历了几次低谷后。2010年左右，在语音识别领域取得进展，2012年在计算机视觉领域也发展起来，随后各个领域都开始使用应用深度学习方法，而似乎渐渐抛弃了其他方法，那么深度学习是不是问题的最终解决之道呢？研究方向宽泛而多维才是合理的道路，不应过分追求热点领域。正如上世纪80年代日本学者在低谷时期仍然坚持自己的研究领域。
 学习表征：如何学习好的表征是深度学习要解决的问题之一，原始数据以一种有用的形式返回。自然状态下数据相互依赖有关系的。高效的表达方式应该是每类数据都是完全独立能完全单独表达某个方面。
  space tiling random projections polynomial classifier radial basis functions kernel machines  2. Gradient Descent and Backpropagation 2.1 Gradient Descent $$J(w, b) = \frac{1}{m}\sum_1^mL(\hat{y}^{(i)}, y^{i})$$ J(w, b)为问题的cost function即目标函数，即m个样本的损失函数平均值。使目标函数最小得到此时w,b参数是我们的优化问题。
@@ -101,10 +101,10 @@ $$C_t = f_t*C_{t-1} + i_t*\widetilde{C}_t\tag4$$
     
     <item>
       <title>DenseNet导读</title>
-      <link>https://jmwyf.github.io/posts/densenet/</link>
+      <link>https://youngforever.tech/posts/densenet/</link>
       <pubDate>Thu, 29 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/densenet/</guid>
+      <guid>https://youngforever.tech/posts/densenet/</guid>
       <description>DenseNet导读 在前一篇介绍了resnet之后，本篇介绍与之结构类似升级版DenseNet
 引言（Introduction） 当CNN层数变得越来越深，输入的信息或者在网络中传递的梯度信息可能会消失或者随着层数增加而消失。已经有许多论文提出了各种各样的解决方法，例如ResNet前一层与下一层网络间的恒等连接，Stochastic depth随机丢弃某些网络层，分形网络（FractalNet）中的分形结构。以上这些方法都存在一个共同特点：在层与层之间创造捷径。
 本文将这些想法提炼总结成：为了确保网络中最大的信息流通，让每层都与之前的所有层相连，即每层的的输入都是之前所有层的输出（通过连接concatenate而成）。
@@ -119,10 +119,10 @@ Bottleneck Layers 使用1*1 Conv作为作为特征降维的方式。 BN &amp;gt;
     
     <item>
       <title>ResNet导读要点解析</title>
-      <link>https://jmwyf.github.io/posts/2019-08-19-resnet/</link>
+      <link>https://youngforever.tech/posts/2019-08-19-resnet/</link>
       <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/2019-08-19-resnet/</guid>
+      <guid>https://youngforever.tech/posts/2019-08-19-resnet/</guid>
       <description>ResNet导读 本文主要详细介绍ResNet。
 引言 Resnet提出主要是为了解决在不断增加神经网络的深度时，会出现一个Degradation（退化）的问题，即准确率会先上升然后达到饱和，再持续增加深度则会导致准确率下降。这并不是过拟合的问题，因为不光在测试集上误差增大，训练集本身误差也会增大。 （例如现在有个浅层网络,最后输出为y,已经是一个准确率较高的网络，现在在该浅层网络上继续增加层数得到一个深层网络，想让输出仍为y,即后面增加的网络层是恒等映射，而退化问题就说明对于神经网络来说恒等映射是不容易优化的）
 深度残差学习（Deep Residual Learning）   残差学习（Residual Learning）
@@ -145,10 +145,10 @@ $H(x) = F(x) + Wx$ W用来调整维度
     
     <item>
       <title>git常用命令</title>
-      <link>https://jmwyf.github.io/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+      <link>https://youngforever.tech/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://youngforever.tech/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
       <description>git常用操作（删除文件包括.DS_Store） git删除远程分支文件 当我们需要删除暂存区或分支上的文件, 同时工作区也不需要这个文件了, 可以使用 git rm file_path
 当我们需要删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制, 可以使用 git rm –cached file_path
 所以我们经常使用来删除git中的文件

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>xgboost on Young Forever</title>
-    <link>https://jmwyf.github.io/tags/xgboost/</link>
+    <link>https://youngforever.tech/tags/xgboost/</link>
     <description>Recent content in xgboost on Young Forever</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 23 Mar 2020 16:18:13 +0000</lastBuildDate>
     
-	<atom:link href="https://jmwyf.github.io/tags/xgboost/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://youngforever.tech/tags/xgboost/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>重读XGBoost</title>
-      <link>https://jmwyf.github.io/posts/20200323-%E9%87%8D%E8%AF%BBxgboost/</link>
+      <link>https://youngforever.tech/posts/20200323-%E9%87%8D%E8%AF%BBxgboost/</link>
       <pubDate>Mon, 23 Mar 2020 16:18:13 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/20200323-%E9%87%8D%E8%AF%BBxgboost/</guid>
+      <guid>https://youngforever.tech/posts/20200323-%E9%87%8D%E8%AF%BBxgboost/</guid>
       <description>重读XGBoost 在使用xgboost方法调参时，对其中个别参数不是特别理解。故重新读了一遍原论文。
 1. 引言 阐述机器学习和数据驱动的方法应用时两个重要的因素：
  能捕捉数据间复杂依赖关系的模型 可扩展的学习系统，可以从大量数据中学习  在目前常用的方法中，梯度提升树（gradient tree boosting）在许多场景中效果都不错，作者列举了一些。提出xgboost方法在比赛以及各类问题中的应用。

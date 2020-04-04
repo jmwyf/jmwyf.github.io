@@ -2,129 +2,129 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Young Forever</title>
-    <link>https://jmwyf.github.io/tags/</link>
+    <link>https://youngforever.tech/tags/</link>
     <description>Recent content in Tags on Young Forever</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 01 Apr 2020 14:51:32 +0000</lastBuildDate>
     
-	<atom:link href="https://jmwyf.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://youngforever.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Deep Learning</title>
-      <link>https://jmwyf.github.io/tags/deep-learning/</link>
+      <link>https://youngforever.tech/tags/deep-learning/</link>
       <pubDate>Wed, 01 Apr 2020 14:51:32 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/deep-learning/</guid>
+      <guid>https://youngforever.tech/tags/deep-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PyTorch</title>
-      <link>https://jmwyf.github.io/tags/pytorch/</link>
+      <link>https://youngforever.tech/tags/pytorch/</link>
       <pubDate>Wed, 01 Apr 2020 14:51:32 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/pytorch/</guid>
+      <guid>https://youngforever.tech/tags/pytorch/</guid>
       <description></description>
     </item>
     
     <item>
       <title>machine learning</title>
-      <link>https://jmwyf.github.io/tags/machine-learning/</link>
+      <link>https://youngforever.tech/tags/machine-learning/</link>
       <pubDate>Mon, 23 Mar 2020 16:18:13 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/machine-learning/</guid>
+      <guid>https://youngforever.tech/tags/machine-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>xgboost</title>
-      <link>https://jmwyf.github.io/tags/xgboost/</link>
+      <link>https://youngforever.tech/tags/xgboost/</link>
       <pubDate>Mon, 23 Mar 2020 16:18:13 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/xgboost/</guid>
+      <guid>https://youngforever.tech/tags/xgboost/</guid>
       <description></description>
     </item>
     
     <item>
       <title>LSTM</title>
-      <link>https://jmwyf.github.io/tags/lstm/</link>
+      <link>https://youngforever.tech/tags/lstm/</link>
       <pubDate>Tue, 17 Mar 2020 12:44:45 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/lstm/</guid>
+      <guid>https://youngforever.tech/tags/lstm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>blog</title>
-      <link>https://jmwyf.github.io/tags/blog/</link>
+      <link>https://youngforever.tech/tags/blog/</link>
       <pubDate>Thu, 12 Mar 2020 17:20:23 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/blog/</guid>
+      <guid>https://youngforever.tech/tags/blog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>home</title>
-      <link>https://jmwyf.github.io/tags/home/</link>
+      <link>https://youngforever.tech/tags/home/</link>
       <pubDate>Mon, 02 Mar 2020 10:18:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/home/</guid>
+      <guid>https://youngforever.tech/tags/home/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kill time</title>
-      <link>https://jmwyf.github.io/tags/kill-time/</link>
+      <link>https://youngforever.tech/tags/kill-time/</link>
       <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/kill-time/</guid>
+      <guid>https://youngforever.tech/tags/kill-time/</guid>
       <description></description>
     </item>
     
     <item>
       <title>movies</title>
-      <link>https://jmwyf.github.io/tags/movies/</link>
+      <link>https://youngforever.tech/tags/movies/</link>
       <pubDate>Thu, 08 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/movies/</guid>
+      <guid>https://youngforever.tech/tags/movies/</guid>
       <description></description>
     </item>
     
     <item>
       <title>prediction</title>
-      <link>https://jmwyf.github.io/tags/prediction/</link>
+      <link>https://youngforever.tech/tags/prediction/</link>
       <pubDate>Tue, 26 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/prediction/</guid>
+      <guid>https://youngforever.tech/tags/prediction/</guid>
       <description></description>
     </item>
     
     <item>
       <title>RNN</title>
-      <link>https://jmwyf.github.io/tags/rnn/</link>
+      <link>https://youngforever.tech/tags/rnn/</link>
       <pubDate>Tue, 26 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/rnn/</guid>
+      <guid>https://youngforever.tech/tags/rnn/</guid>
       <description></description>
     </item>
     
     <item>
       <title>mortality</title>
-      <link>https://jmwyf.github.io/tags/mortality/</link>
+      <link>https://youngforever.tech/tags/mortality/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/mortality/</guid>
+      <guid>https://youngforever.tech/tags/mortality/</guid>
       <description></description>
     </item>
     
     <item>
       <title>git</title>
-      <link>https://jmwyf.github.io/tags/git/</link>
+      <link>https://youngforever.tech/tags/git/</link>
       <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/tags/git/</guid>
+      <guid>https://youngforever.tech/tags/git/</guid>
       <description></description>
     </item>
     

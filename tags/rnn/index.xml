@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>RNN on Young Forever</title>
-    <link>https://jmwyf.github.io/tags/rnn/</link>
+    <link>https://youngforever.tech/tags/rnn/</link>
     <description>Recent content in RNN on Young Forever</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 26 Mar 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://jmwyf.github.io/tags/rnn/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://youngforever.tech/tags/rnn/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>多任务RNN预测ICU动态疾病严重程度</title>
-      <link>https://jmwyf.github.io/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/</link>
+      <link>https://youngforever.tech/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/</link>
       <pubDate>Tue, 26 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/</guid>
+      <guid>https://youngforever.tech/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/</guid>
       <description>Chen2018
 本文为2018 IEEE ICDM会议论文。属于数据挖掘不错的会议。
 SIGKDD(Special Interest Group Knowledge Discovery and Data Mining)为数据挖掘的顶级会议。

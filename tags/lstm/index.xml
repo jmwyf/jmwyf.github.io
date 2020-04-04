@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>LSTM on Young Forever</title>
-    <link>https://jmwyf.github.io/tags/lstm/</link>
+    <link>https://youngforever.tech/tags/lstm/</link>
     <description>Recent content in LSTM on Young Forever</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 17 Mar 2020 12:44:45 +0000</lastBuildDate>
     
-	<atom:link href="https://jmwyf.github.io/tags/lstm/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://youngforever.tech/tags/lstm/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Pytorch LSTM时间序列分析</title>
-      <link>https://jmwyf.github.io/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</link>
+      <link>https://youngforever.tech/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</link>
       <pubDate>Tue, 17 Mar 2020 12:44:45 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</guid>
+      <guid>https://youngforever.tech/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</guid>
       <description>Pytorch LSTM时间序列分析（单变量） 本文内容建议在jupyter notebook中使用
 1. 数据集 import torch from torch import nn import seaborn as sns import numpy as np import pandas as pd from sklearn.preprocessing import MinMaxScaler import matplotlib.pyplot as plt %matplotlib inline sns.get_dataset_names() [&#39;anscombe&#39;, &#39;attention&#39;, &#39;brain_networks&#39;, &#39;car_crashes&#39;, &#39;diamonds&#39;, &#39;dots&#39;, &#39;exercise&#39;, &#39;flights&#39;, &#39;fmri&#39;, &#39;gammas&#39;, &#39;iris&#39;, &#39;mpg&#39;, &#39;planets&#39;, &#39;tips&#39;, &#39;titanic&#39;]  以上是seaborn包中有的著名的数据集，可以随便打开一个看一下。
 data = sns.load_dataset(&amp;#34;anscombe&amp;#34;) data.head(10)     dataset x y     0 I 10 8.</description>
@@ -24,10 +24,10 @@ data = sns.load_dataset(&amp;#34;anscombe&amp;#34;) data.head(10)     dataset x 
     
     <item>
       <title>LSTM简介以及pytorch实例</title>
-      <link>https://jmwyf.github.io/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
+      <link>https://youngforever.tech/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
       <pubDate>Mon, 09 Mar 2020 15:07:13 +0000</pubDate>
       
-      <guid>https://jmwyf.github.io/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
+      <guid>https://youngforever.tech/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
       <description>LSTM简介以及pytorch实例 在去年介绍的一篇paper中，应用了多任务RNN来解决问题，当时RNN指的即是LSTM。本文介绍LSTM实现以及应用。
 1. LSTM简介 循环神经网络要点在于可以将上一时刻的信息传递给下一时刻，但是在需要长程信息依赖的场景，训练一个好的RNN十分困难，存在梯度爆炸和梯度消失的情况。LSTM通过刻意的设计来解决该问题。
 简单的RNN网络中重复的模块只有一个简单的结构，例如一个relu层，而在LSTM中重复的模块拥有4个不同的结构相互交互来完成。
