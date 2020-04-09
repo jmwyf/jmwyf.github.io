@@ -151,12 +151,12 @@ $H(x) = F(x) + Wx$ W用来调整维度
       <guid>https://youngforever.tech/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
       <description>以下操作基于macOS，Windows仅供参考。
 git初始化文件夹 进入目录
-git init 新建.gitignore 然后在其中加入需要忽略的文件.gitignore
+git init 新建.gitignore 然后在其中加入需要忽略的文件或文件夹.gitignore 例如public\
 git删除远程分支文件 当我们需要删除暂存区或分支上的文件, 同时工作区也不需要这个文件了, 可以使用 git rm file_path
 当我们需要删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制, 可以使用 git rm –cached file_path
 所以我们经常使用来删除git中的文件
 git rm -r --cached filename git commit -m &#39;delete some file&#39; git push origin master git删除.DS_Store文件  从该仓库中删除已存在的DS_Store文件  find . -name .DS_Store -print0 | xargs -0 git rm -f &amp;ndash;ignore-unmatch
-新建.gitignore_global文件并将.DS_Store以及*/.DS_Store加入其中  vi .gitignore_global .DS_Store */.DS_Store git config --global core.excludesfile ~/.gitignore_global 推到仓库  git add .gitignore git commit -m &#39;.</description>
+新建.gitignore_global文件并将.DS_Store以及*/.DS_Store加入其中  vi .gitignore_global .DS_Store */.DS_Store git config --global core.excludesfile ~/.gitignore_global 推到仓库  git add .</description>
     </item>
     
   </channel>

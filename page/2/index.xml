@@ -1,0 +1,370 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Young Forever</title>
+    <link>https://youngforever.tech/</link>
+    <description>Recent content on Young Forever</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 Feb 2019 22:22:22 +0000</lastBuildDate>
+    
+        <atom:link href="https://youngforever.tech/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>ResNet导读要点解析</title>
+        <link>https://youngforever.tech/posts/2019-08-19-resnet/</link>
+        <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://youngforever.tech/posts/2019-08-19-resnet/</guid>
+        <description>Young Forever https://youngforever.tech/posts/2019-08-19-resnet/ -&lt;h1 id=&#34;resnet导读&#34;&gt;ResNet导读&lt;/h1&gt;
+&lt;p&gt;本文主要详细介绍&lt;a href=&#34;https://arxiv.org/abs/1512.03385&#34;&gt;ResNet&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;
+&lt;p&gt;Resnet提出主要是为了解决&lt;strong&gt;在不断增加神经网络的深度时，会出现一个Degradation（退化）的问题，即准确率会先上升然后达到饱和，再持续增加深度则会导致准确率下降。这并不是过拟合的问题，因为不光在测试集上误差增大，训练集本身误差也会增大&lt;/strong&gt;。
+（例如现在有个浅层网络,最后输出为y,已经是一个准确率较高的网络，现在在该浅层网络上继续增加层数得到一个深层网络，想让输出仍为y,即后面增加的网络层是恒等映射，而退化问题就说明对于神经网络来说恒等映射是不容易优化的）&lt;/p&gt;
+&lt;h2 id=&#34;深度残差学习deep-residual-learning&#34;&gt;深度残差学习（Deep Residual Learning）&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;残差学习（Residual Learning）&lt;/p&gt;
+&lt;p&gt;$H(x) = F(x) + x$&lt;/p&gt;
+&lt;p&gt;把恒等输入作为网络的一部分，其中H(x)为模型潜在的映射，x为输入&lt;/p&gt;
+&lt;p&gt;$F(x) = H(x) - x$&lt;/p&gt;
+&lt;p&gt;F(x)为残差函数&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;通过捷径（Shortcuts）进行恒等映射&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://youngforever.tech/images/Resnet_kaiminghe2015/resnet_block_result.jpg&#34; alt=&#34;residual block&#34;&gt;&lt;/p&gt;
+&lt;p&gt;$y = F(x,W_{i}) + x$&lt;/p&gt;
+&lt;p&gt;每个元素对应相加（element-wise addition）&lt;/p&gt;
+&lt;p&gt;其中$F(x, W_{i})$为残差，$F = W_2\sigma(W_1x)$（图中会让人产生一种F(x)是在两层中间的错觉，其实是在两层之后）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;网络结构&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;文献中图3左为VGG-19, 卷积层均使用same padding，输出大小变化发生在max pooling, stride = 2。
+$$(n+2p-f+1)/s$$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;构建Plain networks来复现退化现象&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;残差网络中虚线表示通道数不同，使用&lt;/p&gt;
+&lt;p&gt;$H(x) = F(x) + Wx$ W用来调整维度&lt;/p&gt;
+&lt;p&gt;对于更深层的残差网络使用了Bottleneck结构，降低参数量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;主要介绍一下图1，在深度学习论文中会经常看到类似图1的表。&lt;br&gt;
+&lt;img src=&#34;https://youngforever.tech/images/Resnet_kaiminghe2015/resnet_architectures_result.jpg&#34; alt=&#34;residual architectures&#34;&gt;
+第一列给每个卷积层取的名字，第2列为输出尺寸，例如对于第一层7*7的卷积核，步长为2，文中给出第一层卷积输出结果为112可以得到padding = 3&lt;/p&gt;
+&lt;p&gt;$$
+(224-7+1+2*3)/2 = 112
+$$&lt;/p&gt;
+&lt;p&gt;以18层resnet为例，然后是2组残差网络基本模块，两组64个3*3卷积核，在将卷积核翻倍的同时stride = 2, padding = 1到聪conv3_x;而在单个残差模块里面stride = 1, padding = 1&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;p&gt;结果部分对比了模型参数，性能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;top-1 error&lt;/li&gt;
+&lt;li&gt;top-5 error&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;top-N正确率是指图像识别算法给出前N个答案中有一个是正确的概率&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;补充材料&#34;&gt;补充材料&lt;/h2&gt;
+&lt;p&gt;resnet pytorch实现&lt;a href=&#34;https://github.com/pytorch/vision/blob/0bd7080c6fa4d8a07f34aa66caf10683824e5b82/torchvision/models/resnet.py#L35&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
+- https://youngforever.tech/posts/2019-08-19-resnet/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>最近的生活</title>
+        <link>https://youngforever.tech/posts/%E6%9C%80%E8%BF%91%E7%9A%84%E7%94%9F%E6%B4%BB/</link>
+        <pubDate>Thu, 08 Aug 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://youngforever.tech/posts/%E6%9C%80%E8%BF%91%E7%9A%84%E7%94%9F%E6%B4%BB/</guid>
+        <description>Young Forever https://youngforever.tech/posts/%E6%9C%80%E8%BF%91%E7%9A%84%E7%94%9F%E6%B4%BB/ -&lt;p&gt;最近的生活有些颓废，并没有认真工作。&lt;/p&gt;
+&lt;p&gt;部门轮转工作的伊始，觉得能了解整个机构，也不失为一种学习的过程，但是在一个日暮西山的部门好像并不是这样。&lt;/p&gt;
+&lt;p&gt;不过看了两部不错的电影，也算不虚度光阴哈哈哈。一部是《楚门的世界》，另一部是《绝杀慕尼黑》。《楚门的世界》在上大学的时候英语课上记得老师推荐过，也看过一点点，那大概是7、8年前不知道是不是那时候接受西方文化比较少还是怎样，当时没太想往下看的欲望，最近又看到某视频网站的推送决定点开再看看。&lt;/p&gt;
+&lt;p&gt;楚门这个名字应该是True Man的音译，电影中除了楚门没有在表演是真实的自己，其他人都是演员。从小楚门在封闭的环境（一个四周环水的岛中，其实是一个巨大的半球）中成长起来，导演通过对父亲在水中丧生来营造楚门害怕水不敢出海的性格，同时营造飞机容易失事的氛围，总之就是为了让楚门老老实实呆在岛上。然而楚门有一颗想去远方的心，在剧中他喜欢上了某个女群演，女群演不忍心楚门被导演玩弄，告诉他真相，最后被导演组带走了，楚门并不懂初恋女友说了什么，但是日夜牵挂着初恋女友，想去远方找她，所以还是妹子给楚门的动力。车上收音机故障、妻子结婚时的手势等等更加坚定了他自己想要逃离这个岛的决心。遭到了导演组的百般阻扰，看电影时我强烈地希望楚门能成功，有点害怕楚门始终被困在岛上的结局，最后成功逃脱我也松了一口气，仿佛看到自己挣脱了生活的枷锁。&lt;/p&gt;
+&lt;p&gt;首先电影让我毛骨悚然，一个人可以被天衣无缝的安排的明明白白；其次假如当我生活在这样一个环境，会想着逃脱还是在这里继续生活，当然最期待的还是会不会有一个女人来拯救我。&lt;/p&gt;
+&lt;p&gt;《绝杀慕尼黑》是一部热血的关于篮球的影片，讲述了苏联篮球队在慕尼黑奥运会上战胜了美国篮球队。我们现在都知道美国NBA，看篮球基本上也就看看美国各支队伍打来打去就行，现在美国篮球那肯定是十分强的，冷战时期依然是强队。我对篮球并不是十分感冒，大学时我喜欢的女孩喜欢篮球，还无意间提过自己熬夜看灌篮高手，记得我当时回去就立马把灌篮高手全集下下来看，看了几集觉得有点幼稚没有继续看下去，可能是当时的心境不合适就像我很久前看楚门一样，难道我那时候对日本文化还不是那么接纳？说不定啥时候再看又觉得非常好看了，总之我对篮球不是那么喜欢，但并不妨碍一部优秀的讲述篮球故事的电影展示我其中的故事。&lt;/p&gt;
+&lt;p&gt;电影以苏联篮球队中个人故事来展开，我十分喜欢用各个小人物的故事来描述一个大时代大背景的故事，仿佛能看到历史洪流下的自己，自己的故事或者同时代下相似的故事有一天也终将搬上电影屏幕，想象着宿舍里传来周杰伦的歌，同学们打着游戏dota、lol，一个故事就这样展开。篮球队的灵魂人物新上任的教练交流大胆革新，只有敢于出去交流比赛才会进步；某投手1带头大哥，团队的凝聚力全靠他；某投手2爱情故事男主角，爱情中的责任与割舍，“如果生命只剩下最后三秒，我们能做什么？”，最后场上3s中戏剧性的变化奇迹就在下一秒发生。我忘记具体是那一幕我热泪盈眶，是爱情的不舍还是最后夺冠的喜悦与感动。&lt;/p&gt;
+&lt;p&gt;好的电影必然少不了感动与激励！&lt;/p&gt;
+- https://youngforever.tech/posts/%E6%9C%80%E8%BF%91%E7%9A%84%E7%94%9F%E6%B4%BB/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>多任务RNN预测ICU动态疾病严重程度</title>
+        <link>https://youngforever.tech/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/</link>
+        <pubDate>Tue, 26 Mar 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://youngforever.tech/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/</guid>
+        <description>Young Forever https://youngforever.tech/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/ -&lt;p&gt;&lt;em&gt;Chen2018&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;本文为2018 IEEE ICDM会议论文。属于数据挖掘不错的会议。&lt;/p&gt;
+&lt;p&gt;SIGKDD(Special Interest Group Knowledge Discovery and Data Mining)为数据挖掘的顶级会议。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;摘要&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;作者认为现有的死亡预测以及表型分析？不能在动态改变的临床环境中提供足够证据。本文提出一种能同时分析不同器官系统来预测ICU中患者疾病严重程度，这种方法可以直观及时地反映患者病情。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;引言&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;传统评分需要较长的时间窗口如24小时才能反映疾病的严重程度，对急危重症患者反应有延后；我们认为对危重病人进行更频繁的评价能更清楚的显示患者病情，是早期预测医疗状况一种可能的途径。作者利用两个患者入院后sofa随时间的变化来说明了高密度的病情评估是患者监测一种有效的手段。&lt;/p&gt;
+&lt;p&gt;目前已经有很多AI研究者利用多种时序信号来进行死亡预测等。但是均&lt;strong&gt;忽视了各个器官系统时序信号之间的存在的关系&lt;/strong&gt;，这可能会影响预测性能。&lt;/p&gt;
+&lt;p&gt;为了解决这个问题，本文提出了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;多任务RNN框架。通过共享单元来考虑各器官系统间的时间相关性&lt;/li&gt;
+&lt;li&gt;应用attention机制。关注输入中的重要信息来达到更好的性能&lt;/li&gt;
+&lt;li&gt;基于真实世界ICU数据，与许多最先进的方法进行对比说明&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;随后，作者给出与本文相关的工作。首先是同行们做的一些工作。然后介绍了多任务学习，最后介绍了注意力机制。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;方法&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据预处理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;$16 \leq age \leq 75$&lt;/li&gt;
+&lt;li&gt;排除 LOS &amp;lt; 12h&lt;/li&gt;
+&lt;li&gt;41个从不同系统获取的特征&lt;/li&gt;
+&lt;li&gt;时间窗口内去特征平均值作为新值&lt;/li&gt;
+&lt;li&gt;插值策略：前向插值；前无值则中位数&lt;/li&gt;
+&lt;li&gt;80%训练，20%测试； 基于熵的损失函数以及L2正则化&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;多任务RNN&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;每一时刻的LSTM均包含了一下几个模块，i, f, o, c和h分别对应input gate, forget gate, output gate, memory cell以及hidden state。&lt;/p&gt;
+&lt;p&gt;在不同系统之间，共享一个hidden layer(隐藏层)
+&lt;img src=&#34;https://youngforever.tech/images/chen2018/multitaskRNN_result.jpg&#34; alt=&#34;multitaskRNN&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;注意力机制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Attention给模型赋予了区分辨别的能力；解释模型到底学到了什么知识，为我们打开深度学习的黑箱，提供了一个窗口&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;模型比较与评估&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最先进的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GRU-ATT&lt;/li&gt;
+&lt;li&gt;HMT-RNN&lt;/li&gt;
+&lt;li&gt;pRNN&lt;/li&gt;
+&lt;li&gt;RNN&lt;/li&gt;
+&lt;li&gt;MTRNN&lt;/li&gt;
+&lt;li&gt;RNN-ATT&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Baseline model:&lt;/p&gt;
+&lt;p&gt;svm, RF, DT, LDA(Linear discriminant analysis), XGboost&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;实验步骤&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;每小时或者规定的时间区间可以计算sofa值，sofa值被分为6类，根据sofa值来确定是第几类。用每小时的特征来预测类别。
+&lt;img src=&#34;https://youngforever.tech/images/chen2018/sofacategory_result.jpg&#34; alt=&#34;sofacategory&#34;&gt;&lt;/p&gt;
+&lt;p&gt;整个流程图如下图所示&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://youngforever.tech/images/chen2018/workflow_result.jpg&#34; alt=&#34;workflow&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;结果&lt;/em&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;各种方法的准确度&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;按比例抽样各方法性能比较&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;各类别的ROC曲线&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;加入attention&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+- https://youngforever.tech/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>ICU实时死亡预测</title>
+        <link>https://youngforever.tech/posts/2019-03-11-icu%E5%AE%9E%E6%97%B6%E6%AD%BB%E4%BA%A1%E9%A2%84%E6%B5%8B/</link>
+        <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://youngforever.tech/posts/2019-03-11-icu%E5%AE%9E%E6%97%B6%E6%AD%BB%E4%BA%A1%E9%A2%84%E6%B5%8B/</guid>
+        <description>Young Forever https://youngforever.tech/posts/2019-03-11-icu%E5%AE%9E%E6%97%B6%E6%AD%BB%E4%BA%A1%E9%A2%84%E6%B5%8B/ -&lt;p&gt;&lt;em&gt;Alistair2018&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;引言&#34;&gt;引言：&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;传统评分&lt;/li&gt;
+&lt;li&gt;机器学习以及医院电子化到MIMIC介绍&lt;/li&gt;
+&lt;li&gt;死亡预测过去的研究&lt;/li&gt;
+&lt;li&gt;提出本文的目的&lt;strong&gt;使用不同的数据采样方法来预测个体患者死亡率&lt;/strong&gt;，以及本文的总体结构：
+&lt;ol&gt;
+&lt;li&gt;患者人群定义以及数据提取&lt;/li&gt;
+&lt;li&gt;前24小时数据传统死亡预测评分与机器学习方法对比&lt;/li&gt;
+&lt;li&gt;建立实时死亡预测&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;数据&#34;&gt;数据&lt;/h2&gt;
+&lt;p&gt;MIMIC-III数据库（v1.4）&lt;/p&gt;
+&lt;p&gt;排除标准：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;年龄小于16&lt;/li&gt;
+&lt;li&gt;ICU时长小于4h&lt;/li&gt;
+&lt;li&gt;no data present in the patient flowsheet&lt;/li&gt;
+&lt;li&gt;organ donor accounts&lt;/li&gt;
+&lt;li&gt;order for limitation of treatment on or before ICU admission&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最终得到50，488次ICU记录&lt;/p&gt;
+&lt;h2 id=&#34;特征&#34;&gt;特征&lt;/h2&gt;
+&lt;p&gt;特征如下：
+&lt;img src=&#34;https://youngforever.tech/images/alistar2018/Alistair2018features_result.jpg&#34; alt=&#34;feature&#34;&gt;
+其中W为时间窗口长度， $t_{i,w}$为截止时间&lt;/p&gt;
+&lt;h2 id=&#34;方法&#34;&gt;方法&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;机器学习方法：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;LR，LASSO，LR with L2正则化，GBDT&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;传统评分:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;APS III, SAPS, SAPS II, SOFA, LODS以及OASIS&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;评价指标&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;AUROC&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;1benchmarking-experiment&#34;&gt;1.benchmarking experiment&lt;/h3&gt;
+&lt;p&gt;ICU入院24h各类特征来进行死亡风险评价&lt;/p&gt;
+&lt;h3 id=&#34;2real-time-experiment&#34;&gt;2.real-time experiment&lt;/h3&gt;
+&lt;p&gt;$t_{i,w}$任意取入院到出院之间的一段时间。这样就可以完成一个任何时间都可以使用的模型。在该部分使用窗口W = 4h, 作者也使用过8h和24h的窗口。但是性能并没有显著提升。&lt;/p&gt;
+&lt;p&gt;下图直观的给出了两个实验的对比图。图中上为入院前24h预测结局，图中下为使用任意时间进行预测的示意
+&lt;img src=&#34;https://youngforever.tech/images/alistar2018/twoexp_result.jpg&#34; alt=&#34;twoexp&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3验证实验&#34;&gt;3.验证实验&lt;/h3&gt;
+&lt;p&gt;取患者死亡前部分数据进行验证，死亡前死亡风险应该逐渐增加。&lt;/p&gt;
+&lt;h2 id=&#34;结果&#34;&gt;结果&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;benchmarking experiment
+所有纳入的ICU记录50，488条&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://youngforever.tech/images/alistar2018/benchmarking_result.jpg&#34; alt=&#34;benchmarking&#34;&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;real-time experiment&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://youngforever.tech/images/alistar2018/realtime_result.jpg&#34; alt=&#34;realtime&#34;&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;从出院时间点来看&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://youngforever.tech/images/alistar2018/discharge_result.jpg&#34; alt=&#34;discharge&#34;&gt;&lt;/p&gt;
+&lt;p&gt;越接近死亡预测的越准&lt;/p&gt;
+&lt;h2 id=&#34;讨论&#34;&gt;讨论&lt;/h2&gt;
+&lt;p&gt;其实没写啥实质性的内容，但是仍然写了很多。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;benchmarking解释GBDT的性能为什么这么好&lt;/li&gt;
+&lt;li&gt;LR性能也很不错，简单可解释性高的模型未来的前景很好&lt;/li&gt;
+&lt;li&gt;解释特征以及与临床模型的对比&lt;/li&gt;
+&lt;li&gt;对比现有其他文献&lt;/li&gt;
+&lt;li&gt;real-time实验解释&lt;/li&gt;
+&lt;li&gt;医学中模型可解释性&lt;/li&gt;
+&lt;li&gt;不足：单中心、如何应用该种模型不清楚、MIMIC中其他信息没有被使用例如文本，高密度的波形数据等。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;结论&#34;&gt;结论&lt;/h2&gt;
+&lt;p&gt;我们需要在床旁可用且可解释性高的模型进行临床应用！&lt;/p&gt;
+&lt;h2 id=&#34;代码&#34;&gt;代码&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/alistairewj/mortality-prediction&#34;&gt;github mortality prediction&lt;/a&gt;&lt;/p&gt;
+- https://youngforever.tech/posts/2019-03-11-icu%E5%AE%9E%E6%97%B6%E6%AD%BB%E4%BA%A1%E9%A2%84%E6%B5%8B/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>git常用命令</title>
+        <link>https://youngforever.tech/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+        <pubDate>Mon, 04 Mar 2019 22:22:22 +0000</pubDate>
+        
+        <guid>https://youngforever.tech/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+        <description>Young Forever https://youngforever.tech/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/ -&lt;p&gt;以下操作基于macOS，Windows仅供参考。&lt;/p&gt;
+&lt;h2 id=&#34;git初始化文件夹&#34;&gt;git初始化文件夹&lt;/h2&gt;
+&lt;p&gt;进入目录&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-git&#34; data-lang=&#34;git&#34;&gt;git init
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;新建gitignore&#34;&gt;新建.gitignore&lt;/h2&gt;
+&lt;p&gt;然后在其中加入需要忽略的文件或文件夹.gitignore
+例如public\&lt;/p&gt;
+&lt;h2 id=&#34;git删除远程分支文件&#34;&gt;git删除远程分支文件&lt;/h2&gt;
+&lt;p&gt;当我们需要删除暂存区或分支上的文件, 同时工作区也不需要这个文件了, 可以使用
+git rm file_path&lt;/p&gt;
+&lt;p&gt;当我们需要删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制, 可以使用
+git rm –cached file_path&lt;/p&gt;
+&lt;p&gt;所以我们经常使用来删除git中的文件&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-git&#34; data-lang=&#34;git&#34;&gt;git rm -r --cached filename
+git commit -m &#39;delete some file&#39;
+git push origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;git删除ds_store文件&#34;&gt;git删除.DS_Store文件&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;从该仓库中删除已存在的DS_Store文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;find . -name .DS_Store -print0 | xargs -0 git rm -f &amp;ndash;ignore-unmatch&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;新建&lt;code&gt;.gitignore_global&lt;/code&gt;文件并将.DS_Store以及*/.DS_Store加入其中&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-git&#34; data-lang=&#34;git&#34;&gt;vi .gitignore_global
+.DS_Store 
+*/.DS_Store
+git config --global core.excludesfile ~/.gitignore_global
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;推到仓库&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-git&#34; data-lang=&#34;git&#34;&gt;git add .gitignore
+git commit -m &#39;.DS_Store banished!&#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;检查仓库中是否还有&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-git&#34; data-lang=&#34;git&#34;&gt;git status
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;git冲突处理&#34;&gt;git冲突处理&lt;/h2&gt;
+&lt;p&gt;git远程分支修改，本地也修改了准备提交出现冲突&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先拉在推
+&lt;pre&gt;&lt;code class=&#34;language-git&#34; data-lang=&#34;git&#34;&gt;git pull --rebase #检查合并是否冲突
+git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;强制按本地更新
+&lt;pre&gt;&lt;code class=&#34;language-git&#34; data-lang=&#34;git&#34;&gt;git push -f
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;git子模块submodule&#34;&gt;git子模块（submodule）&lt;/h2&gt;
+&lt;p&gt;对于公共资源或者常用的代码，你可能会把最新版本逐个复制到N个项目中，如果使用了submodule模块，那么只需要在各个项目中&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-git&#34; data-lang=&#34;git&#34;&gt;git submodule update
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;进入子模块目录正常操作即可&lt;/p&gt;
+&lt;h2 id=&#34;git多账户切换&#34;&gt;git多账户切换&lt;/h2&gt;
+&lt;p&gt;使用参考2中删除keychain access的方法，比较简单&lt;/p&gt;
+&lt;h2 id=&#34;ref&#34;&gt;ref&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.jianshu.com/p/e3d8eb2a4295&#34;&gt;git删除.DS_Store&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/107701/how-can-i-remove-ds-store-files-from-a-git-repository&#34;&gt;stackoverflow&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.zhihu.com/question/23028445&#34;&gt;git多账户切换&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+- https://youngforever.tech/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>关于我</title>
+        <link>https://youngforever.tech/about/</link>
+        <pubDate>Sun, 03 Feb 2019 22:22:22 +0000</pubDate>
+        
+        <guid>https://youngforever.tech/about/</guid>
+        <description>Young Forever https://youngforever.tech/about/ -&lt;h1 id=&#34;关于我&#34;&gt;关于我&lt;/h1&gt;
+&lt;p&gt;上海西南某高校物理学转行做了医疗大数据、医疗AI方向。现就职于北京某不正常人类研究院，致力于从医学数据中发现知识，通过医学人工智能将更多优质的医疗资源普及。欢迎与各位共同交流生物、医学、大数据和人工智能的交叉领域。&lt;/p&gt;
+&lt;p&gt;一个时代能被后世所记录的寥寥几人，有些人是当代就爆发出巨大能量的人，有些或许是当代的我们都还没意识到的那些超越时代的人，群星闪耀时还有太多的星星都被忽略，而那些没有留下名字的路人如你我，终将被时代所遗忘，留下寥寥几篇笔记来记录自己的时空，同时国内网络上对学术性的知识要么就是自己都没搞明白写出来看不太明白要么就是网络上没人记录，希望该博客能帮助同路人。&lt;/p&gt;
+&lt;p&gt;祝诸君进步，在漫漫时空中留下属于自己的记录！&lt;/p&gt;
+- https://youngforever.tech/about/ - </description>
+        </item>
+    
+    
+  </channel>
+</rss> 
