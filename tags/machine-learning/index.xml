@@ -22,7 +22,7 @@
  能捕捉数据间复杂依赖关系的模型 可扩展的学习系统，可以从大量数据中学习  在目前常用的方法中，梯度提升树（gradient tree boosting）在许多场景中效果都不错，作者列举了一些。提出xgboost方法在比赛以及各类问题中的应用。
 叙述XGBoost的优点：运行更快、拓展性更好。创新点包括：
  高度可拓展的端到端提升树（tree boosting）系统 用于高效计算的加权分位数图（weighted quantile sketch） 新颖的稀疏感知算法（sparsity-aware algorithm），用于并行树学习 有效的缓存优化以及块（cache-aware block）结构用于外存（out-of-core）树学习 关于以上几点在正文中详解。  论文结构：
- 提升树（tree boosting）简介以及目标函数正则化 分裂点寻找的方法 系统设计，包括为每个优化提供量化支持的结果 相关工作 详细的端到端评估 总结  2. 提升树（Tree Boosting）简介 首先需要了解CART（Classification And Regression Tree）算法，对于cart分类树和回归树分别采用了：Gini系数、和方差度量方式来划分节点[1]。例如回归树，对于划分特征A, 划分点s使两边数据集D1和D2,求出使 D1和D2各自集合的均方差最小，同时D1和D2的均方差之和最小。 $$ \underbrace{min}_{A, s}[\underbrace{min}_{c1}\sum_{x_i \in D1(A,s)}(y_i - c1)^2 + \underbrace{min}_{c2}\sum_{x_i \in {D2(A,s)}}(y_i - c2)^2] $$ 其中，c1为D1的样本输出均值，c2为D2的样本输出均值, 回归树采用叶子节点的均值或者中位数来预测输出结果，$y_i$即样本的label，此时的输出值即下文中用到的$w_{q(x)}$。
+ 提升树（tree boosting）简介以及目标函数正则化 分裂点寻找的方法 系统设计，包括为每个优化提供量化支持的结果 相关工作 详细的端到端评估 总结  2. 提升树（Tree Boosting）简介 首先需要了解CART（Classification And Regression Tree）算法，对于cart分类树和回归树分别采用了：Gini系数、和方差度量方式来划分节点[1]。例如回归树，对于划分特征A, 划分点s使两边数据集D1和D2,求出使 D1和D2各自集合的均方差最小，同时D1和D2的均方差之和最小。 $$\underline{min}_{\text{A,s}}[\underline{min}_{\text{c1}}\sum_{x_i\in{D1(A,s)}}(y_i - c1)^2+\underline{min}_{\text{c2}}\sum_{x_i\in{D2(A,s)}}(y_i - c2)^2]$$ 其中，c1为D1的样本输出均值，c2为D2的样本输出均值, 回归树采用叶子节点的均值或者中位数来预测输出结果，$y_i$即样本的label，此时的输出值即下文中用到的$w_{q(x)}$。
 2.1 正则化目标函数 对于这种类型的集成树模型，用K棵树的结果来预测最后的结果（式1），那么问题来了我们怎么来求这些树的参数，每棵树都可以看做一个函数$f_i$包含树的结构以及最后叶节点权重，集成模型不像传统优化问题一样通过简单用梯度下降可以对所有的树进行学习求解，所以，在这里用到了加法策略，即固定已经学习到的，每次加一棵树来进行学习（式3）。 $$\hat{y_i} = \phi(x_i) = \sum_{k = 1}^{K} f_k(x_i)\tag1$$ 其中$f(x) = w_{q(x)}$，每个$f_k$对应一个独立的树结构q以及其叶节点权重w，为了学习模型中的参数，最小化下面正则化的目标函数。 $$L(\phi) = \sum_i l(\hat{y_i}, y_i) + \sum_k \Omega(f_k)\tag2$$</description>
     </item>
     

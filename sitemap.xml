@@ -8,21 +8,6 @@
   </url>
   
   <url>
-    <loc>https://youngforever.tech/posts/20200402-deep-survival-analysis/</loc>
-    <lastmod>2020-04-02T10:58:16+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://youngforever.tech/categories/paper/</loc>
-    <lastmod>2020-04-02T10:58:16+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://youngforever.tech/posts/</loc>
-    <lastmod>2020-04-04T08:29:40+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://youngforever.tech/categories/data-science/</loc>
     <lastmod>2020-04-04T08:29:40+00:00</lastmod>
   </url>
@@ -30,6 +15,11 @@
   <url>
     <loc>https://youngforever.tech/tags/deep-learning/</loc>
     <lastmod>2020-04-01T14:51:32+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://youngforever.tech/posts/</loc>
+    <lastmod>2020-04-04T08:29:40+00:00</lastmod>
   </url>
   
   <url>
@@ -49,6 +39,11 @@
   
   <url>
     <loc>https://youngforever.tech/tags/machine-learning/</loc>
+    <lastmod>2020-03-23T16:18:13+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://youngforever.tech/categories/paper/</loc>
     <lastmod>2020-03-23T16:18:13+00:00</lastmod>
   </url>
   

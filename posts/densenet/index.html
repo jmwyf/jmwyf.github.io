@@ -74,21 +74,20 @@ $(
 
 
 
-
 <script>
-  MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']]
-    },
-    svg: {
-      fontCache: 'global'
-    },
-    extensions: ["TeX/AMSmath.js", "TeX/AMSsymbol.js"]
-  };
-  </script>
-  <script type="text/javascript" id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-  </script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  },
+  extensions: ["TeX/AMSmath.js", "TeX/AMSsymbol.js"]
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script> 
 
 
 
@@ -514,16 +513,12 @@ Young Forever 2019-2020
 						
 							<ul>
 						
-							<ul>
-						
 						
 								<li>
 				 					<a href="#%e9%99%84%e5%bd%95" v-on:click="closeDrawer" id="附录-nav">
 										 附录
 									</a>
 								</li>
-						
-							</ul>
 						
 							</ul>
 						
@@ -926,16 +921,12 @@ Young Forever 2019-2020
 						
 							<ul>
 						
-							<ul>
-						
 						
 								<li>
 				 					<a href="#%e9%99%84%e5%bd%95" v-on:click="closeDrawer" id="附录-nav">
 										 附录
 									</a>
 								</li>
-						
-							</ul>
 						
 							</ul>
 						
@@ -1061,7 +1052,7 @@ BN &gt; ReLU &gt; ReLU &gt; Conv(1*1) &gt; BN &gt; ReLU &gt; Conv(3*3)
 <li>以前人们用resnet with stochastic depth, DenseNet也能做到正则化？（然而没读懂啥意思）</li>
 <li>特征重用,热图表示前面层对后面层的作用</li>
 </ul>
-<h3 id="附录">附录</h3>
+<h2 id="附录">附录</h2>
 <ol>
 <li>
 <p><a href="http://www.gaohuang.net">作者黄亮</a></p>

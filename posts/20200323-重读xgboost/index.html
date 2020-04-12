@@ -74,21 +74,20 @@ $(
 
 
 
-
 <script>
-  MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']]
-    },
-    svg: {
-      fontCache: 'global'
-    },
-    extensions: ["TeX/AMSmath.js", "TeX/AMSsymbol.js"]
-  };
-  </script>
-  <script type="text/javascript" id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-  </script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  },
+  extensions: ["TeX/AMSmath.js", "TeX/AMSsymbol.js"]
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script> 
 
 
 
@@ -1259,9 +1258,7 @@ Young Forever 2019-2020
 <h2 id="2-提升树tree-boosting简介">2. 提升树（Tree Boosting）简介</h2>
 <p>首先需要了解CART（Classification And Regression Tree）算法，对于cart分类树和回归树分别采用了：<code>Gini系数</code>、<code>和方差</code>度量方式来划分节点[1]。例如回归树，对于划分特征A, 划分点s使两边数据集D1和D2,求出使
 D1和D2各自集合的均方差最小，同时D1和D2的均方差之和最小。
-$$
-\underbrace{min}_{A, s}[\underbrace{min}_{c1}\sum_{x_i \in D1(A,s)}(y_i - c1)^2 + \underbrace{min}_{c2}\sum_{x_i \in {D2(A,s)}}(y_i - c2)^2]
-$$
+$$\underline{min}_{\text{A,s}}[\underline{min}_{\text{c1}}\sum_{x_i\in{D1(A,s)}}(y_i - c1)^2+\underline{min}_{\text{c2}}\sum_{x_i\in{D2(A,s)}}(y_i - c2)^2]$$
 其中，c1为D1的样本输出均值，c2为D2的样本输出均值, 回归树采用叶子节点的均值或者中位数来预测输出结果，$y_i$即样本的label，此时的输出值即下文中用到的$w_{q(x)}$。</p>
 <h3 id="21-正则化目标函数">2.1 正则化目标函数</h3>
 <p>对于这种类型的集成树模型，用K棵树的结果来预测最后的结果（式1），那么问题来了我们怎么来求这些树的参数，每棵树都可以看做一个函数$f_i$包含树的结构以及最后叶节点权重，集成模型不像传统优化问题一样通过简单用梯度下降可以对所有的树进行学习求解，所以，在这里用到了加法策略，即固定已经学习到的，每次加一棵树来进行学习（式3）。
@@ -1354,7 +1351,7 @@ $$\sum_{i=1}^n\frac{1}{2}h_i(f_t(x_i)-(-g_i/h_i))^2 + \Omega(f_t) + constant\tag
 <ol>
 <li><a href="https://blog.csdn.net/hy592070616/article/details/81628956">CART分类树与回归树</a></li>
 <li><a href="https://www.cnblogs.com/xym4869/p/11282586.html">Markdown数学公式</a></li>
-<li><a href="https://docs.mathjax.org/en/v1.0/index.html">Mathjax应用在网页</a></li>
+<li><a href="https://docs.mathjax.org/en/latest/web/configuration.html">Mathjax应用在网页</a></li>
 <li><a href="https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf">XGBoost.ppt</a></li>
 <li><a href="https://xgboost.readthedocs.io/en/latest/tutorials/model.html">readthedocs xgboost tutorials</a>推荐</li>
 <li><a href="http://wepon.me/files/gbdt.pdf">gbdt.ppt</a></li>
@@ -1362,11 +1359,9 @@ $$\sum_{i=1}^n\frac{1}{2}h_i(f_t(x_i)-(-g_i/h_i))^2 + \Omega(f_t) + constant\tag
 </ol>
 <h2 id="补充">补充</h2>
 <ol>
-<li>文中很多术语翻译可能有不恰当的地方，欢迎指出。
-<!-- raw HTML omitted -->
-</li>
+<li>文中很多术语翻译可能有不恰当的地方，欢迎指出。</li>
 <li>二阶泰勒展开的一般形式：
-$$f(x^t) = f(x^{t-1} + \Delta x) \approx f(x^{t-1})+ f&rsquo;(x^{t-1})\Delta x + f&rsquo;'(x^{t-1})\frac{\Delta x^2}{2}$$</li>
+$$f(x^t) = f(x^{t-1}+\Delta x)\approx{f(x^{t-1})+ f^{\prime}(x^{t-1})\Delta{x}+f^{\prime\prime}(x^{t-1})\frac{\Delta x^2}{2}}$$</li>
 <li>式4中加入loss function是mean squared error(MSE)，可以求出相应的gi， hi作为一个特例来验证该做法。</li>
 <li>基于树的算法理解时带着这几个问题去理解每一步是用来做什么的：选择哪个特征进行分裂？在特征什么点位进行分裂？分裂后叶节点取什么值？
 <blockquote>
