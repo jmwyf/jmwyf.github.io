@@ -35,3 +35,7 @@ weight = 2
 url = "/tags"
 name = "Tags"
 weight = 3
+[[menu.main]]
+url = "/index.xml"
+name = "RSS"
+weight = 5
