@@ -402,8 +402,8 @@ a {
   text-align: right;
   font-family: $sans-preferred-font-list;
   padding: 20px 0 50px 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  //overflow-x: hidden;
+  //overflow-y: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -491,8 +491,8 @@ a {
   width: $extra-container-width;
   /*text-align: right;*/
   font-family: $sans-preferred-font-list;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  //overflow-x: hidden;
+  //overflow-y: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -828,7 +828,7 @@ a {
         font-size: $post-title-size;
         font-weight: 600;
         font-style: normal;
-        line-height: 1.5em;
+        line-height: 1.5em !important;
         .post-subtitle {
           font-size: $post-subtitle-size;
           width: 80%;
