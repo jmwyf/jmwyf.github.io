@@ -1,7 +1,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Young Forever</title>
-    <link>https://youngforever.tech/</link>
+    
     <description>Recent content on Young Forever</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -13,7 +13,7 @@
     
         <item>
         <title>最近的生活</title>
-        <link>https://youngforever.tech/posts/%E6%9C%80%E8%BF%91%E7%9A%84%E7%94%9F%E6%B4%BB/</link>
+        
         <pubDate>Thu, 08 Aug 2019 00:00:00 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/%E6%9C%80%E8%BF%91%E7%9A%84%E7%94%9F%E6%B4%BB/</guid>
@@ -32,7 +32,7 @@
     
         <item>
         <title>多任务RNN预测ICU动态疾病严重程度</title>
-        <link>https://youngforever.tech/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/</link>
+        
         <pubDate>Tue, 26 Mar 2019 00:00:00 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/%E5%A4%9A%E4%BB%BB%E5%8A%A1rnn%E9%A2%84%E6%B5%8Bicu%E5%8A%A8%E6%80%81%E7%96%BE%E7%97%85%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6/</guid>
@@ -116,7 +116,7 @@
     
         <item>
         <title>ICU实时死亡预测</title>
-        <link>https://youngforever.tech/posts/2019-03-11-icu%E5%AE%9E%E6%97%B6%E6%AD%BB%E4%BA%A1%E9%A2%84%E6%B5%8B/</link>
+        
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/2019-03-11-icu%E5%AE%9E%E6%97%B6%E6%AD%BB%E4%BA%A1%E9%A2%84%E6%B5%8B/</guid>
@@ -213,7 +213,7 @@
     
         <item>
         <title>git常用命令</title>
-        <link>https://youngforever.tech/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+        
         <pubDate>Mon, 04 Mar 2019 22:22:22 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/2019-03-04-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
@@ -288,7 +288,7 @@ git push -u origin master
     
         <item>
         <title>关于我</title>
-        <link>https://youngforever.tech/about/</link>
+        
         <pubDate>Sun, 03 Feb 2019 22:22:22 +0000</pubDate>
         
         <guid>https://youngforever.tech/about/</guid>

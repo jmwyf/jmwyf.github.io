@@ -18,7 +18,15 @@
       
       <guid>https://youngforever.tech/posts/20200401-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02/</guid>
       <description>PyTorch深度学习（2） Deep Learning = Learning Hierarchical Representations 深度学习即学习层次的表征。
-卷积神经网络的起源（Convolutional Neural Network；CNN） ref  NYC PyTorch Deep Learning课程网站 cs231n convolutional networks  </description>
+1. 卷积神经网络 1.1 神经网络可视化（Visualization of neural networks） 神经网络每一层的操作有点像将空间某些区域进行折叠
+1.2 卷积神经网络的起源（Convolutional Neural Network；CNN） 受到Fukushima在视觉皮层建模方面的启发，使用简单/复杂的细胞层次结构，结合有监督的训练和反向传播，由Yann LeCun教授于88-89年在多伦多大学开发了第一个CNN。
+Fukushima的工作具体是什么呢？
+手写数字识别。首次提出应用多层简单或者复杂的细胞结构建模，特征：手工加无监督聚类学习。无反向传播。
+1.3 卷积神经网络分解 通用的CNN架构能被分解为以下几个基本结构。
+ 标准化（Normalisation）:对比度标准化等 滤波器组（Filter banks）:边缘检测等 非线性化（Non-linearities）:稀疏化、ReLU等 池化（pooling）:最大池化（max pooling）等  2. 自然信号数据（Natural Signals） 2.1 自然信号数据特性  周期性：在时域很多模式都会重复出现 局部性：相邻的点较相远的点来说更具关联性 合成性：复杂的事物可以由简单的事物组合而成。字母-&amp;gt;单词-&amp;gt;句子-&amp;gt;文章  2.2 对应神经网络中的处理方法  周期性$\rightarrow$参数共享
+如果数据存在周期性，可以使用参数共享，即卷积核。 局部性$\rightarrow$稀疏
+如果数据存在局部性，那么每个神经元只需要与前几个神经元连接 合成性$\rightarrow$多层
+即神经网络中多层网络合成最终的结果  3. Pytorch实现Mnist手写字识别 # load package and data import torch import torch.nn as nn import torch.nn.functional as F import torch.</description>
     </item>
     
     <item>

@@ -1,7 +1,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Young Forever</title>
-    <link>https://youngforever.tech/</link>
+    
     <description>Recent content on Young Forever</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -13,18 +13,170 @@
     
         <item>
         <title>PyTorch深度学习（2）</title>
-        <link>https://youngforever.tech/posts/20200401-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02/</link>
+        
         <pubDate>Wed, 01 Apr 2020 14:51:32 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/20200401-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02/</guid>
         <description>Young Forever https://youngforever.tech/posts/20200401-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02/ -&lt;h1 id=&#34;pytorch深度学习2&#34;&gt;PyTorch深度学习（2）&lt;/h1&gt;
 &lt;p&gt;Deep Learning = Learning Hierarchical Representations
 深度学习即学习层次的表征。&lt;/p&gt;
-&lt;h2 id=&#34;卷积神经网络的起源convolutional-neural-networkcnn&#34;&gt;卷积神经网络的起源（Convolutional Neural Network；CNN）&lt;/h2&gt;
+&lt;h2 id=&#34;1-卷积神经网络&#34;&gt;1. 卷积神经网络&lt;/h2&gt;
+&lt;h3 id=&#34;11-神经网络可视化visualization-of-neural-networks&#34;&gt;1.1 神经网络可视化（Visualization of neural networks）&lt;/h3&gt;
+&lt;p&gt;神经网络每一层的操作有点像将空间某些区域进行折叠&lt;/p&gt;
+&lt;h3 id=&#34;12-卷积神经网络的起源convolutional-neural-networkcnn&#34;&gt;1.2 卷积神经网络的起源（Convolutional Neural Network；CNN）&lt;/h3&gt;
+&lt;p&gt;受到Fukushima在视觉皮层建模方面的启发，使用简单/复杂的细胞层次结构，结合有监督的训练和反向传播，由Yann LeCun教授于88-89年在多伦多大学开发了第一个CNN。&lt;/p&gt;
+&lt;p&gt;Fukushima的工作具体是什么呢？&lt;br&gt;
+手写数字识别。首次提出应用多层简单或者复杂的细胞结构建模，特征：手工加无监督聚类学习。无反向传播。&lt;/p&gt;
+&lt;h3 id=&#34;13-卷积神经网络分解&#34;&gt;1.3 卷积神经网络分解&lt;/h3&gt;
+&lt;p&gt;通用的CNN架构能被分解为以下几个基本结构。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;标准化（Normalisation）:对比度标准化等&lt;/li&gt;
+&lt;li&gt;滤波器组（Filter banks）:边缘检测等&lt;/li&gt;
+&lt;li&gt;非线性化（Non-linearities）:稀疏化、ReLU等&lt;/li&gt;
+&lt;li&gt;池化（pooling）:最大池化（max pooling）等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;2-自然信号数据natural-signals&#34;&gt;2. 自然信号数据（Natural Signals）&lt;/h2&gt;
+&lt;h3 id=&#34;21-自然信号数据特性&#34;&gt;2.1 自然信号数据特性&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;周期性：在时域很多模式都会重复出现&lt;/li&gt;
+&lt;li&gt;局部性：相邻的点较相远的点来说更具关联性&lt;/li&gt;
+&lt;li&gt;合成性：复杂的事物可以由简单的事物组合而成。字母-&amp;gt;单词-&amp;gt;句子-&amp;gt;文章&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;22-对应神经网络中的处理方法&#34;&gt;2.2 对应神经网络中的处理方法&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;周期性$\rightarrow$参数共享&lt;br&gt;
+如果数据存在周期性，可以使用参数共享，即卷积核。&lt;/li&gt;
+&lt;li&gt;局部性$\rightarrow$稀疏&lt;br&gt;
+如果数据存在局部性，那么每个神经元只需要与前几个神经元连接&lt;/li&gt;
+&lt;li&gt;合成性$\rightarrow$多层&lt;br&gt;
+即神经网络中多层网络合成最终的结果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;3-pytorch实现mnist手写字识别&#34;&gt;3. Pytorch实现Mnist手写字识别&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# load package and data&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; torch
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; torch.nn &lt;span style=&#34;color:#f92672&#34;&gt;as&lt;/span&gt; nn
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; torch.nn.functional &lt;span style=&#34;color:#f92672&#34;&gt;as&lt;/span&gt; F
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; torch.optim &lt;span style=&#34;color:#f92672&#34;&gt;as&lt;/span&gt; optim
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; torchvision &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; datasets, transforms
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; matplotlib.pyplot &lt;span style=&#34;color:#f92672&#34;&gt;as&lt;/span&gt; plt
+
+device &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;device(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cuda:0&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cuda&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;is_available() &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cpu&amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 神经网络模型偏爱标准化数据，原因是均值为0方差为1的数据在sigmoid、tanh经过激活函数后求导得到的导数很大，&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 反之原始数据不仅分布不均（噪声大）而且数值通常都很大（本例中数值范围是0~255），激活函数后求导得到的导数&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 则接近与0，这也被称为梯度消失。&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 目录放自己下载好的mnist目录，没有下载将download=True,自己新建一个存放数据目录即可&lt;/span&gt;
+train_loader &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;utils&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DataLoader(
+    datasets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;MNIST(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;../LSTM_mnist/mnist&amp;#39;&lt;/span&gt;, train&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;True, download&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;False,
+                   transform&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;transforms&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Compose([
+                       transforms&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ToTensor(),
+                       &lt;span style=&#34;color:#75715e&#34;&gt;# mnist数据集均值0.1307，标准差0.3081&lt;/span&gt;
+                       transforms&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Normalize((&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1307&lt;/span&gt;,), (&lt;span style=&#34;color:#ae81ff&#34;&gt;0.3081&lt;/span&gt;,))
+                   ])),
+    batch_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt;, shuffle&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;True)
+
+test_loader &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;utils&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DataLoader(
+    datasets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;MNIST(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;../LSTM_mnist/mnist&amp;#39;&lt;/span&gt;, train&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;False, transform&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;transforms&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Compose([
+                       transforms&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ToTensor(),
+                       transforms&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Normalize((&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1307&lt;/span&gt;,), (&lt;span style=&#34;color:#ae81ff&#34;&gt;0.3081&lt;/span&gt;,))
+                   ])),
+    batch_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;, shuffle&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;True)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# define model&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;SimpleCNN&lt;/span&gt;(nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Module):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; __init__(self, input_size, n_feature, output_size):
+        super(SimpleCNN, self)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;__init__()
+        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;n_feature &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n_feature
+        &lt;span style=&#34;color:#75715e&#34;&gt;# 关于nn.Conv2d()中参数的解释&lt;/span&gt;
+        &lt;span style=&#34;color:#75715e&#34;&gt;# in_channels (int): Number of channels in the input image&lt;/span&gt;
+        &lt;span style=&#34;color:#75715e&#34;&gt;# out_channels (int): Number of channels produced by the convolution&lt;/span&gt;
+        &lt;span style=&#34;color:#75715e&#34;&gt;# kernel_size (int or tuple): Size of the convolving kernel&lt;/span&gt;
+        &lt;span style=&#34;color:#75715e&#34;&gt;# default stride=1, padding=0, dilation=1, groups=1&lt;/span&gt;
+        &lt;span style=&#34;color:#75715e&#34;&gt;# [groupsc参数详解](https://www.jianshu.com/p/20ba3d8f283c)&lt;/span&gt;
+        &lt;span style=&#34;color:#75715e&#34;&gt;# [图解卷积神经网络中stride, padding等操作可视化](https://github.com/vdumoulin/conv_arithmetic)&lt;/span&gt;
+        &lt;span style=&#34;color:#75715e&#34;&gt;# input: (N, C_in, H_in, W_in)&lt;/span&gt;
+        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;conv1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Conv2d(in_channels&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, out_channels&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;n_feature, kernel_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;)
+        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;conv2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Conv2d(n_feature, n_feature, kernel_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;)
+        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fc1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Linear(n_feature&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;)
+        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fc2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Linear(&lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;forward&lt;/span&gt;(self, x):
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;conv1(x)  &lt;span style=&#34;color:#75715e&#34;&gt;# Mnist数据原始大小（28*28）28-5+1 = 24 (24*24*n_feature)&lt;/span&gt;
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;relu(x)
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;max_pool2d(x, kernel_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# (12*12*n_feature)&lt;/span&gt;
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;conv2(x)  &lt;span style=&#34;color:#75715e&#34;&gt;# 12-5+1 = 8 (8*8*n_feature)&lt;/span&gt;
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;relu(x)
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;max_pool2d(x, kernel_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# (4*4*n_feature)这里解释了上面全连接时为啥是4*4&lt;/span&gt;
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;view(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;n_feature&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fc1(x)
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;relu(x)
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fc2(x)
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log_softmax(x, dim&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# hyper parameters&lt;/span&gt;
+epochs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+input_size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;
+output_size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+n_features &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;
+lr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.01&lt;/span&gt;
+
+model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; SimpleCNN(input_size, n_features, output_size)
+model&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to(device)
+&lt;span style=&#34;color:#75715e&#34;&gt;# optimizer&lt;/span&gt;
+optimizer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; optim&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;SGD(model&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;parameters(), lr, momentum&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Number of parameters: {}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(get_n_params(model)))
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# model train&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; epoch &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(epochs):
+    model&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;train()
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i, (data, target) &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; enumerate(train_loader):
+        data, target &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to(device), target&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to(device)
+
+        output &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; model(data)
+        loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;nll_loss(output, target)
+        optimizer&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;zero_grad()
+        loss&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;backward()
+        optimizer&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;step()
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;:
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Train Epoch [{}/{}], [{}/{} ({:.0f}%)], Loss: {:.4f}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(
+                epoch&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, epochs, i&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;len(data), len(train_loader&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dataset),
+                &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;i&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;len(train_loader), loss&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;item()))
+&lt;span style=&#34;color:#75715e&#34;&gt;# model eval&lt;/span&gt;
+model&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;eval()
+test_loss &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+correct &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+accuracy_list &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; data, target &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; test_loader:
+    data, target &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to(device), target&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to(device)
+
+    output &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; model(data)
+    test_loss &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; F&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;nll_loss(output, target, reduction&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sum&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;item()
+    pred &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; output&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;max(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, keepdim&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;True)[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]  &lt;span style=&#34;color:#75715e&#34;&gt;# get the index of the max log-probability&lt;/span&gt;
+    correct &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; pred&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;eq(target&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;view_as(pred))&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cpu()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sum()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;item()
+
+test_loss &lt;span style=&#34;color:#f92672&#34;&gt;/=&lt;/span&gt; len(test_loader&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dataset)
+accuracy &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100.&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; correct &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; len(test_loader&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dataset)
+accuracy_list&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(accuracy)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Test set Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(
+    test_loss, correct, len(test_loader&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dataset), accuracy))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 几个预测的实例可视化&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;):
+    plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;subplot(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+    plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;imshow(data[i][&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])
+    plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;title(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Prediction: {}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(
+        output&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;max(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, keepdim&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;True)[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][i]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;item()))
+plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://youngforever.tech/images/pytorch/mnist_pre.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;4-补充&#34;&gt;4. 补充&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;可以做一个有趣的实验即打乱图片中的像素后CNN识别正确率下降，而全连接网络则不会，即与最开始提到的三个特性以及对于神经网络采取的假设是吻合的。&lt;/li&gt;
+&lt;li&gt;参考2中是对卷积神经网络全面的介绍，包括CNN中常用那些层，以及常用的模型和参数多少计算。&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h2 id=&#34;ref&#34;&gt;ref&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://atcold.github.io/pytorch-Deep-Learning/&#34;&gt;NYC PyTorch Deep Learning课程网站&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://cs231n.github.io/convolutional-networks/&#34;&gt;cs231n convolutional networks&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atcold.github.io/pytorch-Deep-Learning/&#34;&gt;NYC PyTorch Deep Learning&lt;/a&gt;课程网站&lt;/li&gt;
+&lt;li&gt;cs231n &lt;a href=&#34;https://cs231n.github.io/convolutional-networks/&#34;&gt;convolutional networks&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pytorch.org/docs/stable/nn.html#convolution-layers&#34;&gt;pytorch官方文档Conv2d&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/Atcold/pytorch-Deep-Learning/blob/master/06-convnet.ipynb&#34;&gt;课程convnet.ipynb&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 - https://youngforever.tech/posts/20200401-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02/ - </description>
         </item>
@@ -33,7 +185,7 @@
     
         <item>
         <title>重读XGBoost</title>
-        <link>https://youngforever.tech/posts/20200323-%E9%87%8D%E8%AF%BBxgboost/</link>
+        
         <pubDate>Mon, 23 Mar 2020 16:18:13 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/20200323-%E9%87%8D%E8%AF%BBxgboost/</guid>
@@ -185,7 +337,7 @@ $$f(x^t) = f(x^{t-1}+\Delta x)\approx{f(x^{t-1})+ f^{\prime}(x^{t-1})\Delta{x}+f
     
         <item>
         <title>Pytorch LSTM时间序列分析</title>
-        <link>https://youngforever.tech/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</link>
+        
         <pubDate>Tue, 17 Mar 2020 12:44:45 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/2020-03-18-lstm%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</guid>
@@ -506,7 +658,7 @@ plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show()
     
         <item>
         <title>深度学习个人及机构博客推荐（持续更新）</title>
-        <link>https://youngforever.tech/posts/2020-03-12-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AA%E4%BA%BA%E5%8F%8A%E6%9C%BA%E6%9E%84%E5%8D%9A%E5%AE%A2%E6%8E%A8%E8%8D%90%E6%9B%B4%E6%96%B0ing/</link>
+        
         <pubDate>Thu, 12 Mar 2020 17:20:23 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/2020-03-12-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AA%E4%BA%BA%E5%8F%8A%E6%9C%BA%E6%9E%84%E5%8D%9A%E5%AE%A2%E6%8E%A8%E8%8D%90%E6%9B%B4%E6%96%B0ing/</guid>
@@ -580,7 +732,7 @@ plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show()
     
         <item>
         <title>LSTM简介以及pytorch实例</title>
-        <link>https://youngforever.tech/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
+        
         <pubDate>Mon, 09 Mar 2020 15:07:13 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/2020-03-07-lstm%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
@@ -788,7 +940,7 @@ output, (hn, cn) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rnn(in
     
         <item>
         <title>PyTorch深度学习（1）</title>
-        <link>https://youngforever.tech/posts/2020-03-05-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        
         <pubDate>Thu, 05 Mar 2020 11:50:19 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/2020-03-05-pytorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
@@ -834,7 +986,7 @@ J(w, b)为问题的cost function即目标函数，即m个样本的损失函数�
     
         <item>
         <title>2020</title>
-        <link>https://youngforever.tech/posts/2020-03-02-2020/</link>
+        
         <pubDate>Mon, 02 Mar 2020 10:18:00 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/2020-03-02-2020/</guid>
@@ -882,7 +1034,7 @@ J(w, b)为问题的cost function即目标函数，即m个样本的损失函数�
     
         <item>
         <title>KILL TIME or KILL US</title>
-        <link>https://youngforever.tech/posts/2019-09-16-kill-time-or-kill-us/</link>
+        
         <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/2019-09-16-kill-time-or-kill-us/</guid>
@@ -900,7 +1052,7 @@ J(w, b)为问题的cost function即目标函数，即m个样本的损失函数�
     
         <item>
         <title>DenseNet导读</title>
-        <link>https://youngforever.tech/posts/densenet/</link>
+        
         <pubDate>Thu, 29 Aug 2019 00:00:00 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/densenet/</guid>
@@ -968,7 +1120,7 @@ BN &amp;gt; ReLU &amp;gt; ReLU &amp;gt; Conv(1*1) &amp;gt; BN &amp;gt; ReLU &amp
     
         <item>
         <title>ResNet导读要点解析</title>
-        <link>https://youngforever.tech/posts/2019-08-19-resnet/</link>
+        
         <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
         
         <guid>https://youngforever.tech/posts/2019-08-19-resnet/</guid>
