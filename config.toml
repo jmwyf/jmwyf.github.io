@@ -8,7 +8,8 @@ googleAnalytics = "UA-133677720-1"
 subtitle = "靡不有初，鲜克有终"
 # enableValine = true
 favicon = "images/favicon.ico"
-livereId = "MTAyMC80OTA0OS8yNTU0NA=="
+# livereId = "MTAyMC80OTA0OS8yNTU0NA=="
+livereID = "MTAyMC81MDMzMy8yNjgyMw=="
 
 # [params.valine]
 #  appId = "OCza6uA6qRwnSVk3JSHawKa5-gzGzoHsz"
@@ -18,7 +19,7 @@ livereId = "MTAyMC80OTA0OS8yNTU0NA=="
 [taxonomies]
    tag = "tags"
    category = "categories"
-   
+
 [[menu.main]]             # config your menu              # 配置目录
 name = "About"
 weight = 4
@@ -26,7 +27,7 @@ url = "/about"
 [[menu.main]]
 name = "Archive"
 weight = 1
-url = "/posts"
+url = "/post"
 [[menu.main]]
 url = "/categories"
 name = "Categories"
@@ -39,3 +40,10 @@ weight = 3
 url = "/index.xml"
 name = "RSS"
 weight = 5
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      hardWraps = false
+      unsafe = true
+      xHTML = true
