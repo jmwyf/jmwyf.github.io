@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Tags on 从百草园到三味书屋</title>
+        <link>https://youngforever.tech/tags/</link>
+        <description>Recent content in Tags on 从百草园到三味书屋</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-US</language>
+        <lastBuildDate>Thu, 03 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://youngforever.tech/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>markdown</title>
+        <link>https://youngforever.tech/tags/markdown/</link>
+        <pubDate>Thu, 03 Nov 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://youngforever.tech/tags/markdown/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>pytorch</title>
+        <link>https://youngforever.tech/tags/pytorch/</link>
+        <pubDate>Wed, 01 Apr 2020 14:51:32 +0000</pubDate>
+        
+        <guid>https://youngforever.tech/tags/pytorch/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>lstm</title>
+        <link>https://youngforever.tech/tags/lstm/</link>
+        <pubDate>Mon, 09 Mar 2020 15:07:13 +0000</pubDate>
+        
+        <guid>https://youngforever.tech/tags/lstm/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>git</title>
+        <link>https://youngforever.tech/tags/git/</link>
+        <pubDate>Mon, 04 Mar 2019 22:22:22 +0000</pubDate>
+        
+        <guid>https://youngforever.tech/tags/git/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>
