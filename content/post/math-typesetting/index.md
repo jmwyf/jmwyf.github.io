@@ -37,7 +37,7 @@ In this example we will be using [KaTeX](https://katex.org/)
 
 ### Examples
 
-Inline math: $$\(\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…\)$$
+Inline math: $$ y = x_t $$
 
 Block math:
 $$
