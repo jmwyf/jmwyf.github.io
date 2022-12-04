@@ -1,13 +1,3 @@
-[submodule "public"]
-	path = public
-	url = https://github.com/jmwyf/jmwyf.github.io.git
-	branch = master
-[submodule "themes/ananke"]
-	path = themes/ananke
-	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git
-[submodule "themes/avicenna"]
-	path = themes/avicenna
-	url = https://github.com/hadisinaee/avicenna.git
 [submodule "themes/hugo-theme-stack"]
 	path = themes/hugo-theme-stack
 	url = https://github.com/CaiJimmy/hugo-theme-stack/
