@@ -929,7 +929,7 @@ J(w, b)为问题的cost function即目标函数，即m个样本的损失函数�
 &lt;p>&lt;strong>Note:&lt;/strong> Use the online reference of &lt;a class="link" href="https://katex.org/docs/supported.html" target="_blank" rel="noopener"
 >Supported TeX Functions&lt;/a>&lt;/p>
 &lt;h3 id="examples">Examples&lt;/h3>
-&lt;p>Inline math: $$(\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…)$$&lt;/p>
+&lt;p>Inline math: $$ y = x_t $$&lt;/p>
 &lt;p>Block math:
 $$
 \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
