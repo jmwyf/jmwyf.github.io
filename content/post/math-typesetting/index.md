@@ -37,7 +37,7 @@ In this example we will be using [KaTeX](https://katex.org/)
 
 ### Examples
 
-Inline math: $$ y = x_t $$
+Inline math: $$ y = x\_t $$
 
 Block math:
 $$
