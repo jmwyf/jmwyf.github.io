@@ -9,6 +9,9 @@ links:
     description: Lilian is leading Applied Research at OpenAI
     website: https://lilianweng.github.io
     image: 
+  - title: Chip Huyen
+    description: Chip Huyen, a writer and computer scientist.
+    website: https://huyenchip.com/blog/
 menu:
     main: 
         weight: -50
@@ -20,6 +23,7 @@ menu:
 朋友和值得关注的博主！
 
 交换友联请提供：
+- 站名
 - 网址
 - 介绍
 - 在线头像（optional）
