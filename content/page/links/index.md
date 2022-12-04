@@ -15,7 +15,11 @@ menu:
         params:
             icon: link
 
-comments: false
 ---
 
 朋友和值得关注的博主！
+
+交换友联请提供：
+- 网址
+- 介绍
+- 在线头像（optional）
