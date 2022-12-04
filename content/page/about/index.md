@@ -14,4 +14,4 @@ menu:
             icon: user
 ---
 
-I am currently an engineer of Center for Artificial Intelligence In Medicine in a Hospital. My research focuses on two main areas: 1) secondary analysis EHRs with doctors 2) wearable device data analysis 3) multimodal fusion learning in healthcare
+I am currently an engineer of Center for Artificial Intelligence In Medicine in a Hospital. My research focuses on three main areas: 1) secondary analysis EHRs with doctors 2) wearable device data analysis 3) multimodal fusion learning in healthcare
