@@ -1,4 +1,146 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>从百草园到三味书屋</title><link>https://jmwyf.github.io/</link><description>Recent content on 从百草园到三味书屋</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Thu, 03 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://jmwyf.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Markdown Syntax Guide</title><link>https://jmwyf.github.io/p/markdown-syntax-guide/</link><pubDate>Thu, 03 Nov 2022 00:00:00 +0000</pubDate><guid>https://jmwyf.github.io/p/markdown-syntax-guide/</guid><description>&lt;img src="https://jmwyf.github.io/p/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" />&lt;p>This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>从百草园到三味书屋</title><link>https://jmwyf.github.io/</link><description>Recent content on 从百草园到三味书屋</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Fri, 06 Jan 2023 16:59:00 +0000</lastBuildDate><atom:link href="https://jmwyf.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>《A Unified Approach to interpreting Model Predictions》论文解读</title><link>https://jmwyf.github.io/p/a-unified-approach-to-interpreting-model-predictions%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</link><pubDate>Fri, 06 Jan 2023 16:59:00 +0000</pubDate><guid>https://jmwyf.github.io/p/a-unified-approach-to-interpreting-model-predictions%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</guid><description>&lt;h1 id="a-unified-approach-to-interpreting-model-predictions论文解读">《A Unified Approach to Interpreting Model Predictions》论文解读&lt;/h1>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;ul>
+&lt;li>大数据让复杂模型的优势明显&lt;/li>
+&lt;li>提出一种新颖统一的方法用于模型解释
+&lt;ul>
+&lt;li>用模型的方法来解释复杂模型（用魔法打败魔法）&lt;/li>
+&lt;li>提出SHAP值作为各种方法近似统一特征重要度度量&lt;/li>
+&lt;li>提出新的SHAP值估计方法&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="interpretation-model-properties">Interpretation model properties&lt;/h2>
+&lt;p>描述解释模型需要有的三个性质，而现在解释方法的缺陷&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/p>
+&lt;ul>
+&lt;li>局部准确性：如果x‘是x的简化特征，对应解释模型g(x&amp;rsquo;) = f(x)，即解释模型在给定的特征情况下能解释为什么模型预测值是这么多。&lt;/li>
+&lt;li>缺失性：当x&amp;rsquo;=0的时候，贡献度$\phi$为0&lt;/li>
+&lt;li>一致性：模型改变导致特征变的更重要时，贡献度也应该变大&lt;/li>
+&lt;/ul>
+&lt;h2 id="additive-feature-attribution-methods">Additive Feature Attribution methods&lt;/h2>
+&lt;p>一大类方法中解释模型是一系列二元变量的线性函数
+称为&lt;strong>Additive Feature Attribution methods&lt;/strong>（AFA）相加特征归因方法
+$$g(z&amp;rsquo;) = \phi_0 + \sum_{i=1}^{M}\phi_i z&amp;rsquo;_{i}$$
+$z&amp;rsquo; \in {0, 1}^M$&lt;/p>
+&lt;h2 id="classic-shapley-value-estimation">Classic Shapley Value Estimation&lt;/h2>
+&lt;p>$$\phi_{i} = \sum_{S \subseteq F\backslash{i}}\frac{|S|!(|F|-|S|-1)!}{|F|!}[f_{S\cup{i}}(x_{S\cup{i}})-f_{S(x_S)}]$$
+基于上面公式精确计算很麻烦，特征的排列有$2^F$种，计算量巨大&lt;/p>
+&lt;h2 id="shap">SHAP&lt;/h2>
+&lt;p>SHAP分为模型无关和模型相关两类方法，模型无关的代表是kernelSHAP，而模型相关的代表则有DeepSHAP和TreeSHAP，一个是针对深度学习，一个是针对树模型。&lt;/p>
+&lt;h2 id="kernel-shap">Kernel SHAP&lt;/h2>
+&lt;h3 id="lime">LIME&lt;/h3>
+&lt;p>LIME&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>（Local interpretable model-agnostic explanations)（why should I trust you: Explaining the predictions of any classifier）通过生成的包含需要解释点周围的扰动数据和基于黑箱模型预测结果的数据集，训练一个可以解释的模型，比如逻辑回归、决策树，这个可解释模型需要在解释点周围达到较好的效果。
+$$\xi = \mathop{\arg\min}\limits_{g\in G}L(f,g,\pi_x) + \Omega(g)$$&lt;/p>
+&lt;ul>
+&lt;li>f为需解释模型&lt;/li>
+&lt;li>g为可能的解释模型&lt;/li>
+&lt;li>$\pi_x$为定义实例周围多大范围&lt;/li>
+&lt;/ul>
+&lt;p>算法过程：&lt;/p>
+&lt;ul>
+&lt;li>选择需要解释感兴趣的实例&lt;/li>
+&lt;li>对其进行扰动，并得到黑箱模型对应结果产生新数据集&lt;/li>
+&lt;li>根据与实例的接近程度，对新数据集进行赋予权重&lt;/li>
+&lt;li>基于新数据集和上述损失函数求解可解释模型&lt;/li>
+&lt;li>解释预测值
+&lt;img src="https://cdn.jsdelivr.net/gh/jmwyf/pichosting@master/weightshap.png"
+loading="lazy"
+>
+Figure 3: Toy example to present intuition for LIME&lt;/li>
+&lt;/ul>
+&lt;h3 id="kernelshaplinear-lime--shapley-value">KernelSHAP（Linear LIME + Shapley value）&lt;/h3>
+&lt;p>LIME（Local interpretable model-agnostic explanations）方法的拓展，通过修改LIME需要求解loss等式参数，其主要思路是利用核变换，让$\phi$符合shapley value&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>
+算法过程&lt;sup id="fnref:4">&lt;a href="#fn:4" class="footnote-ref" role="doc-noteref">4&lt;/a>&lt;/sup>：&lt;/p>
+&lt;ul>
+&lt;li>根据$z_k^{&amp;rsquo;} \in {0, 1}^M$选择k个样本&lt;/li>
+&lt;li>将$z_k^{&amp;rsquo;} \in {0, 1}^M$转化为原始特征值并计算黑箱模型预测值&lt;/li>
+&lt;li>基于SHAP kernel计算$z_k^{&amp;rsquo;}$ 样本权重，$z_k$里面1的个数不一样权重就不一样&lt;/li>
+&lt;li>拟合线性模型&lt;/li>
+&lt;li>从线性模型中返回Shapley values
+SHAP核为(推导过程见2补充材料)：
+$$\pi_{x&amp;rsquo;}(z&amp;rsquo;)= \frac{(M-1)}{(M choose |z&amp;rsquo;|)|z&amp;rsquo;|(M-|z&amp;rsquo;|)}$$
+$$L(f,g, \pi_{x&amp;rsquo;})=\sum_{z&amp;rsquo;\in Z}[f(h_x^{-1}(z&amp;rsquo;))-g(z&amp;rsquo;)]^2\pi_{x&amp;rsquo;}(z&amp;rsquo;)$$
+x&amp;rsquo;为简化输入，$x=h_x(x&amp;rsquo;)$, $z&amp;rsquo; \subseteq x&amp;rsquo;$
+其中第二步：The function h maps 1’s to the corresponding value from the instance x that we want to explain. For tabular data, it maps 0’s to the values of another instance that we sample from the data. This means that we equate “feature value is absent” with “feature value is replaced by random feature value from data”.&lt;/li>
+&lt;/ul>
+&lt;h2 id="deep-shap">Deep SHAP&lt;/h2>
+&lt;h3 id="deepliftlearning-important-features">DeepLIFT（Learning Important FeaTures）&lt;/h3>
+&lt;p>DeepLIFT&lt;sup id="fnref:5">&lt;a href="#fn:5" class="footnote-ref" role="doc-noteref">5&lt;/a>&lt;/sup>方法使用神经元的激活与其“参考”进行比较，其中参考是神经元在网络获得“参考输入”时具有的激活状态（参考输入根据具体任务的内容定义）。该方法赋予每个特征重要度分数之和等于预测值与基于参考输入的预测值之间的差异&lt;sup id="fnref:6">&lt;a href="#fn:6" class="footnote-ref" role="doc-noteref">6&lt;/a>&lt;/sup>。
+能解决基于梯度方法的不足，例如参考的差异不是0的情况下梯度仍然可能是0。
+$$\sum_{i=1}^n C_{\Delta x_i \Delta t} = \Delta t \tag1$$
+$\Delta t = t - t^0$, 神经元输出与参考输出的差异，$\Delta x$输入相对参考输入的变化， C即特征的贡献&lt;/p>
+&lt;p>$$m_{\Delta x\Delta t} = \frac{C_{\Delta x\Delta t}}{\Delta x} \tag2$$
+定义乘子multiplier，满足链式法则
+算法步骤&lt;sup id="fnref:7">&lt;a href="#fn:7" class="footnote-ref" role="doc-noteref">7&lt;/a>&lt;/sup>：&lt;/p>
+&lt;ul>
+&lt;li>定义参考值
+&lt;ul>
+&lt;li>choosing a good reference would rely on domain-specific knowledge, and in some cases it may be best to compute DeepLIFT scores against multiple different references&lt;/li>
+&lt;li>比如图像用全0或者模糊版本，基因数据用本底期望频率&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>区分正负贡献（2019）&lt;/li>
+&lt;li>贡献度规则
+&lt;ul>
+&lt;li>线性层直接是系数$w* \Delta x_i$&lt;/li>
+&lt;li>非线性变化是$m_{\Delta x\Delta y} = \frac{C_{\Delta x\Delta y}}{\Delta x} =\frac{\Delta y}{\Delta x}$&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="deepshapdeeplift--shapley-value">DeepSHAP(DeepLIFT + Shapley value)&lt;/h3>
+&lt;p>尽管kernelSHAP是适用于所有模型的包括深度学习模型的一种可解释方法，但是有没有能利用神经网络特性的可解释方法从而提高计算效率。
+DeepLIFT计算的分数近似于Shapley value?并不是这个思路&lt;/p>
+&lt;ul>
+&lt;li>the Shapely values measure the average marginal effect of including an input over all possible orderings in which inputs can be included. If we define “including” an input as setting it to its actual value instead of its reference value, DeepLIFT can be thought of as a fast approximation of the Shapely values&lt;sup id="fnref:8">&lt;a href="#fn:8" class="footnote-ref" role="doc-noteref">8&lt;/a>&lt;/sup>&lt;/li>
+&lt;li>Though a variety of methods exist for estimating SHAP values, we implemented a modified version of the DeepLIFT algorithm, which computes SHAP by estimating differences in model activations during backpropagation relative to a standard reference.
+&lt;img src="https://cdn.jsdelivr.net/gh/jmwyf/pichosting@master/components.png"
+loading="lazy"
+>
+&lt;img src="https://cdn.jsdelivr.net/gh/jmwyf/pichosting@master/shap.png"
+loading="lazy"
+>
+figure from ref[3]&lt;/li>
+&lt;li>基于Shapley value的定义以及公式可以看出重要的一部分即边际效应，即模型包含该特征减去未包含该部分。在上述一个神经网络模块里面，特征顺序选择都不存在。在认为包含特征即相对于参考输入是真实输入的情况下，把包含特征后乘子直接链式法则做为SHAP值近似公式&lt;/li>
+&lt;li>在上述简单网络组件里面，输入到输出之间可以看作线性近似从而得到公式16&lt;/li>
+&lt;li>把用实际值代替参考值看作是包含某个特征，DeepLIFT方法与DeepSHAP似乎看不到区别?&lt;/li>
+&lt;/ul>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>&lt;a class="link" href="https://blog.ml.cmu.edu/2020/08/31/6-interpretability/" target="_blank" rel="noopener"
+>6 – Interpretability – Machine Learning Blog | ML@CMU | Carnegie Mellon University&lt;/a>&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>Ribeiro, M. T., Singh, S. &amp;amp; Guestrin, C. ‘Why Should I Trust You?’: Explaining the Predictions of Any Classifier. &lt;em>Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining&lt;/em> 1135–1144 (2016) doi:&lt;a class="link" href="https://doi.org/10.1145/2939672.2939778" target="_blank" rel="noopener"
+>10.1145/2939672.2939778&lt;/a>.&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:3">
+&lt;p>&lt;a class="link" href="https://papers.nips.cc/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html" target="_blank" rel="noopener"
+>A Unified Approach to Interpreting Model Predictions&lt;/a>&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:4">
+&lt;p>&lt;a class="link" href="https://christophm.github.io/interpretable-ml-book/shap.html" target="_blank" rel="noopener"
+>9.6 SHAP (SHapley Additive exPlanations) | Interpretable Machine Learning&lt;/a>&amp;#160;&lt;a href="#fnref:4" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:5">
+&lt;p>&lt;a class="link" href="https://libraries.io/pypi/deeplift" target="_blank" rel="noopener"
+>deeplift 0.6.13.0 on PyPI - Libraries.io&lt;/a>&amp;#160;&lt;a href="#fnref:5" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:6">
+&lt;p>&lt;a class="link" href="https://towardsdatascience.com/explainable-neural-networks-recent-advancements-part-3-6a838d15f2fb" target="_blank" rel="noopener"
+>Explainable Neural Networks: Recent Advancements, Part 3 | by G Roshan Lal | Towards Data Science&lt;/a>&amp;#160;&lt;a href="#fnref:6" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:7">
+&lt;p>Shrikumar, A., Greenside, P., Shcherbina, A. &amp;amp; Kundaje, A. Not Just a Black Box: Learning Important Features Through Propagating Activation Differences. Preprint at &lt;a class="link" href="https://doi.org/10.48550/arXiv.1605.01713" target="_blank" rel="noopener"
+>https://doi.org/10.48550/arXiv.1605.01713&lt;/a> (2017).&amp;#160;&lt;a href="#fnref:7" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:8">
+&lt;p>Shrikumar, A., Greenside, P. &amp;amp; Kundaje, A. Learning Important Features Through Propagating Activation Differences. Preprint at &lt;a class="link" href="http://arxiv.org/abs/1704.02685" target="_blank" rel="noopener"
+>http://arxiv.org/abs/1704.02685&lt;/a> (2019).&amp;#160;&lt;a href="#fnref:8" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item><item><title>Markdown Syntax Guide</title><link>https://jmwyf.github.io/p/markdown-syntax-guide/</link><pubDate>Thu, 03 Nov 2022 00:00:00 +0000</pubDate><guid>https://jmwyf.github.io/p/markdown-syntax-guide/</guid><description>&lt;img src="https://jmwyf.github.io/p/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" />&lt;p>This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p>
 &lt;h2 id="headings">Headings&lt;/h2>
 &lt;p>The following HTML &lt;code>&amp;lt;h1&amp;gt;&lt;/code>—&lt;code>&amp;lt;h6&amp;gt;&lt;/code> elements represent six levels of section headings. &lt;code>&amp;lt;h1&amp;gt;&lt;/code> is the highest section level while &lt;code>&amp;lt;h6&amp;gt;&lt;/code> is the lowest.&lt;/p>
 &lt;h1 id="h1">H1&lt;/h1>
