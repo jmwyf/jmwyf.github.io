@@ -11,7 +11,7 @@
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="interpretation-model-properties">Interpretation model properties&lt;/h2>
-&lt;p>描述解释模型需要有的三个性质，而现在解释方法的缺陷&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/p>
+&lt;p>描述解释模型需要有的三个性质，而现在解释方法的缺陷有哪些&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/p>
 &lt;ul>
 &lt;li>局部准确性：如果x‘是x的简化特征，对应解释模型g(x&amp;rsquo;) = f(x)，即解释模型在给定的特征情况下能解释为什么模型预测值是这么多。&lt;/li>
 &lt;li>缺失性：当x&amp;rsquo;=0的时候，贡献度$\phi$为0&lt;/li>
@@ -26,7 +26,7 @@ $z&amp;rsquo; \in {0, 1}^M$&lt;/p>
 &lt;p>$$\phi_{i} = \sum_{S \subseteq F\backslash{i}}\frac{|S|!(|F|-|S|-1)!}{|F|!}[f_{S\cup{i}}(x_{S\cup{i}})-f_{S(x_S)}]$$
 基于上面公式精确计算很麻烦，特征的排列有$2^F$种，计算量巨大&lt;/p>
 &lt;h2 id="shap">SHAP&lt;/h2>
-&lt;p>SHAP分为模型无关和模型相关两类方法，模型无关的代表是kernelSHAP，而模型相关的代表则有DeepSHAP和TreeSHAP，一个是针对深度学习，一个是针对树模型。&lt;/p>
+&lt;p>SHAP分为模型无关和模型相关两类方法用来近似求解，模型无关的代表是kernelSHAP，而模型相关的代表则有DeepSHAP和TreeSHAP，一个是针对深度学习，一个是针对树模型。&lt;/p>
 &lt;h2 id="kernel-shap">Kernel SHAP&lt;/h2>
 &lt;h3 id="lime">LIME&lt;/h3>
 &lt;p>LIME&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>（Local interpretable model-agnostic explanations)（why should I trust you: Explaining the predictions of any classifier）通过生成的包含需要解释点周围的扰动数据和基于黑箱模型预测结果的数据集，训练一个可以解释的模型，比如逻辑回归、决策树，这个可解释模型需要在解释点周围达到较好的效果。

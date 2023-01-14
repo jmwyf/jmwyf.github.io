@@ -1,4 +1,206 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 从百草园到三味书屋</title><link>https://jmwyf.github.io/post/</link><description>Recent content in Posts on 从百草园到三味书屋</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Fri, 06 Jan 2023 16:59:00 +0000</lastBuildDate><atom:link href="https://jmwyf.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>《A Unified Approach to interpreting Model Predictions》论文解读</title><link>https://jmwyf.github.io/p/a-unified-approach-to-interpreting-model-predictions%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</link><pubDate>Fri, 06 Jan 2023 16:59:00 +0000</pubDate><guid>https://jmwyf.github.io/p/a-unified-approach-to-interpreting-model-predictions%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</guid><description>&lt;h1 id="a-unified-approach-to-interpreting-model-predictions论文解读">《A Unified Approach to Interpreting Model Predictions》论文解读&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 从百草园到三味书屋</title><link>https://jmwyf.github.io/post/</link><description>Recent content in Posts on 从百草园到三味书屋</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Fri, 13 Jan 2023 16:59:00 +0000</lastBuildDate><atom:link href="https://jmwyf.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>MIT 6.S91 Introduction Deep Learning Notes</title><link>https://jmwyf.github.io/p/mit-6.s91-introduction-deep-learning-notes/</link><pubDate>Fri, 13 Jan 2023 16:59:00 +0000</pubDate><guid>https://jmwyf.github.io/p/mit-6.s91-introduction-deep-learning-notes/</guid><description>&lt;h2 id="1introduction-to-deep-learning">1.Introduction to Deep learning&lt;/h2>
+&lt;ul>
+&lt;li>震撼，第一节课直接放大招，用自己拍摄的视频和奥巴马合成来介绍这门课程。&lt;/li>
+&lt;li>&lt;strong>不管老师在课程上讲什么，希望你们能真正的思考为什么这一步是重要而且必须的，正是这些思考才能做出真正令人惊讶的突破。&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h2 id="2deep-sequence-model">2.Deep Sequence Model&lt;/h2>
+&lt;p>Three way to solve gradient vanish&lt;/p>
+&lt;ul>
+&lt;li>Gated Cells
+&lt;ul>
+&lt;li>LSTM
+&lt;ul>
+&lt;li>Forget&lt;/li>
+&lt;li>Store&lt;/li>
+&lt;li>Update&lt;/li>
+&lt;li>Output&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Attention [[Transformer]]&lt;/li>
+&lt;/ul>
+&lt;h2 id="3deep-computer-vision">3.Deep Computer Vision&lt;/h2>
+&lt;ul>
+&lt;li>介绍卷积操作，是一种提取特征的方法生成feature maps（还有其他的方法可以用吗？然后效果还不错）；
+&lt;ul>
+&lt;li>与全连接相比的优点；&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Fast RCNN用于目标检测，怎么实现推荐特定区域图像？&lt;/li>
+&lt;/ul>
+&lt;ul>
+&lt;li>医学图片分割&lt;/li>
+&lt;/ul>
+&lt;ul>
+&lt;li>总结：
+&lt;ul>
+&lt;li>原理&lt;/li>
+&lt;li>CNN架构&lt;/li>
+&lt;li>应用&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="4deep-generative-models">4.Deep Generative Models&lt;/h2>
+&lt;ul>
+&lt;li>what 目标: 来自于一些分布中的训练样本，通过这些样本学习模型来表征这个分布；&lt;/li>
+&lt;li>how 密度估计；神经网络适合来进行高维度表征；&lt;/li>
+&lt;li>why
+&lt;ul>
+&lt;li>&lt;strong>Debiasing&lt;/strong>: Capable of uncovering underlying features in a dataset&lt;/li>
+&lt;li>Outlier detection: how can we detect when we encounter something new or rare?&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;ul>
+&lt;li>Latent variable representation:
+&lt;ul>
+&lt;li>举例事物的投影，只能看见影子即表象，而被灯光照射的实物是看不见的即隐变量；要做的是通过观察到的投影来对实物进行建模&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Autoencoder: reconstruction loss
+&lt;ul>
+&lt;li>完全是确定性性&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;ul>
+&lt;li>VAEs：normal prior + regularization
+&lt;ul>
+&lt;li>reconstruction loss + regularization term&lt;/li>
+&lt;li>encoder: $q_\phi(z|x)$&lt;/li>
+&lt;li>decoder: $p_\theta(x|z)$&lt;/li>
+&lt;li>KL-divergence: $D(q_\phi(z|x)||p(z))$&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://cdn.jsdelivr.net/gh/jmwyf/pichosting@master/VAEsummary.png"
+loading="lazy"
+>&lt;/p>
+&lt;ul>
+&lt;li>GANs
+&lt;ul>
+&lt;li>make a generative model by having two neural networks compete with each other&lt;/li>
+&lt;li>⭐️CycleGAN: domain transformations 视频开头的视频就是用这个合成&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="5deep-reinforcement-learning">5.Deep reinforcement learning&lt;/h2>
+&lt;ul>
+&lt;li>Reward: $$R_t = r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} + &amp;hellip;$$&lt;/li>
+&lt;li>Q-function: expected total future reward $$Q(s_t, a_t) = E[R_t|s_t, a_t]$$&lt;/li>
+&lt;li>Policy: to infer the best action to take at its state, choose an action that maximizes future reward $$\pi^*(s)=\mathop{\arg\max}\limits_{s}Q(s, a)$$&lt;/li>
+&lt;li>Value Learning
+&lt;ul>
+&lt;li>find $Q(s, a)$&lt;/li>
+&lt;li>$a = \mathop{\arg\max}\limits_{a}Q(s, a)$&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Police Learning
+&lt;ul>
+&lt;li>find $\pi(s)$&lt;/li>
+&lt;li>sample $a\sim\pi(s)$&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Deep Q Network(DQN)&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Policy Gradient&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> AlphaGo&lt;/li>
+&lt;/ul>
+&lt;h2 id="6dl-limitations-and-new-frontiers">6.DL Limitations and New Frontiers&lt;/h2>
+&lt;ul>
+&lt;li>limitations
+&lt;ul>
+&lt;li>Generalization
+&lt;ul>
+&lt;li>data is important&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Uncertainty in Deep learning&lt;/li>
+&lt;li>adversarial attack&lt;/li>
+&lt;li>Algorithmic Bias&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Frontiers
+&lt;ul>
+&lt;li>encoder
+&lt;ul>
+&lt;li>many real world data cannot be captured by standard encodings&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> GCN（Graph Convolutional Networks）&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Automated AI&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="7-lidar-for-autonomous-driving">7. LiDAR for Autonomous Driving&lt;/h2>
+&lt;p>@INNOVIZ&lt;/p>
+&lt;ul>
+&lt;li>Camera Vs LiDAR
+&lt;ul>
+&lt;li>互补，视线不好的情况&lt;/li>
+&lt;li>冗余能保证准确&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Safety and Comfort&lt;/li>
+&lt;/ul>
+&lt;h2 id="8-automatic-speech-recognition">8. Automatic Speech Recognition&lt;/h2>
+&lt;p>@Rev&lt;/p>
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> Conformer&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> CTC&lt;/li>
+&lt;/ul>
+&lt;h2 id="9-ai-fore-science">9. AI fore Science&lt;/h2>
+&lt;p>Principled AI Algorithms for challenging domains
+@Caltech&lt;/p>
+&lt;h2 id="10-uncertainty-in-deep-learning">10. Uncertainty in Deep Learning&lt;/h2>
+&lt;p>longer version：NeurIPS 2020 Tutorial
+@Google AI Brain Team&lt;/p>
+&lt;ul>
+&lt;li>Return a distribution over predictions rather than a single prediction&lt;/li>
+&lt;li>Out-of-Distribution Robustness
+&lt;ul>
+&lt;li>covariate shift: distribution of features changes&lt;/li>
+&lt;li>open-set recognition: new classes may appear at test time&lt;/li>
+&lt;li>label shift: distribution of label changes&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>sources of uncertainty
+&lt;ul>
+&lt;li>Model uncertainty
+&lt;ul>
+&lt;li>认知上的不确定性&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Data uncertainty
+&lt;ul>
+&lt;li>human disagreement label noise&lt;/li>
+&lt;li>measurement noise&lt;/li>
+&lt;li>missing data&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>how to compute
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> BDN&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> GP&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> Deep Ensemble&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> MCMC&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>multi-input and multi output（MIMO）&lt;/li>
+&lt;li>how to communicate with uncertainty?&lt;/li>
+&lt;/ul>
+&lt;p>7-10讲很一般，一个复杂的主题，需要将背景讲清楚，公司讲东西也没啥具体细节。&lt;/p>
+&lt;h2 id="ref">Ref&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://www.bilibili.com/video/BV1jo4y1d7R6/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&amp;amp;vd_source=c2e29329f33c2e7eb04916d212234ad6" target="_blank" rel="noopener"
+>【双语字幕】MIT《深度学习导论(6.S191)》课程(2021)_哔哩哔哩_bilibili&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="http://introtodeeplearning.com/" target="_blank" rel="noopener"
+>introtodeeplearning.com&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.youtube.com/watch?v=QcLlc9lj2hk&amp;amp;list=PLtBw6njQRU-rwp5__7C0oIVt26ZgjG9NI&amp;amp;index=4" target="_blank" rel="noopener"
+>MIT 6.S191: Deep Generative Modeling - YouTube&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>《A Unified Approach to interpreting Model Predictions》论文解读</title><link>https://jmwyf.github.io/p/a-unified-approach-to-interpreting-model-predictions%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</link><pubDate>Fri, 06 Jan 2023 16:59:00 +0000</pubDate><guid>https://jmwyf.github.io/p/a-unified-approach-to-interpreting-model-predictions%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</guid><description>&lt;h1 id="a-unified-approach-to-interpreting-model-predictions论文解读">《A Unified Approach to Interpreting Model Predictions》论文解读&lt;/h1>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;ul>
 &lt;li>大数据让复杂模型的优势明显&lt;/li>
@@ -11,7 +213,7 @@
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="interpretation-model-properties">Interpretation model properties&lt;/h2>
-&lt;p>描述解释模型需要有的三个性质，而现在解释方法的缺陷&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/p>
+&lt;p>描述解释模型需要有的三个性质，而现在解释方法的缺陷有哪些&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/p>
 &lt;ul>
 &lt;li>局部准确性：如果x‘是x的简化特征，对应解释模型g(x&amp;rsquo;) = f(x)，即解释模型在给定的特征情况下能解释为什么模型预测值是这么多。&lt;/li>
 &lt;li>缺失性：当x&amp;rsquo;=0的时候，贡献度$\phi$为0&lt;/li>
@@ -26,7 +228,7 @@ $z&amp;rsquo; \in {0, 1}^M$&lt;/p>
 &lt;p>$$\phi_{i} = \sum_{S \subseteq F\backslash{i}}\frac{|S|!(|F|-|S|-1)!}{|F|!}[f_{S\cup{i}}(x_{S\cup{i}})-f_{S(x_S)}]$$
 基于上面公式精确计算很麻烦，特征的排列有$2^F$种，计算量巨大&lt;/p>
 &lt;h2 id="shap">SHAP&lt;/h2>
-&lt;p>SHAP分为模型无关和模型相关两类方法，模型无关的代表是kernelSHAP，而模型相关的代表则有DeepSHAP和TreeSHAP，一个是针对深度学习，一个是针对树模型。&lt;/p>
+&lt;p>SHAP分为模型无关和模型相关两类方法用来近似求解，模型无关的代表是kernelSHAP，而模型相关的代表则有DeepSHAP和TreeSHAP，一个是针对深度学习，一个是针对树模型。&lt;/p>
 &lt;h2 id="kernel-shap">Kernel SHAP&lt;/h2>
 &lt;h3 id="lime">LIME&lt;/h3>
 &lt;p>LIME&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>（Local interpretable model-agnostic explanations)（why should I trust you: Explaining the predictions of any classifier）通过生成的包含需要解释点周围的扰动数据和基于黑箱模型预测结果的数据集，训练一个可以解释的模型，比如逻辑回归、决策树，这个可解释模型需要在解释点周围达到较好的效果。
