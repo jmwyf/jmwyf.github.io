@@ -1407,39 +1407,7 @@ J(w, b)为问题的cost function即目标函数，即m个样本的损失函数�
 &lt;li>optimiser.step() 进行梯度下降&lt;/li>
 &lt;/ol>
 &lt;h2 id="3-总结">3. 总结&lt;/h2>
-&lt;p>看了前两节，觉得还是吴恩达大佬讲的好一些。建议网页上快速过内容即可，视频不用细看。&lt;/p></description></item><item><title>Archives</title><link>https://jmwyf.github.io/archives/</link><pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate><guid>https://jmwyf.github.io/archives/</guid><description/></item><item><title>Math Typesetting</title><link>https://jmwyf.github.io/p/math-typesetting/</link><pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><guid>https://jmwyf.github.io/p/math-typesetting/</guid><description>&lt;p>Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p>
-&lt;p>In this example we will be using &lt;a class="link" href="https://katex.org/" target="_blank" rel="noopener"
->KaTeX&lt;/a>&lt;/p>
-&lt;ul>
-&lt;li>Create a partial under &lt;code>/layouts/partials/math.html&lt;/code>&lt;/li>
-&lt;li>Within this partial reference the &lt;a class="link" href="https://katex.org/docs/autorender.html" target="_blank" rel="noopener"
->Auto-render Extension&lt;/a> or host these scripts locally.&lt;/li>
-&lt;li>Include the partial in your templates like so:&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">{{&lt;/span> &lt;span class="k">if&lt;/span> or .Params.math .Site.Params.math &lt;span class="o">}}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{{&lt;/span> partial &lt;span class="s2">&amp;#34;math.html&amp;#34;&lt;/span> . &lt;span class="o">}}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{{&lt;/span> end &lt;span class="o">}}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ul>
-&lt;li>To enable KaTex globally set the parameter &lt;code>math&lt;/code> to &lt;code>true&lt;/code> in a project&amp;rsquo;s configuration&lt;/li>
-&lt;li>To enable KaTex on a per page basis include the parameter &lt;code>math: true&lt;/code> in content files&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>Note:&lt;/strong> Use the online reference of &lt;a class="link" href="https://katex.org/docs/supported.html" target="_blank" rel="noopener"
->Supported TeX Functions&lt;/a>&lt;/p>
-&lt;h3 id="examples">Examples&lt;/h3>
-&lt;p>Inline math: $$ y = x_t $$&lt;/p>
-&lt;p>Block math:
-$$
-\varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
-$$&lt;/p></description></item><item><title>git常用命令</title><link>https://jmwyf.github.io/p/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link><pubDate>Mon, 04 Mar 2019 22:22:22 +0000</pubDate><guid>https://jmwyf.github.io/p/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid><description>&lt;p>以下操作基于macOS，Windows仅供参考。&lt;/p>
+&lt;p>看了前两节，觉得还是吴恩达大佬讲的好一些。建议网页上快速过内容即可，视频不用细看。&lt;/p></description></item><item><title>Archives</title><link>https://jmwyf.github.io/archives/</link><pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate><guid>https://jmwyf.github.io/archives/</guid><description/></item><item><title>git常用命令</title><link>https://jmwyf.github.io/p/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link><pubDate>Mon, 04 Mar 2019 22:22:22 +0000</pubDate><guid>https://jmwyf.github.io/p/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid><description>&lt;p>以下操作基于macOS，Windows仅供参考。&lt;/p>
 &lt;h2 id="git初始化文件夹">git初始化文件夹&lt;/h2>
 &lt;p>进入目录&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
