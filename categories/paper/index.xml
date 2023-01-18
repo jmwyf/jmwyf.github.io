@@ -1,4 +1,152 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Paper on 从百草园到三味书屋</title><link>https://jmwyf.github.io/categories/paper/</link><description>Recent content in Paper on 从百草园到三味书屋</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Fri, 06 Jan 2023 16:59:00 +0000</lastBuildDate><atom:link href="https://jmwyf.github.io/categories/paper/index.xml" rel="self" type="application/rss+xml"/><item><title>《A Unified Approach to interpreting Model Predictions》论文解读</title><link>https://jmwyf.github.io/p/a-unified-approach-to-interpreting-model-predictions%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</link><pubDate>Fri, 06 Jan 2023 16:59:00 +0000</pubDate><guid>https://jmwyf.github.io/p/a-unified-approach-to-interpreting-model-predictions%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</guid><description>&lt;h1 id="a-unified-approach-to-interpreting-model-predictions论文解读">《A Unified Approach to Interpreting Model Predictions》论文解读&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Paper on 从百草园到三味书屋</title><link>https://jmwyf.github.io/categories/paper/</link><description>Recent content in Paper on 从百草园到三味书屋</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Tue, 17 Jan 2023 17:02:30 +0000</lastBuildDate><atom:link href="https://jmwyf.github.io/categories/paper/index.xml" rel="self" type="application/rss+xml"/><item><title>《MIMIC-IV, a freely accessible electronic health record dataset》论文笔记</title><link>https://jmwyf.github.io/p/mimic-iv-a-freely-accessible-electronic-health-record-dataset%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</link><pubDate>Tue, 17 Jan 2023 17:02:30 +0000</pubDate><guid>https://jmwyf.github.io/p/mimic-iv-a-freely-accessible-electronic-health-record-dataset%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</guid><description>&lt;h1 id="mimic-iv-a-freely-accessible-electronic-health-record-dataset论文笔记">《MIMIC-IV, a freely accessible electronic health record dataset》论文笔记&lt;/h1>
+&lt;h2 id="背景">背景&lt;/h2>
+&lt;ul>
+&lt;li>本文&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>首先介绍mimic项目的由来，医院数据归档系统都不是为研究设计的，难以访问以及查询；&lt;/li>
+&lt;li>MIMIC从0-4发展简介；&lt;/li>
+&lt;li>其他数据库简介
+&lt;ul>
+&lt;li>eICU-CRD，美国多中心200859例ICU记录&lt;/li>
+&lt;li>AmsterdamUMCdb，荷兰单医学中心20109例患者23106次入院记录&lt;/li>
+&lt;li>HiRID&lt;a class="link" href="https://hirid.intensivecare.ai/data-details" target="_blank" rel="noopener"
+>Data details&lt;/a>，瑞士34000入院患者高分辨率数据（每两分钟一个数据点，712中常规手机生理数据）
+&lt;ul>
+&lt;li>HiRID has a higher time resolution than other published datasets, most importantly for bedside monitoring with most parameters recorded every 2 minutes&lt;/li>
+&lt;li>去隐私化方法可以借鉴&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>PIC，中国12881例患者13941次儿科ICU记录&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>问题，当前数据库都只是单模态的数据或各有特点，且临床实践发展变化快，数据库需要不断更新完善；&lt;/li>
+&lt;li>MIMIC-IV是当代的综合多模态数据库&lt;/li>
+&lt;/ul>
+&lt;h2 id="方法">方法&lt;/h2>
+&lt;p>mimic-iv数据库是怎么建的？&lt;/p>
+&lt;ul>
+&lt;li>获取、转化、去隐私化&lt;/li>
+&lt;/ul>
+&lt;h3 id="获取">获取&lt;/h3>
+&lt;p>BIDMC医院常规的临床数据存储在microsoft SQL中，通过VPN转移到MIT服务器的PostgreSQL，补充数据如ICD、患者死亡信息等外部导入到PostgreSQL&lt;/p>
+&lt;ul>
+&lt;li>队列：2008-2019，18岁以上&lt;/li>
+&lt;li>床旁信息来自于MetaVision，医院EHR会通过HL7推信息到MetaVision&lt;/li>
+&lt;li>外部数据主要说明DRGs和ICD是如何处理以及死亡信息如何处理
+&lt;ul>
+&lt;li>DRGs和ICD由于数据库跨度时间长以及不同版本，在数据库中把这些都导入了&lt;/li>
+&lt;li>死亡信息通过与马萨诸塞州生命记录和统计登记处进行匹配，而非社保档案&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="转化">转化&lt;/h3>
+&lt;p>转化有两条原则&lt;/p>
+&lt;ul>
+&lt;li>与MIMIC-III保持兼容&lt;/li>
+&lt;li>尽量减少处理过程让公开数据与临床实践数据保持一致&lt;/li>
+&lt;/ul>
+&lt;p>数据被分为三个组：hosp、icu和note&lt;/p>
+&lt;ul>
+&lt;li>hosp：admission/discharge/transfer（ADT），实验室检查结果，微生物培养，处方，管理数据&lt;/li>
+&lt;li>icu：患者出入量、输液、操作、记录到的观测值等&lt;/li>
+&lt;li>note：出院总结和放射学报告，也创建了相对应的自由文本结构化表“实体-属性-值”&lt;/li>
+&lt;/ul>
+&lt;h3 id="去隐私化">去隐私化&lt;/h3>
+&lt;ul>
+&lt;li>遵从The Health Insurance Portability and Accountability Act（HIPAA）条款规定了18项标识符，包括姓名、地址、年龄等需要去掉&lt;/li>
+&lt;li>日期移动，但时间点间距保留&lt;/li>
+&lt;li>结合了两个公开的算法&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>从自由文本中移除个人健康信息（PHI）
+&lt;ul>
+&lt;li>两个算法都没捕捉到的，从数据库中移除？这个没写具体怎么做&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="数据记录结果">数据记录结果&lt;/h2>
+&lt;p>这一部分类似传统论文的结果，详细介绍了hosp、icu、note模块里面的数据情况，对各表进行介绍&lt;/p>
+&lt;h3 id="hosp">Hosp&lt;/h3>
+&lt;p>首先介绍模块里主要键值以及表之间连接关系，与MIMIC-III一致&lt;/p>
+&lt;p>患者基本信息：patients、admissions和transfers表&lt;/p>
+&lt;ul>
+&lt;li>患者时间信息，anchor_year、anchor_age、anchor_year_group这几个重要项
+&lt;ul>
+&lt;li>anchor_year锚定年份，由于时间都是去隐私化的平移过的，这里可以看作平移之后的参考年份&lt;/li>
+&lt;li>anchor_year_group是真实年份的区间&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>患者死亡信息最多到患者出院1年为止&lt;/li>
+&lt;/ul>
+&lt;p>管理信息：services、poe、poe_detail表&lt;/p>
+&lt;ul>
+&lt;li>services 患者住院期间所受到的医疗服务
+&lt;ul>
+&lt;li>&lt;img src="https://cdn.jsdelivr.net/gh/jmwyf/pichosting@master/services.png"
+loading="lazy"
+>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>poe 医嘱录入系统：治疗和操作&lt;/li>
+&lt;/ul>
+&lt;p>计费信息：diagnoses_icd、procedures_icd、drgcodes、hcpcsevents&lt;/p>
+&lt;p>检查结果：microbiologyevents、labevents&lt;/p>
+&lt;p>药物信息：prescriptions、pharmacy、emar、emar_detail&lt;/p>
+&lt;ul>
+&lt;li>处方、药房信息；&lt;/li>
+&lt;li>2016年部署electronic Medicine Administration Record，eMAR；&lt;/li>
+&lt;li>看起来关系比较复杂使用得结合实例&lt;/li>
+&lt;/ul>
+&lt;h3 id="icu">ICU&lt;/h3>
+&lt;p>chartevents, d_items, datetimeevents, icustays, inputevents, outputevents, and procedureevents表&lt;/p>
+&lt;h3 id="note">Note&lt;/h3>
+&lt;p>出院总结：&lt;/p>
+&lt;ul>
+&lt;li>主诉、现病史、既往病史、简要病程、体格检查和出院诊断&lt;/li>
+&lt;/ul>
+&lt;p>放射学报告：&lt;/p>
+&lt;ul>
+&lt;li>x射线、CT、MRI、超声&lt;/li>
+&lt;/ul>
+&lt;h2 id="技术验证结果">技术验证结果&lt;/h2>
+&lt;ul>
+&lt;li>完整性检查
+&lt;ul>
+&lt;li>数据库自身是完备的，不会出现某个患者的信息只出现一张表其他表都找不到的情况&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>一致性检查
+&lt;ul>
+&lt;li>数据结果与一些常识一致&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>去隐私化检查&lt;/li>
+&lt;/ul>
+&lt;h2 id="使用笔记">使用笔记&lt;/h2>
+&lt;ul>
+&lt;li>如何获取
+&lt;ul>
+&lt;li>参加课程&lt;/li>
+&lt;li>签署data use agreement, DUA&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>代码库以及模版&lt;/li>
+&lt;/ul>
+&lt;h2 id="思考">思考&lt;/h2>
+&lt;ul>
+&lt;li>MIMIC数据库一步一步发展已经来到了第四版，很好的体现了科学研究的可持续发展。&lt;/li>
+&lt;li>与MIMIC-III论文写法不同，mimic-iv对数据库构建过程写的更加详细，可操作性更高，而mimic-iii由于没有很好的把这个过程结构化抽象分成几步显得构建细节不足，而mimic-iii论文表格比较丰富，对数据库进行了一些粗粒度的介绍，mimic-iv论文没有。个人认为iv这篇论文写的更好一点。&lt;/li>
+&lt;li>伴随着数据类型越来越多、数据库越来越多，数据分析人员也需要掌握更多类型数据预处理方法。面对文本、图像、波形的多模态数据分析或者在不完备数据情况下模型的不确定性成为两个相对应的研究方向。&lt;/li>
+&lt;/ul>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Johnson, A. E. W. &lt;em>et al.&lt;/em> MIMIC-IV, a freely accessible electronic health record dataset. &lt;em>Sci Data&lt;/em> &lt;strong>10&lt;/strong>, 1 (2023).&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>Neamatullah, I. et al. Automated de-identification of free-text medical records. BMC medical informatics and decision making 8,1–17 (2008).&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:3">
+&lt;p>Johnson, A. E. W., Bulgarelli, L. &amp;amp; Pollard, T. J. Deidentification of free-text medical records using pre-trained bidirectional transformers. In Proceedings of the ACM Conference on Health, Inference, and Learning, 214–221 (2020).&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item><item><title>《A Unified Approach to interpreting Model Predictions》论文解读</title><link>https://jmwyf.github.io/p/a-unified-approach-to-interpreting-model-predictions%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</link><pubDate>Fri, 06 Jan 2023 16:59:00 +0000</pubDate><guid>https://jmwyf.github.io/p/a-unified-approach-to-interpreting-model-predictions%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</guid><description>&lt;h1 id="a-unified-approach-to-interpreting-model-predictions论文解读">《A Unified Approach to Interpreting Model Predictions》论文解读&lt;/h1>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;ul>
 &lt;li>大数据让复杂模型的优势明显&lt;/li>
