@@ -1,7 +1,7 @@
 ---
 title: "公开重症监护数据库MIMIC代码仓库介绍"
 date: 2023-02-04 10:57:02
-description: "The MIMIC Code Repository: Enabling reproducibility in critical care research"
+description: "《The MIMIC Code Repository: Enabling reproducibility in critical care research》论文"
 tags: [medical data]
 categories: Paper
 math: true
@@ -82,7 +82,7 @@ sepsis定义有多种版本，这里给出了*Angus 2001，Martin 2003，Iwashyn
 ## 补充
 - 代码库地址：https://github.com/MIT-LCP/mimic-code
 	- 之前以MIMIC-III为主，现在mimic-iii和mimic-iv合并在一起了
-- mimic数据库为了让研究者访问更加方便，很大一个改变室部署在云上比如google的云平台，云平台上需要big query语法来访问，所以现在代码库关于代码更新以big query为主，通过脚本转化为适合postgres语法
+- mimic数据库为了让研究者访问更加方便，很大一个改变是部署在云上比如google的云平台，云平台上需要big query语法来访问，所以现在代码库关于数据提取的代码更新以big query为主，需要通过脚本转化为适合postgres语法
 	- Open a terminal in the `concepts` folder.
 	- Run [convert_bigquery_to_postgres.sh](https://github.com/MIT-LCP/mimic-code/blob/main/mimic-iv/concepts/convert_bigquery_to_postgres.sh).
 		-   e.g. `bash convert_bigquery_to_postgres.sh`
