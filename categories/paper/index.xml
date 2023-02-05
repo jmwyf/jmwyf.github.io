@@ -1,4 +1,123 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Paper on 从百草园到三味书屋</title><link>https://jmwyf.github.io/categories/paper/</link><description>Recent content in Paper on 从百草园到三味书屋</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Tue, 17 Jan 2023 17:02:30 +0000</lastBuildDate><atom:link href="https://jmwyf.github.io/categories/paper/index.xml" rel="self" type="application/rss+xml"/><item><title>《MIMIC-IV, a freely accessible electronic health record dataset》论文笔记</title><link>https://jmwyf.github.io/p/mimic-iv-a-freely-accessible-electronic-health-record-dataset%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</link><pubDate>Tue, 17 Jan 2023 17:02:30 +0000</pubDate><guid>https://jmwyf.github.io/p/mimic-iv-a-freely-accessible-electronic-health-record-dataset%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</guid><description>&lt;h1 id="mimic-iv-a-freely-accessible-electronic-health-record-dataset论文笔记">《MIMIC-IV, a freely accessible electronic health record dataset》论文笔记&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Paper on 从百草园到三味书屋</title><link>https://jmwyf.github.io/categories/paper/</link><description>Recent content in Paper on 从百草园到三味书屋</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Sat, 04 Feb 2023 10:57:02 +0000</lastBuildDate><atom:link href="https://jmwyf.github.io/categories/paper/index.xml" rel="self" type="application/rss+xml"/><item><title>公开重症监护数据库MIMIC代码仓库介绍</title><link>https://jmwyf.github.io/p/%E5%85%AC%E5%BC%80%E9%87%8D%E7%97%87%E7%9B%91%E6%8A%A4%E6%95%B0%E6%8D%AE%E5%BA%93mimic%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/</link><pubDate>Sat, 04 Feb 2023 10:57:02 +0000</pubDate><guid>https://jmwyf.github.io/p/%E5%85%AC%E5%BC%80%E9%87%8D%E7%97%87%E7%9B%91%E6%8A%A4%E6%95%B0%E6%8D%AE%E5%BA%93mimic%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/</guid><description>&lt;h1 id="公开重症监护数据库mimic代码仓库介绍">公开重症监护数据库MIMIC代码仓库介绍&lt;/h1>
+&lt;h2 id="引言">引言&lt;/h2>
+&lt;ul>
+&lt;li>科学结果的可重复性越来越受到关注&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>；&lt;/li>
+&lt;li>医疗领域进入数字化革命（本文是2017年接收），引出形成MIMIC-III数据库；&lt;/li>
+&lt;li>EHR二次分析需要临床专家和数据科学家的合作，在EHR数据库上推导或者定义一些概念是需要资源的，对于没有特别强的临床背景或者数据科学技能的人来说巨大障碍；&lt;/li>
+&lt;li>该文介绍MIMIC代码仓库，介绍与重症相关概念的导出以及相关假设条件等；&lt;/li>
+&lt;li>公开数据已经逐渐有了，公开相应的数据代码同样重要。加速并提升未来研究的一致性以及有效性。&lt;/li>
+&lt;/ul>
+&lt;h2 id="代码仓库详情">代码仓库详情&lt;/h2>
+&lt;ul>
+&lt;li>Concepts
+&lt;ul>
+&lt;li>从电子病历中提取重要概念的代码。比如提取AKI的模块&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Executable documents
+&lt;ul>
+&lt;li>可执行的Notebooks文件，可重复的示例研究或者教程&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Community
+&lt;ul>
+&lt;li>建立公开讨论便于社区成员贡献&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="概念concepts">概念concepts&lt;/h3>
+&lt;p>代码库中常用的概念&lt;/p>
+&lt;h4 id="疾病严重程度评分severity-of-illness-scores">疾病严重程度评分Severity of illness scores&lt;/h4>
+&lt;p>在回顾性数据库中难以计算&lt;/p>
+&lt;ul>
+&lt;li>大多都是在前瞻性实验中获取的；&lt;/li>
+&lt;li>常规收集的数据缺相应元素。有些特征未纳入结构化电子病历系统，另外则是对某种情况的患者没有统一的协议来定义状态&lt;/li>
+&lt;/ul>
+&lt;p>目前MIMIC代码库中有：&lt;/p>
+&lt;ul>
+&lt;li>acute physiology score(APS)-III&lt;/li>
+&lt;li>simplified acute physiology score(SAPS)&lt;/li>
+&lt;li>SAPS-II&lt;/li>
+&lt;li>Oxford acute severity of illness score(OASIS)&lt;/li>
+&lt;/ul>
+&lt;h4 id="器官衰竭organ-dysfunction-scores">器官衰竭Organ dysfunction scores&lt;/h4>
+&lt;p>SOFA计算方式不同，由于GCS评分定义不同&lt;/p>
+&lt;p>Sequential Organ Failure Assessment(SOFA), Logistic Organ Dysfunction system(LODS)&lt;/p>
+&lt;h4 id="治疗时间time-of-treatment">治疗时间Time of treatment&lt;/h4>
+&lt;p>由于数据获取的限制，许多药物和确切的治疗时间无法得出，需要根据临床经验识别其他可替代的数据&lt;/p>
+&lt;ul>
+&lt;li>机械通气时长：识别机械通气时长需要复杂的逻辑规则（文中图3）&lt;/li>
+&lt;li>血管加压药物使用&lt;/li>
+&lt;li>CRRT&lt;/li>
+&lt;/ul>
+&lt;h4 id="脓毒症sepsis">脓毒症sepsis&lt;/h4>
+&lt;p>sepsis定义有多种版本，这里给出了&lt;em>Angus 2001，Martin 2003，Iwashyna 2014&lt;/em>三个版本&lt;/p>
+&lt;h4 id="共病comorbidities">共病Comorbidities&lt;/h4>
+&lt;p>给出了4个版本&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>Elixhauser A 1998&lt;/em>&lt;/li>
+&lt;li>American Health and Research Quality group（AHRQ）&lt;/li>
+&lt;li>&lt;em>Quan 2005&lt;/em>&lt;/li>
+&lt;li>&lt;em>Van Walraven 2009&lt;/em>&lt;/li>
+&lt;/ul>
+&lt;h4 id="concept指南">concept指南&lt;/h4>
+&lt;p>&lt;img src="https://cdn.jsdelivr.net/gh/jmwyf/pichosting@master/mimicroadmap.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="可执行文档">可执行文档&lt;/h3>
+&lt;p>当数据和代码都公开可获取，提供一种研究可以被重现的框架，基于Rmd或notebook给出实例。&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>Hsu 2015&lt;/em>研究复现
+&lt;ul>
+&lt;li>indwelling arterial catheters and their association with in-hospital mortality for hemodynamically stable patients with respiratory failure&lt;/li>
+&lt;li>&lt;code>aline.ipynb&lt;/code>提取数据&lt;/li>
+&lt;li>&lt;code>aline.Rmd&lt;/code>数据分析&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>教程
+&lt;ul>
+&lt;li>definition of CRRT&lt;/li>
+&lt;li>introduction to SQL&lt;/li>
+&lt;li>a step-by-step guide to selecting a study cohort&lt;/li>
+&lt;li>an outline of the data-capture process&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="社区">社区&lt;/h3>
+&lt;p>让研究人员和数据维护人员、临床人员共同提升代码&lt;/p>
+&lt;h2 id="结论">结论&lt;/h2>
+&lt;p>公开数据库的案例已经不少，为了让研究更加透明，也需要公开相应数据分析和数据处理的代码&lt;/p>
+&lt;h2 id="补充">补充&lt;/h2>
+&lt;ul>
+&lt;li>代码库地址：https://github.com/MIT-LCP/mimic-code
+&lt;ul>
+&lt;li>之前以MIMIC-III为主，现在mimic-iii和mimic-iv合并在一起了&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>mimic数据库为了让研究者访问更加方便，很大一个改变室部署在云上比如google的云平台，云平台上需要big query语法来访问，所以现在代码库关于代码更新以big query为主，通过脚本转化为适合postgres语法
+&lt;ul>
+&lt;li>Open a terminal in the &lt;code>concepts&lt;/code> folder.&lt;/li>
+&lt;li>Run &lt;a class="link" href="https://github.com/MIT-LCP/mimic-code/blob/main/mimic-iv/concepts/convert_bigquery_to_postgres.sh" target="_blank" rel="noopener"
+>convert_bigquery_to_postgres.sh&lt;/a>.
+&lt;ul>
+&lt;li>e.g. &lt;code>bash convert_bigquery_to_postgres.sh&lt;/code>&lt;/li>
+&lt;li>This file outputs the scripts to the &lt;a class="link" href="https://github.com/MIT-LCP/mimic-code/blob/main/mimic-iv/concepts/postgres" target="_blank" rel="noopener"
+>postgres&lt;/a> subfolder after applying a few changes.&lt;/li>
+&lt;li>This also creates the &lt;code>postgres_make_concepts.sql&lt;/code> script in the postgres subfolder.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>从代码仓库导出的概念concepts都放到&lt;code>mimic_derived&lt;/code>数据集里&lt;/li>
+&lt;/ul>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Johnson, A. E. W., Stone, D. J., Celi, L. A. &amp;amp; Pollard, T. J. The MIMIC Code Repository: enabling reproducibility in critical care research. &lt;em>J Am Med Inform Assn&lt;/em> &lt;strong>25&lt;/strong>, 32–39 (2018).&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item><item><title>《MIMIC-IV, a freely accessible electronic health record dataset》论文笔记</title><link>https://jmwyf.github.io/p/mimic-iv-a-freely-accessible-electronic-health-record-dataset%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</link><pubDate>Tue, 17 Jan 2023 17:02:30 +0000</pubDate><guid>https://jmwyf.github.io/p/mimic-iv-a-freely-accessible-electronic-health-record-dataset%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</guid><description>&lt;h1 id="mimic-iv-a-freely-accessible-electronic-health-record-dataset论文笔记">《MIMIC-IV, a freely accessible electronic health record dataset》论文笔记&lt;/h1>
 &lt;h2 id="背景">背景&lt;/h2>
 &lt;ul>
 &lt;li>本文&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>首先介绍mimic项目的由来，医院数据归档系统都不是为研究设计的，难以访问以及查询；&lt;/li>
