@@ -94,7 +94,7 @@ loading="lazy"
 &lt;li>之前以MIMIC-III为主，现在mimic-iii和mimic-iv合并在一起了&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>mimic数据库为了让研究者访问更加方便，很大一个改变室部署在云上比如google的云平台，云平台上需要big query语法来访问，所以现在代码库关于代码更新以big query为主，通过脚本转化为适合postgres语法
+&lt;li>mimic数据库为了让研究者访问更加方便，很大一个改变是部署在云上比如google的云平台，云平台上需要big query语法来访问，所以现在代码库关于数据提取的代码更新以big query为主，需要通过脚本转化为适合postgres语法
 &lt;ul>
 &lt;li>Open a terminal in the &lt;code>concepts&lt;/code> folder.&lt;/li>
 &lt;li>Run &lt;a class="link" href="https://github.com/MIT-LCP/mimic-code/blob/main/mimic-iv/concepts/convert_bigquery_to_postgres.sh" target="_blank" rel="noopener"
