@@ -1,0 +1,20 @@
+# -- Site Configuration --
+# Refer to the theme docs for more details about each of these parameters.
+# https://jpanther.github.io/congo/docs/getting-started/
+theme= "congo"
+baseURL = "https://jmwyf.github.io/"
+defaultContentLanguage = "en"
+hasCJKLanguage = true
+
+enableRobotsTXT = true
+paginate = 10
+summaryLength = 0
+
+# version 3
+# googleAnalytics = "UA-133677720-1"
+
+# version 4
+googleAnalytics = "G-F4R8ND3VQP"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

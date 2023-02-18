@@ -1,0 +1,8 @@
+/* Increase the default font size */
+html {
+font-size: 13pt;
+}
+
+.max-w-prose {
+max-width: 72ch;
+}
