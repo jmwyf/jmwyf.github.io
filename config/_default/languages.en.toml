@@ -18,9 +18,9 @@ dateFormat = "2 January 2006"
   name = "Yong"
   image = "img/avatar.png"
   headline = "靡不有初，鲜克有终"
-  bio = "Data Scientist！"
+  bio = "Data Scientist."
   links = [
-      { github = "https://github.com/yongfanbeta" },
+  #   { github = "https://github.com/yongfanbeta" },
       { email  = 'mailto:yongfan2020@outlook.com' },
   ]
   #   { email = "mailto:yongfan2020@outlook.com" },
