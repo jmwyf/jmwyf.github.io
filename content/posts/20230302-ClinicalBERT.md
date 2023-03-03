@@ -1,6 +1,6 @@
 ---
 title: "ClinicalBERT: 对医学文本建模用于再入院预测"
-date: 2023-02-21 23:13:00
+date: 2023-03-01 10:12:00
 summary: "ClinicalBERT Modeling Clinical Notes and Predicting Hospital Readmission论文解读"
 tags: [nlp, bert, mimic-iii]
 categories: Deep Learning
@@ -14,17 +14,17 @@ showSummary: true
 ## 引言
 非结构化、高维稀疏信息例如临床文本难以在临床机器学习模型中使用。临床文本中包含什么样的临床价值？更加丰富、详细。然而重症监护室医生在有限时间内需要做出最优决策，读大量的临床文本，增加工作量。
 
-再入院会降低患者生活质量、增加花费。这篇文章旨在发展一个出院决策模型，根据医护人员笔记动态的赋予患者30天再入院的风险。
+再入院会降低患者生活质量、增加花费。这篇文章旨在建立一个出院决策模型，根据医护人员笔记动态的赋予患者30天再入院的风险。
 
 ### 背景
-临床文本会有缩写、黑话、不标准的语法结构，从临床文本中学习有用的表征具有挑战。以往的方法无法捕捉获取临床意义的文本长程依赖，介绍BERT，以及用BERT已经开展的工作，已经有人把BERT用在临床文本了，本文在再入院任务上评估改进ClinicalBERT并且在更长的序列上进行预训练。
+临床文本会有缩写、黑话、不标准的语法结构，从临床文本中学习有用的表征具有挑战。以往的方法无法捕捉获取临床意义的文本长程依赖，介绍BERT，以及基于BERT已经开展的工作，已经有人把BERT用在临床文本了，本文在再入院任务上评估改进ClinicalBERT并且在更长的序列上进行预训练。
 
 介绍前人在ICU再入院预测上的工作，缺点：大多数工作都只用了出院的信息，ClinicalBERT使用患者住院整个时间段信息。
 
-### 该工作的重要性：
-- 用出院信息来预测意味着减少了再入院风险的机会少了，都要出院了，此刻告诉有再入院的风险，难以采取措施
-- 由于很多误报警，医疗模型需要高PPV[^1]，该模型最高的recall[^2]
-- 模型中attention能用于可视化解释
+### 该工作的重要性
+- 用出院信息来预测意味着减少了再入院风险的机会少了，都要出院了，此刻告诉有再入院的风险，难以采取措施；
+- 由于医院已经有很多误报警，医疗模型需要高的PPV[^1]，该模型同其他模型相比有最高的recall[^2]；
+- 模型中attention能用于可视化解释。
 
 ## 方法 
 ### 什么是BERT
@@ -34,7 +34,7 @@ BERT是基于transformer编码器架构的深度神经网络，它用于学习�
 
 ### 临床文本嵌入
 - 先分词成token[^3]，这里是子词粒度的tokenization[^4]
-- ClinicalBert的token包括子词、分段嵌入、位置嵌入
+- ClinicalBert的token包括子词、分段嵌入、位置嵌入相加后的结果
 	- 分段嵌入是当多个序列输入时，表示当前的token属于哪一段
 	- 位置嵌入即在输入序列中token的位置
 
@@ -87,5 +87,5 @@ MIMIC-III中2083180份去隐私化后的文本，五折每一轮其中四折预�
 [^1]: Huang, K., Altosaar, J. & Ranganath, R. ClinicalBERT: Modeling Clinical Notes and Predicting Hospital Readmission. in _CHIL_ (arXiv, 2020). doi:[10.48550/arXiv.1904.05342](https://doi.org/10.48550/arXiv.1904.05342).
 [^2]: PPV: 阳性预测里面真正的阳性比例 
 [^3]: recall: 正样本中实际预测为正，即真阳性率
-[^4]: token：将原始文本切分成子单元的过程就叫做Tokenization，子单元即token
+[^4]: token: 将原始文本切分成子单元的过程就叫做Tokenization，子单元即token
 [^5]: [NLP中的Tokenization - 知乎](https://zhuanlan.zhihu.com/p/444774532?utm_id=0)
