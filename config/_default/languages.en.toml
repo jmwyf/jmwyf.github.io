@@ -20,8 +20,10 @@ dateFormat = "2 January 2006"
   headline = "靡不有初，鲜克有终"
   bio = "Data Scientist."
   links = [
-  #   { github = "https://github.com/yongfanbeta" },
-      { email  = 'mailto:yongfan2020@outlook.com' },
+      { github = "https://github.com/yongfanbeta" },
+      { social-zhihu = 'https://www.zhihu.com/people/kingofnight'},
+      { envelope-solid = 'mailto:yongfan2020@outlook.com' }
+
   ]
   #   { email = "mailto:yongfan2020@outlook.com" },
   #   { link = "https://link-to-some-website.com/" },
