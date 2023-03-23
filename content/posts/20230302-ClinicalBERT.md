@@ -79,7 +79,8 @@ MIMIC-III中2083180份去隐私化后的文本，五折每一轮其中四折预�
 建议在私有数据集上重新训练后在下游任务中使用
 
 ## 代码
-[GitHub - kexinhuang12345/clinicalBERT: ClinicalBERT: Modeling Clinical Notes and Predicting Hospital Readmission (CHIL 2020 Workshop)](https://github.com/kexinhuang12345/clinicalBERT)
+- 源码：[GitHub - kexinhuang12345/clinicalBERT: ClinicalBERT: Modeling Clinical Notes and Predicting Hospital Readmission (CHIL 2020 Workshop)](https://github.com/kexinhuang12345/clinicalBERT)
+- 模型：[emilyalsentzer/Bio\_ClinicalBERT · Hugging Face](https://huggingface.co/emilyalsentzer/Bio_ClinicalBERT)
 
 ## 思考
 自chatgpt后，大型语言模型受到广泛关注，医学语言模型的发展似乎有多种路径，一种是直接在通用文本上预训练，一种是在医学文本中预训练，或是通用模型在领域微调，个人感觉应该是第三种效果会较好。
