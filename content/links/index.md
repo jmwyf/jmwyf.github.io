@@ -9,6 +9,7 @@ showDate: false
 showAuthor: false
 showReadingTime: false
 showEdit: false
+draft: true
 ---
 
 {{< lead >}}
