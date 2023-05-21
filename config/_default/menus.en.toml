@@ -16,14 +16,19 @@
   weight = 10
 
 [[main]]
-  name = "朝花夕拾"
-  pageRef = "posts"
+  name = "知涯"
+  pageRef = "AI4H"
   weight = 20
 
 [[main]]
-  name = "签"
-  pageRef = "tags"
+  name = "朝花夕拾"
+  pageRef = "posts"
   weight = 30
+
+[[main]]
+  name = "标签"
+  pageRef = "tags"
+  weight = 40
 
 [[main]]
   identifier = "search"
