@@ -21,7 +21,7 @@ dateFormat = "2 January 2006"
   bio = "Data Scientist."
   links = [
       { github = "https://github.com/yongfanbeta" },
-      { social-zhihu = 'https://www.zhihu.com/people/kingofnight'},
+      { social-zhihu = 'https://www.zhihu.com/people/Havefan'},
       { envelope-solid = 'mailto:yongfan2020@outlook.com' }
 
   ]
