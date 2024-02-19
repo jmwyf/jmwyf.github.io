@@ -11,10 +11,9 @@ description = "朝花夕拾"
 
 dateFormat = "2 January 2006"
 
-[params]
   # mainSections = ["section1", "section2"]
 
-[author]
+[params.author]
   name = "Yong"
   image = "img/avatar.png"
   headline = "靡不有初，鲜克有终"
