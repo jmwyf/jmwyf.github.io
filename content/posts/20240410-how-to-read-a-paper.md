@@ -1,6 +1,6 @@
 ---
 title: "如何阅读论文"
-date: 2023-04-09 19:59:00
+date: 2024-04-09 19:59:00
 summary: "转载"
 tags: [reading, Journal]
 categories: Research
